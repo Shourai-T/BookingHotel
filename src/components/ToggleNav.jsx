@@ -1,6 +1,5 @@
 import React from 'react'
 import '../styles/ToggleNav.css'
-import personIcon from '../assets/person_icon.png'
 
 const ToggleNav = ({ isOpen, toggleNav }) => {
     return (
