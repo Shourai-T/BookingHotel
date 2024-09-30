@@ -8,11 +8,18 @@ header {
     align-content: center;
     align-items: center;
     z-index: 10;
+    transition: background-color 0.3s ease;
+    height: 85px;
+}
+
+header.scrolled {
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .logo img {
-    width: 125px;
+    width: 85px;
     height: auto;
+    margin-left: 20px;
 }
 
 .nav {
@@ -24,7 +31,8 @@ header {
 
 .nav li {
     display: block;
-
+    padding: 5px 13px;
+    position: relative;
 }
 
 .nav li a {
@@ -33,8 +41,24 @@ header {
     font-size: 13px;
 }
 
+.nav li::after {
+    content: ''; /* Tạo một phần tử giả */
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Đặt border-bottom ở dưới cùng */
+    height: 1px; /* Độ dày của border */
+    background-color: #fff; /* Màu sắc của border */
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.nav li:hover::after {
+    transform: scaleX(1); /* Hiện border khi hover */
+}
+
 header i {
-    font-size: 40px;
+    font-size: 30px;
     color: #fff;
     padding-right: 50px;
 }

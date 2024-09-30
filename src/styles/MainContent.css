@@ -32,14 +32,14 @@
 }
 
 .content h1 {
-    font-size: 50px;
+    font-size: 35px;
     color: #fff;
     font-weight: 300;
     padding: 70px 0 20px 0;
 }
 
 .content p {
-    font-size: 40px;
+    font-size: 32px;
     font-family: 'BTSuave Regular', sans-serif;
     color: #fff;
     font-weight: 300;
@@ -61,7 +61,7 @@
 
 .booking-section {
     position: relative;
-    bottom: -4%;
+    bottom: -10%;
     z-index: 4;
     display: flex;
     justify-content: center;
@@ -104,6 +104,7 @@
     background-color:#110C09;
     color: #fff;
     font-size: 20px;
+    cursor: pointer;
 }
 
 #about-us {
@@ -113,6 +114,7 @@
 
 #about-us > .about-container {
     display: flex;
+    gap: 20px;
 }
 
 #about-us > .about-container .about-content {
@@ -125,6 +127,7 @@
 #about-us .about-content p {
     text-align: left;
     font-family: 'Helvetica', sans-serif ;
+    line-height: 2;
 }
 
 #about-us .about-content-header {
@@ -139,9 +142,98 @@
 #about-us .about-content-header img {
     width: 350px;
     height: auto;
+    transform: translate(10px, -3px);
 }
 
 #about-us .about-container > img {
-    width: 700px;
+    width: 626px;
     height: auto;
+    margin-right: 70px;
+    transform: translateY(43px);
+    box-shadow: 10px 10px 50px 10px #00000040;
+}
+
+#our-story {
+    height: 500px;
+    background: url('../assets/ourstory.png');
+    background-position-y: 90%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 250px 0;
+    overflow: hidden;
+    transition: height 0.5s ease-in-out; /* Hiệu ứng chuyển đổi */
+    position: relative;
+}
+
+#our-story.fullscreen {
+    height: 100vh;
+    z-index: 2000;
+}
+
+
+#our-story .our-story-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 70px;
+}
+
+#our-story .our-story-container h1 {
+    color: #fff;
+    font-family: 'BTSuave Regular', sans-serif;
+    font-weight: 100;
+
+}
+
+#our-story .our-story-container p {
+    font-family: 'Helvetica', sans-serif;
+    color: #fff;
+    text-align: left;
+    padding: 0 140px;
+    line-height: 2.2;
+   
+}
+
+#intro {
+    width: 1275px;
+    height: 500px;
+    background-color: #BCA992;
+    margin: 0 auto 500px auto;
+    position: relative;
+}
+
+#intro .intro-content {
+    position: absolute;
+    left: 70px;
+    top: 50px;
+}
+
+#intro .intro-content p{
+    color: #fff;
+    font-family: 'BTSuave Regular', sans-serif;
+    font-size: 30px;
+    text-align: left;
+    font-weight: 200;
+}
+
+#intro .intro-content img {
+    width: 400px;
+    position: absolute;
+    left: 240px;
+}
+
+#intro .datphong1 {
+    width: 375px;
+    position: absolute;
+    bottom: -22%;
+    position: absolute;
+    right: 335px;
+}
+
+#intro .datphong2 {
+    width: 450px;
+    height: auto;
+    position: absolute;
+    bottom: -20px;
+    right: -35px;
 }

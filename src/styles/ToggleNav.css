@@ -1,0 +1,68 @@
+.toggle-nav-container  {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 100vh;
+    background-color: white;
+    position: fixed; /* Định vị cố định */
+    top: 0; /* Nằm ở đỉnh */
+    right: -350px; /* Đưa thanh ra ngoài màn hình ban đầu */
+    transition: right 0.3s ease;
+    z-index: 3000; /* Đảm bảo nằm ở trên cùng */
+    font-family: 'Helvetica', sans-serif;
+    box-shadow: 10px 10px 50px 10px #00000040;
+}
+
+.toggle-nav-container.open {
+    right: 0; /* Hiển thị khi mở */
+}
+
+.toggle-nav-container i {
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 20px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.toggle-nav-container .user-container {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 10px;
+}
+
+.toggle-nav-container .user-container i {
+    font-size: 30px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 25px;
+    
+}
+
+.toggle-nav-container .user-info-container h5 {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.toggle-nav-container .user-info-container p {
+    font-size: 16px;
+    color: #1E1E1EBD;
+    margin-top: 2px;
+}
+
+.divider {
+    border: none;
+    height: 0.5px;
+    background-color: #000;
+    margin: 10px 0;
+    width: 90%; 
+    align-self: center;
+}
+
+.toggle-nav-container .options-nav li {
+    padding: 25px 0;
+    border-bottom: 1px solid #00000040;
+    list-style: none;
+    cursor: pointer;
+}
