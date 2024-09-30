@@ -4,6 +4,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../styles/Header.css';
 import ToggleNav from "./ToggleNav";
 
+import { Link } from 'react-router-dom';
+
+
 const Header = ({ scrolled }) => {
     const [showNav, setShowNav] = useState(false); // Trạng thái cho ToggleNav
 
@@ -18,10 +21,12 @@ const Header = ({ scrolled }) => {
                     <img src={logo} alt="Logo" />
                 </div>
                 <ul className="nav">
-                    <li><a href="">TRANG CHỦ</a></li>
-                    <li><a href="">TỔNG QUAN</a></li>
-                    <li><a href="">ĐẶT PHÒNG</a></li>
-                    <li><a href="">CONTACT US</a></li>
+                    {/* <li><a href="">TRANG CHỦ</a></li>
+                    <li><a href="">TỔNG QUAN</a></li> */}
+                    <li><Link to="/">TRANG CHỦ</Link></li>
+                    <li><Link to="/overview">TỔNG QUAN</Link></li>
+                    <li><Link to="/booking">ĐẶT PHÒNG</Link></li>
+                    <li><Link to="/contact-us">CONTACT US</Link></li>
                 </ul>
                 {/* Biểu tượng menu */}
                 <i className="fa-solid fa-bars" onClick={toggleNav} style={{ cursor: 'pointer' }}></i>
