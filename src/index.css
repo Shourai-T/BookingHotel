@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'TAN - MON CHERI';
+  src: url(./assets/fonts/DFVN\ TAN\ -\ MON\ CHERI.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'BTSuave Bold';
+  src: url(./assets/fonts/BTSuave-Bold.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'BTSuave Medium';
+  src: url(./assets/fonts/BTSuave-Medium.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'BTSuave Regular';
+  src: url(./assets/fonts/BTSuave-Regular.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url(./assets/fonts/helvetica-255/Helvetica.ttf) format('truetype');
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'TAN - MON CHERI', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

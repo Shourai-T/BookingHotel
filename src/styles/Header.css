@@ -1,0 +1,40 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.logo img {
+    width: 125px;
+    height: auto;
+}
+
+.nav {
+    display: inherit;
+    list-style: none;
+    gap: 120px;
+    padding: 0;
+}
+
+.nav li {
+    display: block;
+
+}
+
+.nav li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 13px;
+}
+
+header i {
+    font-size: 40px;
+    color: #fff;
+    padding-right: 50px;
+}
