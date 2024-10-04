@@ -3,6 +3,7 @@ import logo from "../assets/logo.png";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../styles/Header.css';
 import ToggleNav from "./ToggleNav";
+import menuIcon from "../assets/menu-icon.png"
 
 import { Link } from 'react-router-dom';
 
@@ -29,7 +30,8 @@ const Header = ({ scrolled }) => {
                     <li><Link to="/contact-us">CONTACT US</Link></li>
                 </ul>
                 {/* Biểu tượng menu */}
-                <i className="fa-solid fa-bars" onClick={toggleNav} style={{ cursor: 'pointer' }}></i>
+                {/* <i className="fa-solid fa-bars" onClick={toggleNav} style={{ cursor: 'pointer' }}></i> */}
+                <img src={menuIcon} alt="Menu" onClick={toggleNav} style={{ cursor:"pointer", width: '50px', marginRight: '20px' }}></img>
             </header>
 
             {/* Thanh điều hướng xuất hiện từ bên phải */}
