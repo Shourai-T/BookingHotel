@@ -22,12 +22,12 @@ const router = createBrowserRouter([
             },
             {
                 path: 'booking',
-                element: <BookingPage />, // Trang Overview
+                element: <BookingPage />, // Trang Booking
             },
 
             {
                 path: 'contact-us',
-                element: <ContactPage />, // Trang Overview
+                element: <ContactPage />, // Trang Contact
             },
 
             {
