@@ -1,0 +1,153 @@
+.poster {
+    padding-top: 100px;
+    height: 500px;
+    background-color: #F9ECDF;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.poster h1 {
+    font-size: 17px;
+    padding-bottom: 13px;
+    font-weight: 400;
+}
+
+.poster img {
+    width: 250px;
+}
+
+.main-roomtypeDetail {
+    align-content: center;
+    justify-content: center;
+    display: block;
+    margin-top: 20px;
+}
+
+.room-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.room-img img {
+    width: 1000px;
+    margin-top: -130px;
+}
+
+.return-button{
+    margin-left: 200px;
+    color: black;
+    cursor: pointer;
+
+}
+
+.roomtype-information p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    margin-bottom: 100px;
+    line-height: 1.8;
+}
+
+.roomtype-information li {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.roomtype-information h2 {
+    font-family: BT Suave, sans-serif;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
+.roomtype-information h3 {
+    font-family: BT Suave, sans-serif;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
+/* Căn chỉnh phần giới thiệu chung và chi tiết */
+.gioithieuchung {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 1050px; /* Tùy chỉnh kích thước để khớp với layout trong hình */
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+/* Phần hình ảnh của căn phòng */
+.room-img {
+    flex: 1; /* Chiếm một nửa không gian bên trái */
+}
+
+/* Phần chi tiết căn phòng */
+.detail {
+    flex: 1; /* Chiếm một nửa không gian bên phải */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 20px;
+    margin-left: 100px;
+}
+
+/* Mỗi hàng chi tiết (icon và text) */
+.detail-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Khoảng cách giữa các dòng */
+    border-bottom: 1px solid black;
+}
+
+.detail p{
+    font-family: BT Suave, sans-serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* Căn chỉnh icon của mỗi dòng chi tiết */
+.detail-row img {
+    width: 30px;
+    height: auto;
+    margin-right: 10px; /* Khoảng cách giữa icon và text */
+}
+
+/* Căn chỉnh phần text của mỗi dòng */
+.detail-row p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin: 0;
+
+}
+
+/* Tựa đề của phần chi tiết */
+.detail h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.soluoc{
+    width: 700px;
+}
+
+.highlights{
+    margin-left:200px ;
+    margin-bottom: 50px;
+}
+
+.viewlistbutton{
+    color:white;
+    background-color: black;
+    font-size: 14px;
+}
+
+.view-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 200px;
+}

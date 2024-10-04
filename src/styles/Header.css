@@ -8,13 +8,14 @@ header {
     align-content: center;
     align-items: center;
     z-index: 10;
-    transition: background-color 0.3s ease;
+    /* transition: background-color 0.3s ease; */
+    background-color: rgba(0, 0, 0, 0.5);
     height: 85px;
 }
 
-header.scrolled {
+/* header.scrolled {
     background-color: rgba(0, 0, 0, 0.5);
-}
+} */
 
 .logo img {
     width: 85px;
@@ -38,7 +39,7 @@ header.scrolled {
 .nav li a {
     text-decoration: none;
     color: #fff;
-    font-size: 13px;
+    font-size: 10px;
 }
 
 .nav li::after {
@@ -58,7 +59,7 @@ header.scrolled {
 }
 
 header i {
-    font-size: 30px;
+    font-size: 25px;
     color: #fff;
     padding-right: 50px;
 }
