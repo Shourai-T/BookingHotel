@@ -4,6 +4,8 @@ import OverviewPage from '../pages/OverviewPage';
 import MainLayout from '../layout/MainLayout';
 import BookingPage from '../pages/BookingPage';
 import ContactPage from '../pages/ContactPage';
+import ListRoomPage from '../pages/ListRoomPage';
+import RoomTypeDetail from '../pages/RoomTypeDetailPage'
 
 const router = createBrowserRouter([
     {
@@ -27,6 +29,16 @@ const router = createBrowserRouter([
                 path: 'contact-us',
                 element: <ContactPage />, // Trang Contact
             },
+
+            {
+                path: 'listroom',
+                element: <ListRoomPage />, // Trang danh sách phòng
+            },
+
+            {
+                path:'roomtypedetail',
+                element:<RoomTypeDetail/>
+            }
         ],
     },
 ]);

@@ -39,7 +39,7 @@ header {
 .nav li a {
     text-decoration: none;
     color: #fff;
-    font-size: 13px;
+    font-size: 10px;
 }
 
 .nav li::after {
@@ -58,8 +58,3 @@ header {
     transform: scaleX(1); /* Hiện border khi hover */
 }
 
-/* header i {
-    font-size: 25px;
-    color: #fff;
-    padding-right: 50px;
-} */

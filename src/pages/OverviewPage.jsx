@@ -22,7 +22,7 @@ const OverviewPage = () => {
           <div className="room-item-content">
             <h3>Phòng tiêu chuẩn ( Standard room)</h3>
             <p>Phòng nghỉ được thiết kế tinh tế, có TV và 1 giường với bộ ga trải giường cao cấp, mang đến cho quý khách giấc ngủ thư thái. Quý khách có thể tận hưởng minibar đầy ắp các món ăn nhẹ đặc sản từ Anh, Pháp. Phòng tắm lát đá cẩm thạch, kết hợp với các sản phẩm sang trọng mang hương thơm độc quyền đặc trưng của chúng tôi, tạo nên trải nghiệm đẳng cấp và thoải mái.</p>
-            <a href="">Xem chi tiết</a>
+            <a href="/roomtypedetail">Xem chi tiết</a>
           </div>
         </div>
         <div className="room-item">
