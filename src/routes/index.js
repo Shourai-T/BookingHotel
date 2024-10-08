@@ -5,7 +5,8 @@ import MainLayout from '../layout/MainLayout';
 import BookingPage from '../pages/BookingPage';
 import ContactPage from '../pages/ContactPage';
 import ListRoomPage from '../pages/ListRoomPage';
-import RoomTypeDetail from '../pages/RoomTypeDetailPage'
+import RoomTypeDetail from '../pages/RoomTypeDetailPage';
+import FilterRoomPage from '../pages/filterRoomPage';
 
 const router = createBrowserRouter([
     {
@@ -37,8 +38,14 @@ const router = createBrowserRouter([
 
             {
                 path:'roomtypedetail',
-                element:<RoomTypeDetail/>
+                element:<RoomTypeDetail/>,
+            },
+
+            {
+                path:'filter',
+                element: <FilterRoomPage />,
             }
+
         ],
     },
 ]);

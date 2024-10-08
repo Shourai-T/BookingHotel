@@ -1,0 +1,56 @@
+#contact-us {
+    width: 100%;
+    height: 830px;
+    background: url('../assets/contactus.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 74%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#contact-us > .container {
+    width: 90%;
+    height: 600px;
+    border-radius: 20px;
+    border: 15px solid #fff;
+    position: relative;
+}
+
+#contact-us .content-container {
+    width: 60%;
+    height: 100%;
+    background-color: #fff;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 0 20px;
+}
+
+#contact-us .content-container h2 {
+    font-size: 30px;
+    font-family: 'TAN - MON CHERI', sans-serif;
+    font-weight: 400;
+}
+
+#contact-us .content-container p {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 35px;
+}
+
+#contact-us img {
+    position: absolute;
+    width: 230px;
+    /* height: 135px; */
+    padding: 0 30px;
+    background: #fff;
+    border-radius: 10px;
+    top: 20px;
+    right: 20px;
+}
