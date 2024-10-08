@@ -18,7 +18,7 @@
     z-index: 1; /* Đảm bảo lớp tối nằm trên background nhưng dưới nội dung */
 }
 
-.container {
+#poster .container {
     padding-top: 130px;
     text-align: left;
     z-index: 2;

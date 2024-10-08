@@ -25,11 +25,37 @@
     cursor: pointer;
 }
 
+.toggle-nav-container .user-container {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 10px;
+}
+
+.toggle-nav-container .user-container i {
+    font-size: 30px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 25px;
+    
+}
+
+.toggle-nav-container .user-info-container h5 {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.toggle-nav-container .user-info-container p {
+    font-size: 16px;
+    color: #1E1E1EBD;
+    margin-top: 2px;
+}
+
 .divider {
     border: none;
     height: 0.5px;
     background-color: #000;
-    margin: 50px 0 10px 0;
+    margin: 10px 0;
     width: 90%; 
     align-self: center;
 }

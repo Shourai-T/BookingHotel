@@ -6,10 +6,18 @@ import imgAboutUs from '../assets/aboutus.jpg'
 import divineWhite from '../assets/divine-white.png'
 import img1 from '../assets/datphong1.jpg'
 import img2 from '../assets/datphong2.jpg'
+import { useNavigate } from 'react-router-dom';
 
 const MainContent = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const ourStoryRef = useRef(null);
+  const navigate = useNavigate();
+
+  const handleCheckRoom = () => {
+    // Điều hướng sang trang filter
+    navigate('/filter');
+  };
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,7 +75,7 @@ const MainContent = () => {
             <li style={{ border: 'none', }}>Khách
               <input type="number" min="1" defaultValue={"1"} style={{ width: '100px', }} />
             </li>
-            <button>
+            <button onClick={handleCheckRoom}>
               Kiểm tra phòng trống
             </button>
           </ul>

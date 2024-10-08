@@ -1,0 +1,10 @@
+#filter {
+    min-height: 700px;
+    display: flex;
+    justify-content: center;
+    margin: 200px 0;
+}
+
+#filter > .container {
+    width: 90%;
+}
