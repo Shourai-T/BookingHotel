@@ -45,7 +45,7 @@
     padding-bottom: 70px;
 }
 
-.booking-btn {
+#poster .booking-btn {
     margin-bottom: 120px;
     width: 150px;
     height: 50px;
@@ -58,7 +58,7 @@
     cursor: pointer;
 }
 
-.booking-section {
+#poster .booking-section {
     position: relative;
     bottom: 12%;
     z-index: 4;
@@ -66,7 +66,7 @@
     justify-content: center;
 }
 
-.booking-section ul {
+#poster .booking-section ul {
     display: flex;
     width: 680px;
     height: 83px;
@@ -77,7 +77,7 @@
     box-shadow: 10px 10px 50px 5px #00000040;
 }
 
-.booking-section ul > li {
+#poster .booking-section ul > li {
     display: flex;
     margin-left: 10px;
     margin-right: 10px;
@@ -92,17 +92,17 @@
     row-gap: 7px;
 }
 
-.booking-section li > input {
+#poster .booking-section li > input {
     border: none;
     outline-color: #fff;
     font-size: 16px;
 }
 
-.booking-section li:last-child > input {
+#poster .booking-section li:last-child > input {
     width: 100px;
 }
 
-.booking-section button {
+#poster .booking-section button {
     width: 180px;
     height: 54px;
     border: none;
