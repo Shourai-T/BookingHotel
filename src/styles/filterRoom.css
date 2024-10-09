@@ -2,9 +2,166 @@
     min-height: 700px;
     display: flex;
     justify-content: center;
-    margin: 200px 0;
+    margin: 100px 0;
 }
 
 #filter > .container {
     width: 90%;
+}
+
+#filter .booking-section {
+    margin-bottom: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+#filter .booking-section ul {
+    display: flex;
+    width: 680px;
+    height: 83px;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 10px 10px 50px 5px #00000040;
+}
+
+#filter .booking-section ul > li {
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    flex-direction: column;
+    padding: 10px;
+    text-align: left;
+    border-right: 2px solid;
+    outline: none;
+    font-family: Helvetica,sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    row-gap: 7px;
+}
+
+#filter .booking-section li > input {
+    border: none;
+    outline-color: #fff;
+    font-size: 16px;
+}
+
+#filter .booking-section li:last-child > input {
+    width: 100px;
+}
+
+#filter .booking-section button {
+    width: 180px;
+    height: 54px;
+    border: none;
+    background-color:#110C09;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#filter .body-container {
+    display: flex;
+    gap: 45px;
+}
+
+#filter .filter-price {
+    width: 260px;
+    height: 190px;
+    background: #0000000A;
+    border: 1.5px solid #000000;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Helvetica', sans-serif;
+    padding: 17px;
+}
+
+#filter .filter-price p {
+    font-weight: bold;
+}
+
+#filter .filter-price ul {
+    list-style: none;
+}
+
+#filter .filter-price li {
+    margin: 14px 0;
+}
+
+#filter .filter-price li > input {
+    margin-right: 5px;
+}
+
+#filter .divider {
+    border: none;
+    height: 0.5px;
+    background-color: #000;
+    margin: 10px 0;
+    width: 100%; 
+    align-self: center;
+}
+
+#filter .room-item {
+    width: 1060px;
+    height: 220px;
+    background-color: #fff;
+    box-shadow: 10px 10px 200px 1px #00000040;
+    display: flex;
+    gap: 30px;
+    margin-bottom: 100px;
+}
+
+#filter .room-item img {
+    height: 220px;
+    width: 295px;
+    object-fit: cover;
+    flex-grow: 1;
+}
+
+#filter .item-container {
+    display: flex;
+    flex-grow: 7;
+    justify-content: space-between;
+}
+
+#filter .item-content h2 {
+    font-family: 'BTSuave Regular', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+
+#filter .list {
+    display: flex;
+    gap: 40px;
+    margin: 30px 0px 30px 17px; 
+}
+
+#filter .list li {
+    font-family: 'Helvetiva', sans-serif;
+    line-height: 27px;
+}
+
+#filter .list .list-detail {
+    padding-right: 22px;
+    border-right: 1.5px solid;
+}
+
+#filter .btn-container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+    justify-content: center;
+    gap: 20px;
+}
+
+#filter .btn-container button{
+    border: 1px solid;
+    border-radius: 12px;
+    width: 210px;
+    height: 50px;
 }
