@@ -7,6 +7,8 @@ import ContactPage from '../pages/ContactPage';
 import ListRoomPage from '../pages/ListRoomPage';
 import RoomTypeDetail from '../pages/RoomTypeDetailPage';
 import FilterRoomPage from '../pages/filterRoomPage';
+import LoginSignup from '../components/LoginSignup';
+import ConfirmBooking from '../pages/ConfirmBooking';
 
 const router = createBrowserRouter([
     {
@@ -44,9 +46,19 @@ const router = createBrowserRouter([
             {
                 path:'filter',
                 element: <FilterRoomPage />,
-            }
+            },
+
+            {
+                path: 'confirm-booking',
+                element: <ConfirmBooking />,
+            },
+
 
         ],
+    },
+    {
+        path: '/login',
+        element: <LoginSignup />,
     },
 ]);
 

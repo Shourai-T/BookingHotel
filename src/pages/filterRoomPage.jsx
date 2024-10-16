@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import '../styles/filterRoom.css'
 import { useNavigate } from 'react-router-dom';
 import picRoom from '../assets/phongdoi.jpg'
@@ -19,16 +19,14 @@ const FilterRoomPage = () => {
   const handlePriceFilterChange = (e) => {
     const selectedPrice = e.target.value;
     setPriceFilter(selectedPrice);
-    const filteredRooms = rooms.filter((room) => {
-      if (selectedPrice === 'all') {
-        return true;
-      } else if (selectedPrice === 'under2m') {
-        return room.priceDay < 2000000;
-      } else if (selectedPrice === 'under5m') {
-        return room.priceDay < 5000000;
-      }
-      return false;
-    });
+    let filteredRooms;
+    if (selectedPrice === 'all') {
+      filteredRooms = rooms;
+    } else if (selectedPrice === 'lowToHigh') {
+      filteredRooms = [...rooms].sort((a, b) => a.priceDay - b.priceDay);
+    } else if (selectedPrice === 'highToLow') {
+      filteredRooms = [...rooms].sort((a, b) => b.priceDay - a.priceDay);
+    }
     setFilteredRooms(filteredRooms);
   };
 
@@ -57,25 +55,25 @@ const FilterRoomPage = () => {
             <p>Giá tiền</p>
             <hr className='divider' />
             <ul>
-            <li>
+              <li>
                 <input
                   type="checkbox"
                   name="price-filter"
-                  value="under2m"
-                  checked={priceFilter === 'under2m'}
+                  value="lowToHigh"
+                  checked={priceFilter === 'lowToHigh'}
                   onChange={handlePriceFilterChange}
                 />
-                Dưới 2 triệu
+                Từ thấp đến cao
               </li>
               <li>
                 <input
                   type="checkbox"
                   name="price-filter"
-                  value="under5m"
-                  checked={priceFilter === 'under5m'}
+                  value="highToLow"
+                  checked={priceFilter === 'highToLow'}
                   onChange={handlePriceFilterChange}
                 />
-                Dưới 5 triệu
+                Từ cao đến thấp
               </li>
               <li>
                 <input
