@@ -6,19 +6,32 @@ import ToggleNav from "./ToggleNav";
 import ToggleNavUser from "./ToggleNavUser";
 import menuIcon from "../assets/menu-icon.png"
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import WarningPopup from "./WarningPopup";
 
 
 const Header = ({ scrolled }) => {
     const [showNav, setShowNav] = useState(false); // Trạng thái cho ToggleNav
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // Set trạng thái đăng nhập (Hiện là false)
+    const [showPopup, setShowPopup] = useState(false);
+
+    const navigate = useNavigate();
 
     const toggleNav = () => {
         setShowNav(!showNav); // Chuyển đổi trạng thái hiển thị của ToggleNav
     };
 
-    const toggleLogin = () => {
-        setIsLoggedIn(!isLoggedIn); // Tạm thời thêm chức năng toggle đăng nhập
+    const handleNavClick = (e, path) => {
+        if (!isLoggedIn) {
+            e.preventDefault(); // Ngăn không cho điều hướng nếu chưa đăng nhập
+            setShowPopup(true); // Hiển thị popup yêu cầu đăng nhập
+        } else {
+            navigate(path); // Chuyển hướng nếu đã đăng nhập
+        }
+    };
+
+    const closePopup = () => {
+        setShowPopup(false); // Đóng popup
     };
 
     return (
@@ -28,11 +41,13 @@ const Header = ({ scrolled }) => {
                     <img src={logo} alt="Logo" />
                 </div>
                 <ul className="nav">
-                    {/* <li><a href="">TRANG CHỦ</a></li>
-                    <li><a href="">TỔNG QUAN</a></li> */}
-                    <li><Link to="/">TRANG CHỦ</Link></li>
+                    {/* <li><Link to="/">TRANG CHỦ</Link></li>
                     <li><Link to="/overview">TỔNG QUAN</Link></li>
                     <li><Link to="/booking">ĐẶT PHÒNG</Link></li>
+                    <li><Link to="/contact-us">CONTACT US</Link></li> */}
+                    <li><Link to="/">TRANG CHỦ</Link></li>
+                    <li><Link to="/overview" onClick={(e) => handleNavClick(e, '/overview')}>TỔNG QUAN</Link></li>
+                    <li><Link to="/booking" onClick={(e) => handleNavClick(e, '/booking')}>ĐẶT PHÒNG</Link></li>
                     <li><Link to="/contact-us">CONTACT US</Link></li>
                 </ul>
                 {/* Biểu tượng menu */}
@@ -46,6 +61,9 @@ const Header = ({ scrolled }) => {
             ) : (
                 <ToggleNav isOpen={showNav} toggleNav={toggleNav} />     // Hiển thị thanh Nav khi chưa đăng nhập
             )}
+
+            {/* Hiển thị popup nếu chưa đăng nhập */}
+            {showPopup && <WarningPopup closePopup={closePopup} />}
         </>
     );
 }

@@ -1,0 +1,199 @@
+#login-body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: #8d8989;
+    overflow: hidden;
+    height: 100vh;
+}
+
+#container.container {
+    position: relative;
+    overflow: hidden;
+    width: 1200px;
+    height: 645px;
+    background: url('../assets/login.jpg') no-repeat center center/cover;
+}
+
+#container h2 {
+    font-family: 'TAN - MON CHERI', sans-serif;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 28px;
+    font-weight: 300;
+    color: #fff;
+}
+
+#container p {
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 300; 
+    margin-bottom: 60px;
+    font-size: 12px;
+    color: #fff;
+
+}
+
+#container .login-container > form .input-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 45px;
+}
+
+#container .register-container > form .input-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+#container .input-field span {
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 600;
+    color: #fff;
+
+}
+
+#container .input-field input {
+    outline: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    padding: 10px 0 7px;
+    color: #fff;
+    font-family: 'Helvetica', sans-serif;
+}
+
+#container .btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+}
+
+#container .login-container > form .btn-container {
+    margin-top: 90px;
+}
+
+#container .register-container > form .btn-container {
+    margin-top: 50px;
+}
+
+#container form button {
+    background-color: #fff;
+    width: 220px;
+    height: 50px;
+}
+
+#container .form-container {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    transition: all 0.6s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding-right: 145px;
+}
+
+#container .form-container form {
+    height: 100%;
+    padding: 100px 0 0 20px;
+}
+
+#container .login-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+#container.container.right-panel-active .login-container {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+#container .register-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+#container.container.right-panel-active .register-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+}
+
+@keyframes show {
+    0%,
+    49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+#container .overlay button {
+    color: #fff;
+    margin: 0;
+    width: 150px;
+    height: 60px;
+    background: rgba(36, 25, 19, 0.9);
+}
+
+#container .overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.5s ease-in-out;
+    z-index: 100;
+}
+
+#container.container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+#container .overlay {
+    position: relative;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    transform: translateX(0);
+    transition: transform 0.5s ease-in-out;
+}
+
+#container.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay-panel {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.5s ease-in-out;
+}
+
+.overlay-left {
+    transform: translateX(-20%);
+}
+
+.container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+#container.container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}

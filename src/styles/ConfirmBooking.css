@@ -1,0 +1,43 @@
+#confirm-booking {
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+}
+
+#confirm-booking .title {
+    font-size: 24px;
+    font-family: 'TAN - MON CHERI', sans-serif;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+#confirm-booking .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#confirm-booking .info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#confirm-booking .info-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+}
+
+#confirm-booking .label {
+    font-weight: bold;
+    flex: 1;
+    font-family: 'Helvetica', sans-serif;
+}
+
+#confirm-booking .value {
+    text-align: left;
+    flex: 2;
+    font-family: 'Helvetica', sans-serif;
+}

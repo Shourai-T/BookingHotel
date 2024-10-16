@@ -1,0 +1,358 @@
+#booking {
+    padding-top: 200px;
+    display: flex;
+    height: 1450px;
+    justify-content: center;
+}
+
+#booking .col-divide {
+    transform: rotate(-90deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    left: -40px;
+    bottom: -80px;
+}
+
+#booking .Divider {
+    width: 490px;
+    margin-top: -50px;
+}
+
+#booking .col-divide h2 {
+    font-family: 'TAN - MON CHERI', sans-serif;
+}
+
+.room-select-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 45px 0;
+    position: relative;
+}
+
+.room-select-container label {
+    font-weight: 400;
+    font-size: 25px;
+    font-family: 'BT Suave Regular';
+}
+
+.room-select-container .custom-select {
+    width: 300px;
+    height: 56px;
+    position: relative;
+    border: 1.5px solid rgba(0, 0, 0, 1);
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    font-family: 'BT Suave Regular';
+}
+
+.room-select-container .custom-select .selected-option {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 20px;
+    background-color: #fff;
+    border-radius: 30px;
+}
+
+.room-select-container .custom-select .options {
+    display: none;
+    position: absolute;
+    text-align: center;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 30px;
+    z-index: 10;
+    box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.25);
+
+}
+
+.room-select-container .custom-select .options div {
+    padding: 15px 20px;
+    font-size: 25px;
+    cursor: pointer;
+    color: #5E5E5E;
+    border-bottom: 2px solid #ccc;
+}
+
+.room-select-container .custom-select .options div:last-child {
+    border-bottom: none;
+}
+
+.room-select-container .custom-select .options div:hover {
+    color: #ccc;
+}
+
+.room-select-container .custom-select.open .options {
+    display: block;
+}
+
+.room-select-container box-icon {
+    position: absolute;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+}
+
+#booking .booking-container {
+    width: 930px;
+    margin-bottom: 200px;
+}
+
+.filter-switch {
+    border: 2px solid #000;
+    border-radius: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 300px;
+    overflow: hidden;
+}
+
+.filter-switch input {
+    display: none;
+}
+
+.filter-switch label {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.5s;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.filter-switch .background {
+    position: absolute;
+    width: 49%;
+    height: 38px;
+    background-color: #000;
+    top: 4px;
+    left: 4px;
+    border-radius: 30px;
+    transition: left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#option2:checked~.background {
+    left: 50%;
+}
+
+#option1:checked+label[for="option1"] {
+    color: #fff;
+    font-weight: bold;
+}
+
+#option2:checked+label[for="option2"] {
+    color: #fff;
+    font-weight: bold;
+}
+
+#option1:not(:checked)+label[for="option1"],
+#option2:not(:checked)+label[for="option2"] {
+    color: #000;
+}
+
+#booking .switches-toggle {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 100px;
+}
+
+.choose-date {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.choose-date label {
+    font-weight: 400;
+    font-size: 25px;
+    color: #000;
+    font-family: 'BT Suave Regular', sans-serif;
+}
+
+.date-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 350px;
+}
+
+.choose-date .date-container input[type="date"] {
+    width: 100%;
+    height: 55px;
+    padding: 10px 40px 10px 15px;
+    font-size: 30px;
+    text-align: center;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 50px;
+    outline: none;
+    font-family: 'BT Suave Regular', sans-serif;
+}
+
+.choose-hour {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.choose-hour label {
+    font-weight: 400;
+    font-size: 25px;
+    color: #000;
+    font-family: 'BT Suave Regular', sans-serif;
+}
+
+.hour-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex: 4;
+}
+
+/* #booking .hour-container>button {
+    width: 70px;
+    height: 50px;
+    border: 1px solid #000;
+    border-radius: 42px;
+    margin: 0;
+    font-family: 'BT Suave Regular', sans-serif;
+} */
+
+#booking .choose-hour-use {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.choose-hour-use label {
+    font-weight: 400;
+    font-size: 25px;
+    color: #000;
+    font-family: 'BT Suave Regular', sans-serif;
+}
+
+.hour-use-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex: 4;
+}
+
+/* #booking .hour-use-container>button {
+    width: 70px;
+    height: 50px;
+    border: 1px solid #000;
+    border-radius: 42px;
+    margin: 0;
+    font-family: 'BT Suave Regular', sans-serif;
+} */
+
+#booking .choose-number-guests {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+#booking .choose-number-guests label {
+    font-weight: 400;
+    font-size: 25px;
+    color: #000;
+    font-family: 'BT Suave Regular', sans-serif;
+}
+
+#booking .number-guests-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 160px;
+}
+
+#booking .choose-number-guests .number-guests-container input[type="number"] {
+    width: 100%;
+    height: 55px;
+    padding: 10px 0;
+    font-size: 30px;
+    text-align: center;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 50px;
+    outline: none;
+    font-family: 'BT Suave Regular', sans-serif;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#booking .btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+#booking .btn-container .booking-btn {
+    width: 300px;
+    height: 65px;
+    background-color: #000;
+    color: #fff;
+    font-family: 'TAN - MON CHERI', sans-serif;
+    margin: 0;
+}
+
+#booking .hour-container button,
+#booking .hour-use-container button {
+    width: 70px;
+    height: 50px;
+    border: 1px solid #000;
+    border-radius: 42px;
+    margin: 0;
+    font-family: 'BT Suave Regular', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#booking .hour-container button.active,
+#booking .hour-use-container button.active {
+    background-color: black;
+    color: white;
+}
+
+#booking .hour-container button:hover,
+#booking .hour-use-container button:hover {
+    background-color: lightgray;
+}
+
+/* Form theo ngày */
+
+#booking .day-form-container .choose-date {
+    margin-bottom: 145px;
+}
+
+#booking .day-form-container p {
+    color: rgba(0, 0, 0, 0.25);
+    font-family: 'Helvetica', sans-serif;
+}
