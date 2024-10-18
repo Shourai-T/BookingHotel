@@ -1,0 +1,60 @@
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.popup-content {
+    width: 350px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.popup-body {
+    margin: 20px 20px 0 20px;
+    text-align: left;
+}
+
+.popup-body label {
+    display: block;
+    margin-bottom: 20px;
+    font-family: 'Helvetica', sans-serif;
+}
+
+.popup-footer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.cancel-btn, .confirm-btn {
+    width: 120px;
+    height: 40px;
+    background-color: #000;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.cancel-btn:hover, .confirm-btn:hover {
+    background-color: #555;
+}
+
+.popup-body label > input {
+    margin-right: 10px;
+}

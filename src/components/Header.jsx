@@ -46,7 +46,7 @@ const Header = ({ scrolled }) => {
                     <li><Link to="/booking">ĐẶT PHÒNG</Link></li>
                     <li><Link to="/contact-us">CONTACT US</Link></li> */}
                     <li><Link to="/">TRANG CHỦ</Link></li>
-                    <li><Link to="/overview" onClick={(e) => handleNavClick(e, '/overview')}>TỔNG QUAN</Link></li>
+                    <li><Link to="/overview">TỔNG QUAN</Link></li>
                     <li><Link to="/booking" onClick={(e) => handleNavClick(e, '/booking')}>ĐẶT PHÒNG</Link></li>
                     <li><Link to="/contact-us">CONTACT US</Link></li>
                 </ul>

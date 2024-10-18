@@ -1,0 +1,26 @@
+/* Định nghĩa style cho nút Facebook */
+.facebook-login-btn {
+    background-color: #4267B2; /* Màu xanh của Facebook */
+    color: white; /* Màu chữ trắng */
+    padding: 10px 20px; /* Khoảng cách trong nút */
+    border: none; /* Bỏ viền */
+    border-radius: 5px; /* Bo góc nút */
+    cursor: pointer; /* Con trỏ dạng tay khi hover */
+    font-size: 16px; /* Kích thước chữ */
+    font-weight: bold; /* Đậm chữ */
+    text-align: center; /* Căn giữa nội dung */
+    width: 100%; /* Chiều rộng toàn bộ */
+    transition: background-color 0.3s ease; /* Hiệu ứng khi hover */
+}
+
+.facebook-login-btn:hover {
+    background-color: #365899; /* Màu khi hover */
+}
+
+.facebook-login-btn:focus {
+    outline: none; /* Bỏ viền mặc định khi focus */
+}
+
+.facebook-login-btn i {
+    margin-right: 8px; /* Khoảng cách giữa icon và chữ */
+}
