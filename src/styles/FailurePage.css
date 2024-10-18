@@ -1,0 +1,55 @@
+#failure-page {
+    display: flex;
+    justify-content: center;
+    background: rgba(239, 241, 243, 1);
+    height: 100vh;
+}
+
+#failure-page .container {
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    align-items: center;
+}
+
+#failure-page .container img {
+    width: 400px;
+}
+
+#failure-page hr {
+    border: 1.5px solid #000;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+#failure-page .failure-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Helvetica', sans-serif;
+
+}
+
+#failure-page .container h1 {
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+#failure-page .failure-message p {
+    line-height: 30px;
+    font-weight: 500;
+}
+
+#failure-page .btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#failure-page .btn-container button {
+    background-color: #000;
+    color: #fff;
+    width: 200px;
+    height: 45px;
+}

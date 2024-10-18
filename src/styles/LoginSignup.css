@@ -3,7 +3,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    background: #8d8989;
+    background: #1a1919;
     overflow: hidden;
     height: 100vh;
 }
@@ -196,4 +196,9 @@
 
 #container.container.right-panel-active .overlay-right {
     transform: translateX(20%);
+}
+
+#container .social-login {
+    width: 200px;
+    height: 0;
 }

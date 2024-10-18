@@ -9,6 +9,10 @@ import RoomTypeDetail from '../pages/RoomTypeDetailPage';
 import FilterRoomPage from '../pages/filterRoomPage';
 import LoginSignup from '../components/LoginSignup';
 import ConfirmBooking from '../pages/ConfirmBooking';
+import SuccessPage from '../pages/SuccessPage';
+import FailurePage from '../pages/FailurePage';
+import BookingList from '../pages/BookingList';
+import BookingDetail from '../pages/BookingDetail';
 
 const router = createBrowserRouter([
     {
@@ -52,13 +56,29 @@ const router = createBrowserRouter([
                 path: 'confirm-booking',
                 element: <ConfirmBooking />,
             },
+            {
+                path: 'booking-list',
+                element: <BookingList />,
+            },
+            {
+                path: 'booking-list/:id',
+                element: <BookingDetail />,
+            }
 
-
+            
         ],
     },
     {
         path: '/login',
         element: <LoginSignup />,
+    },
+    {
+        path: '/success',
+        element: <SuccessPage />,
+    },
+    {
+        path: '/failure',
+        element: <FailurePage />,
     },
 ]);
 

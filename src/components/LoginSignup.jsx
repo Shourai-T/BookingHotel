@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/LoginSignup.css';
+import { LoginSocialFacebook } from 'reactjs-social-login';
+import { FacebookLoginButton } from 'react-social-login-buttons';
 
 const LoginSignup = () => {
-    const [isSecondFormVisible, setIsSecondFormVisible] = useState(false); 
+    const [isSecondFormVisible, setIsSecondFormVisible] = useState(false);
     const formRef = useRef(null);
+    const [provider, setProvider] = useState('');
+    const [profile, setProfile] = useState(null);
+
 
     useEffect(() => {
         const registerButton = document.getElementById("register");
@@ -48,6 +53,16 @@ const LoginSignup = () => {
         }
     };
 
+    const handleFacebookResolve = ({ provider, data }) => {
+        setProvider(provider); // Lưu thông tin nhà cung cấp
+        setProfile(data); // Lưu thông tin profile người dùng
+        console.log('Đăng nhập thành công với Facebook:', data);
+    };
+
+    const handleFacebookReject = (err) => {
+        console.log('Đăng nhập thất bại:', err);
+    };
+
     return (
         <div id="login-body">
             <div className="container" id="container">
@@ -63,6 +78,16 @@ const LoginSignup = () => {
                             <span>Mật khẩu</span>
                             <input type="password" />
                         </div>
+                        <div className="social-login">
+                            <LoginSocialFacebook
+                                appId={process.env.REACT_APP_FB_APP_ID || ''}
+                                fieldsProfile="id,name,email,picture"
+                                onResolve={handleFacebookResolve}
+                                onReject={handleFacebookReject}
+                            >
+                                <FacebookLoginButton />
+                            </LoginSocialFacebook>
+                        </div>
                         <div className='btn-container'>
                             <button>Đăng nhập</button>
                         </div>
@@ -73,7 +98,7 @@ const LoginSignup = () => {
                     <form ref={formRef}>
                         <h2>ĐĂNG KÝ</h2>
                         <p>Hoan nghênh bạn đến với The Élégance!</p>
-                        
+
                         {!isSecondFormVisible ? ( // Hiển thị form đầu tiên
                             <div className="form-1">
                                 <div className="input-field">
