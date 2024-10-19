@@ -4,14 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux'; // Import Provider from react-redux
+import store from './redux/store'; // Import your Redux store
 import router from './routes';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}> {/* Bao bọc App bằng Router */}
-      <App />
-    </RouterProvider>
+    <Provider store={store}> {/* Wrap the app in Redux Provider */}
+      <RouterProvider router={router}> {/* Router handling */}
+        <App />
+      </RouterProvider>
+    </Provider>
   </React.StrictMode>
 );
 

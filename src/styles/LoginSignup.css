@@ -27,20 +27,20 @@
 
 #container p {
     font-family: 'Helvetica', sans-serif;
-    font-weight: 300; 
+    font-weight: 300;
     margin-bottom: 60px;
     font-size: 12px;
     color: #fff;
 
 }
 
-#container .login-container > form .input-field {
+#container .login-container>form .input-field {
     display: flex;
     flex-direction: column;
     margin-bottom: 45px;
 }
 
-#container .register-container > form .input-field {
+#container .register-container>form .input-field {
     display: flex;
     flex-direction: column;
     margin-bottom: 25px;
@@ -61,19 +61,23 @@
     padding: 10px 0 7px;
     color: #fff;
     font-family: 'Helvetica', sans-serif;
+    
 }
 
 #container .btn-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between; /* Căn đều giữa hai nút */
+    gap: 15px; /* Tạo khoảng cách giữa hai nút */
     margin-top: 40px;
 }
 
-#container .login-container > form .btn-container {
-    margin-top: 90px;
+#container .register-container>form .btn-container {
+    margin-top: 50px;
+    gap: 20px; /* Tạo khoảng cách giữa nút Quay về và Đăng ký */
 }
 
-#container .register-container > form .btn-container {
+
+#container .register-container>form .btn-container {
     margin-top: 50px;
 }
 
@@ -94,7 +98,7 @@
 
 #container .form-container form {
     height: 100%;
-    padding: 100px 0 0 20px;
+    padding: 80px 40px 0 40px; /* Adjust padding for more room */
 }
 
 #container .login-container {
@@ -123,6 +127,7 @@
 }
 
 @keyframes show {
+
     0%,
     49.99% {
         opacity: 0;
@@ -201,4 +206,7 @@
 #container .social-login {
     width: 200px;
     height: 0;
+}
+#container .input-field .gender-option {
+    margin-right: 15px; /* Điều chỉnh khoảng cách giữa các nút radio */
 }
