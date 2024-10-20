@@ -2,12 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../styles/LoginSignup.css';
 import { LoginSocialFacebook } from 'reactjs-social-login';
 import { FacebookLoginButton } from 'react-social-login-buttons';
-import { loginUser, loginUserByFacebook, registerUser } from '../redux/apiRequest';
+import { loginUser, loginUserByFacebook, registerUser } from '../redux/ApiRequest/apiRequestAuth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 const LoginSignup = () => {
     const [isSecondFormVisible, setIsSecondFormVisible] = useState(false);
     const formRef = useRef(null);

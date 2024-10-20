@@ -7,16 +7,56 @@ import divineWhite from '../assets/divine-white.png'
 import img1 from '../assets/datphong1.jpg'
 import img2 from '../assets/datphong2.jpg'
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 const MainContent = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const ourStoryRef = useRef(null);
   const navigate = useNavigate();
 
+  const [checkInDate, setCheckInDate] = useState('');
+  const [checkOutDate, setCheckOutDate] = useState('');
+  const [guests, setGuests] = useState(1);
+
   const handleCheckRoom = () => {
-    // Điều hướng sang trang filter
-    navigate('/filter');
+    const today = new Date();
+    const checkIn = new Date(checkInDate);
+    const checkOut = new Date(checkOutDate);
+  
+    // Kiểm tra nếu trường check-in trống
+    if (!checkInDate) {
+      toast.warn("Vui lòng chọn ngày check-in.");
+      return;
+    }
+  
+    // Kiểm tra nếu trường check-out trống
+    if (!checkOutDate) {
+      toast.warn("Vui lòng chọn ngày check-out.");
+      return;
+    }
+  
+    // Kiểm tra nếu số khách trống hoặc nhỏ hơn 1
+    if (!guests || guests <= 0) {
+      toast.warn("Vui lòng chọn số lượng khách lớn hơn 0.");
+      return;
+    }
+  
+    // Kiểm tra nếu checkInDate lớn hơn hoặc bằng hôm nay
+    if (checkIn < today) {
+      toast.warn("Ngày check-in phải lớn hơn hoặc bằng hôm nay.");
+      return;
+    }
+  
+    // Kiểm tra nếu checkOutDate lớn hơn checkInDate
+    if (checkOut <= checkIn) {
+      toast.warn("Ngày check-out phải lớn hơn ngày check-in.");
+      return;
+    }
+  
+    // Nếu tất cả điều kiện đều hợp lệ, điều hướng sang trang filter
+    navigate(`/filter?checkIn=${checkInDate}&checkOut=${checkOutDate}&guests=${guests}`);
   };
+  
 
 
   useEffect(() => {
@@ -67,13 +107,13 @@ const MainContent = () => {
         <div className="booking-section">
           <ul>
             <li>Check in
-              <input type="date" />
+              <input type="date" value={checkInDate} onChange={(e) => setCheckInDate(e.target.value)} />
             </li>
             <li>Check out
-              <input type="date" />
+              <input type="date" value={checkOutDate} onChange={(e) => setCheckOutDate(e.target.value)} />
             </li>
             <li style={{ border: 'none', }}>Khách
-              <input type="number" min="1" defaultValue={"1"} style={{ width: '100px', }} />
+              <input type="number" min="1" value={guests} onChange={(e) => setGuests(e.target.value)} style={{ width: '100px', }} />
             </li>
             <button onClick={handleCheckRoom}>
               Kiểm tra phòng trống
@@ -116,6 +156,7 @@ const MainContent = () => {
         <img className='datphong2' src={img2} alt="datphong2" />
         <img className='datphong1' src={img1} alt="datphong1" />
       </div>
+      <ToastContainer position="top-right" autoClose={5000} />
     </body>
 
   )
