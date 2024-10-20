@@ -1,33 +1,92 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/filterRoom.css'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import picRoom from '../assets/phongdoi.jpg'
 
 import { rooms } from '../data';
+import { getRoomByFilter } from '../redux/ApiRequest/apiRequestRoom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
 
 const FilterRoomPage = () => {
 
   const navigate = useNavigate();
-  const [filteredRooms, setFilteredRooms] = useState(rooms);
   const [priceFilter, setPriceFilter] = useState('');
+  const location = useLocation();
+  const dispatch = useDispatch();
+  // Tạo một instance của URLSearchParams để lấy các query parameters
+  const queryParams = new URLSearchParams(location.search);
 
+  // Lấy các giá trị từ query parameters
+  const checkIn = queryParams.get('checkIn');
+  const checkOut = queryParams.get('checkOut');
+  const guests = queryParams.get('guests');
+  const roomList = useSelector(state => state.room.getRoomList.data);
+  const [filteredRooms, setFilteredRooms] = useState(roomList);
+  const [checkInDate, setCheckInDate] = useState(checkIn || '');
+  const [checkOutDate, setCheckOutDate] = useState(checkOut || '');
+  const [guestsInput, setGuests] = useState(guests || 1);
+  useEffect(() => {
+    getRoomByFilter(checkIn, checkOut, guests,dispatch);
+  },[checkIn, checkOut, guests, dispatch])
+
+  useEffect(() => {
+    setFilteredRooms(roomList);
+  }, [roomList]);
   const handleCheckRoom = () => {
-    // Điều hướng sang trang filter
-    navigate('/filter');
+    const today = new Date();
+    const checkIn = new Date(checkInDate);
+    const checkOut = new Date(checkOutDate);
+    
+    // Kiểm tra nếu trường check-in trống
+    if (!checkInDate) {
+      toast.warn("Vui lòng chọn ngày check-in.");
+      return;
+    }
+  
+    // Kiểm tra nếu trường check-out trống
+    if (!checkOutDate) {
+      toast.warn("Vui lòng chọn ngày check-out.");
+      return;
+    }
+  
+    // Kiểm tra nếu số khách trống hoặc nhỏ hơn 1
+    if (!guestsInput || guestsInput <= 0) {
+      toast.warn("Vui lòng chọn số lượng khách lớn hơn 0.");
+      return;
+    }
+  
+    // Kiểm tra nếu checkInDate lớn hơn hoặc bằng hôm nay
+    if (checkIn < today) {
+      toast.warn("Ngày check-in phải lớn hơn hoặc bằng hôm nay.");
+      return;
+    }
+  
+    // Kiểm tra nếu checkOutDate lớn hơn checkInDate
+    if (checkOut <= checkIn) {
+      toast.warn("Ngày check-out phải lớn hơn ngày check-in.");
+      return;
+    }
+  
+    // Nếu tất cả điều kiện đều hợp lệ, điều hướng sang trang filter
+    navigate(`/filter?checkIn=${checkInDate}&checkOut=${checkOutDate}&guests=${guestsInput}`);
   };
 
   const handlePriceFilterChange = (e) => {
     const selectedPrice = e.target.value;
     setPriceFilter(selectedPrice);
-    let filteredRooms;
-    if (selectedPrice === 'all') {
-      filteredRooms = rooms;
-    } else if (selectedPrice === 'lowToHigh') {
-      filteredRooms = [...rooms].sort((a, b) => a.priceDay - b.priceDay);
+
+    let sortedRooms = [...roomList]; // Tạo bản sao của roomList
+    
+    // Sắp xếp theo giá
+    if (selectedPrice === 'lowToHigh') {
+      sortedRooms = sortedRooms.sort((a, b) => a.pricePerDay - b.pricePerDay);
     } else if (selectedPrice === 'highToLow') {
-      filteredRooms = [...rooms].sort((a, b) => b.priceDay - a.priceDay);
+      sortedRooms = sortedRooms.sort((a, b) => b.pricePerDay - a.pricePerDay);
     }
-    setFilteredRooms(filteredRooms);
+    
+    // Cập nhật danh sách phòng đã sắp xếp
+    setFilteredRooms(sortedRooms);
   };
 
   return (
@@ -37,13 +96,22 @@ const FilterRoomPage = () => {
         <div className="booking-section">
           <ul>
             <li>Check in
-              <input type="date" />
+              <input type="date" 
+              value={checkInDate} 
+              onChange={(e) => setCheckInDate(e.target.value)} 
+              />
             </li>
             <li>Check out
-              <input type="date" />
+              <input type="date" 
+              value={checkOutDate} 
+              onChange={(e) => setCheckOutDate(e.target.value)}
+              />
             </li>
             <li style={{ border: 'none', }}>Khách
-              <input type="number" min="1" defaultValue={"1"} style={{ width: '100px', }} />
+              <input type="number" min="1" defaultValue={"1"} style={{ width: '100px', }} 
+              value={guestsInput} 
+              onChange={(e) => setGuests(e.target.value)}
+              />
             </li>
             <button onClick={handleCheckRoom}>
               Kiểm tra phòng trống
@@ -75,16 +143,6 @@ const FilterRoomPage = () => {
                 />
                 Từ cao đến thấp
               </li>
-              <li>
-                <input
-                  type="checkbox"
-                  name="price-filter"
-                  value="all"
-                  checked={priceFilter === 'all'}
-                  onChange={handlePriceFilterChange}
-                />
-                Tất cả
-              </li>
             </ul>
           </div>
           <div className="room-items">
@@ -96,18 +154,18 @@ const FilterRoomPage = () => {
                     <h2>{room.name}</h2>
                     <div className="list">
                       <ul className='list-detail'>
-                        <li>{room.capacity} khách</li>
-                        <li>{room.bed} giường</li>
-                        <li>{room.area} m²</li>
-                        <li>Loại phòng: {room.type}</li>
+                        <li>{room.typeRoom.maxPeople} khách</li>
+                        <li>{room.typeRoom.beds}</li>
+                        <li>{room.typeRoom.sizeRoom} m²</li>
+                        <li>Loại phòng: {room.typeRoom.name}</li>
                       </ul>
                       <ul className='list-price'>
                         <li>Giá theo ngày <br />
-                          {room.priceDay.toLocaleString()} VNĐ/đêm
+                          {room.pricePerDay.toLocaleString()} VNĐ/đêm
                         </li>
                         <li>
                           Giá theo giờ <br />
-                          {room.priceHour.toLocaleString()} VNĐ/giờ
+                          {room.pricePerHour.toLocaleString()} VNĐ/giờ
                         </li>
                       </ul>
                     </div>
@@ -151,6 +209,7 @@ const FilterRoomPage = () => {
           </div>
         </div>
       </div>
+      <ToastContainer position="top-right" autoClose={5000} />
     </div>
 
   )

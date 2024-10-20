@@ -8,13 +8,14 @@ import menuIcon from "../assets/menu-icon.png"
 
 import { Link, useNavigate } from 'react-router-dom';
 import WarningPopup from "./WarningPopup";
+import { useSelector } from "react-redux";
 
 
 const Header = ({ scrolled }) => {
     const [showNav, setShowNav] = useState(false); // Trạng thái cho ToggleNav
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Set trạng thái đăng nhập (Hiện là false)
+     // Set trạng thái đăng nhập (Hiện là false)
     const [showPopup, setShowPopup] = useState(false);
-
+    const user = useSelector(state => state.auth.login.currentUser);
     const navigate = useNavigate();
 
     const toggleNav = () => {
@@ -22,7 +23,7 @@ const Header = ({ scrolled }) => {
     };
 
     const handleNavClick = (e, path) => {
-        if (!isLoggedIn) {
+        if (!user) {
             e.preventDefault(); // Ngăn không cho điều hướng nếu chưa đăng nhập
             setShowPopup(true); // Hiển thị popup yêu cầu đăng nhập
         } else {
@@ -56,8 +57,9 @@ const Header = ({ scrolled }) => {
             </header>
 
             {/* Điều kiện hiển thị ToggleNav hoặc ToggleNavUser dựa trên trạng thái đăng nhập */}
-            {isLoggedIn ? (
-                <ToggleNavUser isOpen={showNav} toggleNav={toggleNav} /> // Hiển thị thanh NavUser khi đã đăng nhập
+            {user ? (
+                <ToggleNavUser isOpen={showNav} toggleNav={toggleNav} username={user.user.name}
+                email={user.user.email} /> // Hiển thị thanh NavUser khi đã đăng nhập
             ) : (
                 <ToggleNav isOpen={showNav} toggleNav={toggleNav} />     // Hiển thị thanh Nav khi chưa đăng nhập
             )}
