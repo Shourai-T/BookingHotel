@@ -143,9 +143,28 @@ const FilterRoomPage = () => {
             </ul>
           </div>
           <div className="room-items">
-            {filteredRooms.map((room) => (
+            {filteredRooms.map((room) => {
+               let imageUrl;
+               switch (room.typeRoom.id) {
+                 case '9c72ac2a-0aa6-4bc1-bf50-15575be18683':
+                   imageUrl = require(`../assets/phongdon/${room.image}`);
+                   break;
+                 case '493d4386-791e-409b-85a8-78afbbc596d2':
+                   imageUrl = require(`../assets/phonggiadinh/${room.image}`);
+                   break;
+                 case '2fb24ae1-acb4-420b-b5a2-2dd674fcd899':
+                   imageUrl = require(`../assets/phonghangsang/${room.image}`);
+                   break;
+                 case '1fd36d7a-65e1-43e1-b571-9279696dfe5d':
+                   imageUrl = require(`../assets/phongdoi/${room.image}`);
+                   break;
+                 default:
+                   imageUrl = require(`../assets/${room.image}`);
+                   break;
+               }
+              return(
               <div className="room-item" key={room.id}>
-                <img src={room.image} alt="pic-room" />
+                <img src={imageUrl} alt="pic-room" />
                 <div className="item-container">
                   <div className="item-content">
                     <h2>{room.name}</h2>
@@ -173,7 +192,7 @@ const FilterRoomPage = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            )})}
             {/* <div className="room-item">
               <img src={picRoom} alt="pic-room" />
               <div className="item-container">
