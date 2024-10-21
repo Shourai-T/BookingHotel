@@ -1,0 +1,93 @@
+#account {
+    display: flex;
+    justify-content: center;
+    height: 730px;
+}
+
+#account .container {
+    display: flex;
+    width: 95%;
+    flex-direction: column;
+    justify-content: center;
+    gap: 140px;
+}
+
+#account .container .row-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    font-family: 'Helvetica';
+}
+
+#account .row-info .col-1 {
+    width: 300px;
+    height: 150px;
+    border: 1.5px solid #000;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+#account .col-1 .info-user {
+    display: flex;
+    gap: 10px;
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+#account .col-1 hr {
+    border: 1.5px solid #000;
+    margin: 12px 0 22px;
+}
+
+#account .col-1 b {
+    margin-left: 28px;
+    font-size: 18px;
+}
+
+#account .row-info .col-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
+    height: 200px;
+    border: 1.5px solid #000;
+    border-radius: 12px;
+}
+
+#account .info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 95%;
+    font-family: 'Helvetica', sans-serif;
+}
+
+#account .info-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+}
+
+#account .label {
+    font-weight: bold;
+    flex: 2;
+}
+
+#account .value {
+    text-align: left;
+    flex: 2;
+}
+
+#account .container .btn-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#account .btn-row button {
+    background-color: #000;
+    width: 240px;
+    height: 70px;
+    color: #fff;
+}

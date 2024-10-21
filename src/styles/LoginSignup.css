@@ -98,7 +98,7 @@
 
 #container .form-container form {
     height: 100%;
-    padding: 80px 40px 0 40px; /* Adjust padding for more room */
+    padding: 40px 40px 0 40px; /* Adjust padding for more room */
 }
 
 #container .login-container {
@@ -206,6 +206,7 @@
 #container .social-login {
     width: 200px;
     height: 0;
+    margin-bottom: 75px;
 }
 #container .input-field .gender-option {
     margin-right: 15px; /* Điều chỉnh khoảng cách giữa các nút radio */

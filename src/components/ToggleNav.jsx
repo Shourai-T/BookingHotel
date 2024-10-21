@@ -10,18 +10,12 @@ const ToggleNav = ({ isOpen, toggleNav }) => {
         navigate('/login');
     };
 
-    const handleSignupClick = () => {
-        toggleNav(); // Đóng nav khi người dùng nhấn
-        navigate('/login')
-    };
-
     return (
         <div className={`toggle-nav-container ${isOpen ? 'open' : ''}`}>
             <i class="fa-solid fa-x" onClick={toggleNav}></i>
             <hr className='divider' />
             <ul className="options-nav">
-                <li onClick={handleLoginClick}>Đăng nhập</li>
-                <li onClick={handleSignupClick}>Đăng kí</li>
+                <li onClick={handleLoginClick}>Đăng nhập/Đăng ký</li>
             </ul>
         </div>
     )
