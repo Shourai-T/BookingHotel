@@ -57,41 +57,17 @@ const roomOptions = [
 const hoursOptions = [
     '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00',
     '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00',
-    '15:00',
+    '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00',
 ];
 
 const usageHoursOptions = [
-    '1 giờ', '2 giờ', '3 giờ', '4 giờ', '5 giờ', '6 giờ', '7 giờ', '8 giờ', '9 giờ', '10 giờ'
+    '1', '2 ', '3', '4', '5', '6', '7', '8', '9', '10'
 ];
 
-const roomData = [
-    {
-      id: 'abc-123',
-      date: '01/01/2024 20:00:00 - 02/01/2024 08:00:00',
-      roomName: 'Phòng Deluxe',
-      status: 'Đã đặt phòng',
-      totalPrice: '2.000.000 VND',
-    },
-    {
-      id: 'xyz-456',
-      date: '05/01/2024 18:00:00 - 06/01/2024 12:00:00',
-      roomName: 'Phòng Suite',
-      status: 'Đã checkin',
-      totalPrice: '3.500.000 VND',
-    },
-    {
-      id: 'ghi-789',
-      date: '10/01/2024 14:00:00 - 11/01/2024 10:00:00',
-      roomName: 'Phòng Standard',
-      status: 'Đã hủy',
-      totalPrice: '1.000.000 VND',
-    },
-  ];
 
 export {
     rooms,
     roomOptions,
     hoursOptions,
     usageHoursOptions,
-    roomData,
 };

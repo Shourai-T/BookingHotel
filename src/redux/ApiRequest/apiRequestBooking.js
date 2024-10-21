@@ -1,5 +1,5 @@
 import axiosInstance from "../../utility/axios.interceptor"
-import { bookingDetailStart, bookingDetailSuccess, bookingListFailure, bookingListStart, bookingListSuccess } from "../Slice/bookingSlice"
+import { bookingDetailStart, bookingDetailSuccess, bookingListFailure, bookingListStart, bookingListSuccess, createBookingFailure, createBookingStart, createBookingSuccess } from "../Slice/bookingSlice"
 
 const API_URL= process.env.REACT_APP_API_URL
 
@@ -23,5 +23,16 @@ export const getBookingDetail = async (id, dispatch) => {
     } catch (error) {
         console.error(error)
         dispatch(bookingListFailure())
+    }
+}
+
+export const createBooking = async (booking, dispatch) => {
+    dispatch(createBookingStart())
+    try {
+        const res = await axiosInstance.post(`${API_URL}/api/v1/booking/my-booking`, booking)
+        dispatch(createBookingSuccess(res.data))
+    } catch (error) {
+        console.error(error)
+        dispatch(createBookingFailure())
     }
 }
