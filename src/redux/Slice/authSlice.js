@@ -9,10 +9,15 @@ const authSlice = createSlice({
             error: false,
             msg: ''
         },
-        register:{
+        register: {
             isFetching: false,
             error: false,
-            success:false
+            success: false
+        },
+        logout: {
+            isFetching: false,
+            error: false,
+            success: false
         }
     },
     reducers: {
@@ -26,7 +31,7 @@ const authSlice = createSlice({
             state.login.currentUser = action.payload.data;
             state.login.msg = 'Login Success';
         },
-        loginFailure: (state,action) => {
+        loginFailure: (state, action) => {
             state.login.isFetching = false;
             state.login.error = true;
             state.login.msg = action.payload;
@@ -39,11 +44,30 @@ const authSlice = createSlice({
             state.register.isFetching = false;
             state.register.success = true;
         },
-        registerFailure: (state,action) => {
+        registerFailure: (state, action) => {
             state.register.isFetching = false;
             state.register.error = true;
             state.login.msg = action.payload
         },
+        logoutStart: (state) => {
+            if (!state.logout) {
+                console.error("State 'logout' is undefined or revoked!");
+                return;
+            }
+            console.log("Current state before logoutStart:", state);
+            state.logout.isFetching = true;
+            state.logout.error = false;
+        },
+        logoutSuccess: (state) => {
+            state.logout.isFetching = false;
+            state.logout.success = true;
+            state.login.currentUser = null;
+        },
+        logoutFailure: (state) => {
+            state.logout.isFetching = false;
+            state.logout.error = true;
+        }
+
     }
 })
 
@@ -53,7 +77,10 @@ export const {
     loginFailure,
     registerStart,
     registerSuccess,
-    registerFailure
+    registerFailure,
+    logoutStart,
+    logoutSuccess,
+    logoutFailure
 
 } = authSlice.actions;
 

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import '../styles/OverviewPage.css'
 import divine from '../assets/divine-white.png'
-import room1 from '../assets/phongdon1.jpg'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllTypeRoom } from '../redux/ApiRequest/apiRequestTypeRoom'
 
@@ -22,13 +21,14 @@ const OverviewPage = () => {
       </div>
       <div>
         {typeRoomList.map((typeRoom) => {
+          const imageUrl = require(`../assets/${typeRoom.image}`)
           return (
             <div className="room-item">
-              <img src={room1} alt="phongdon" />
+              <img src={imageUrl} alt="phongdon" />
               <div className="room-item-content">
                 <h3>{typeRoom.name}</h3>
                 <p>{typeRoom.introduction}</p>
-                <a href="/roomtypedetail">Xem chi tiết</a>
+                <a href={`/roomtypedetail/${typeRoom.id}`}>Xem chi tiết</a>
               </div>
             </div>
           )

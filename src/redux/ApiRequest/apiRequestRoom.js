@@ -14,3 +14,16 @@ export const getRoomByFilter= async (startTime,endTime,numberOfPeople,dispatch) 
         dispatch(getRoomListFailure())
     }
 }
+export const getRoomByType= async (dispatch,id) => {
+    dispatch( getRoomListStart())
+
+    try{
+        const res= await axios.get(`${API_URL}/api/v1/rooms/type-room/${id}`)
+        console.log(res.data)
+        dispatch(getRoomListSuccess(res.data))
+    }
+    catch(error){
+        console.log(error)
+        dispatch(getRoomListFailure())
+    }
+}

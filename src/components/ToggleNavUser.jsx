@@ -1,7 +1,18 @@
 import React from 'react'
 import '../styles/ToggleNavUser.css'
+import { logOut } from '../redux/ApiRequest/apiRequestAuth'
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const ToggleNavUser = ({ isOpen, toggleNav, username, email }) => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const handleLogOut = () => {
+        logOut(dispatch, navigate);
+    }
+    const handleClickGoBooking = () => {
+        navigate('/booking-list');
+    }
     return (
         <div className={`toggle-nav-container ${isOpen ? 'open' : ''}`}>
             <i class="fa-solid fa-x" onClick={toggleNav}></i>
@@ -15,8 +26,8 @@ const ToggleNavUser = ({ isOpen, toggleNav, username, email }) => {
             <hr className='divider' />
             <ul className="options-nav">
                 <li>Tài khoản</li>
-                <li>Đặt phòng của tôi</li>
-                <li>Đăng xuất</li>
+                <li onClick={handleClickGoBooking}>Đặt phòng của tôi</li>
+                <li onClick={handleLogOut}>Đăng xuất</li>
             </ul>
         </div>
     )

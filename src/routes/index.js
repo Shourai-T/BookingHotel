@@ -38,12 +38,12 @@ const router = createBrowserRouter([
             },
 
             {
-                path: 'listroom',
+                path: 'listroom/:typeId',
                 element: <ListRoomPage />, // Trang danh sách phòng
             },
 
             {
-                path:'roomtypedetail',
+                path:'roomtypedetail/:id',
                 element:<RoomTypeDetail/>,
             },
 
