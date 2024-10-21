@@ -13,6 +13,8 @@ import SuccessPage from '../pages/SuccessPage';
 import FailurePage from '../pages/FailurePage';
 import BookingList from '../pages/BookingList';
 import BookingDetail from '../pages/BookingDetail';
+import AccountUser from '../pages/AccountUser';
+import EditUser from '../pages/EditUser';
 
 const router = createBrowserRouter([
     {
@@ -63,7 +65,16 @@ const router = createBrowserRouter([
             {
                 path: 'booking-list/:id',
                 element: <BookingDetail />,
+            },
+            {
+                path: 'account',
+                element: <AccountUser />,
+            },
+            {
+                path: 'account/edit',
+                element: <EditUser />,
             }
+
 
             
         ],

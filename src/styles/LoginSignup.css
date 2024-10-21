@@ -99,7 +99,7 @@
 
 #container .form-container form {
     height: 100%;
-    padding: 80px 40px 0 40px; /* Adjust padding for more room */
+    padding: 40px 40px 0 40px; /* Adjust padding for more room */
 }
 
 #container .login-container {
@@ -204,8 +204,6 @@
 #container.container.right-panel-active .overlay-right {
     transform: translateX(20%);
 }
-
-
 
 .social-login {
     display: flex;
