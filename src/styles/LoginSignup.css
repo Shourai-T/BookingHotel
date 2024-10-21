@@ -12,14 +12,14 @@
     position: relative;
     overflow: hidden;
     width: 1200px;
-    height: 645px;
+    height: 665px;
     background: url('../assets/login.jpg') no-repeat center center/cover;
 }
 
 #container h2 {
     font-family: 'TAN - MON CHERI', sans-serif;
     margin-top: 0;
-    margin-bottom: 10px;
+
     font-size: 28px;
     font-weight: 300;
     color: #fff;
@@ -37,7 +37,7 @@
 #container .login-container>form .input-field {
     display: flex;
     flex-direction: column;
-    margin-bottom: 45px;
+    margin-bottom: 20px;
 }
 
 #container .register-container>form .input-field {
@@ -50,6 +50,7 @@
     font-family: 'Helvetica', sans-serif;
     font-weight: 600;
     color: #fff;
+    font-size: 13px;
 
 }
 
@@ -68,7 +69,7 @@
     display: flex;
     justify-content: space-between; /* Căn đều giữa hai nút */
     gap: 15px; /* Tạo khoảng cách giữa hai nút */
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 #container .register-container>form .btn-container {
@@ -144,8 +145,9 @@
 #container .overlay button {
     color: #fff;
     margin: 0;
-    width: 150px;
-    height: 60px;
+    width: 120px;
+    height: 50px;
+    font-size: 14px;
     background: rgba(36, 25, 19, 0.9);
 }
 
@@ -203,10 +205,22 @@
     transform: translateX(20%);
 }
 
-#container .social-login {
-    width: 200px;
-    height: 0;
+
+
+.social-login {
+    display: flex;
+    justify-content: flex-start; 
+    margin-left: -40px;
+    margin-bottom: -20px;
+    margin-top: 50px;
 }
+
+.social-login button {
+    transform: scale(0.7);
+    width: auto;
+    height: auto;
+}
+
 #container .input-field .gender-option {
     margin-right: 15px; /* Điều chỉnh khoảng cách giữa các nút radio */
 }
