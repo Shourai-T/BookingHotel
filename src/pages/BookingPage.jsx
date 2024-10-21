@@ -5,6 +5,7 @@ import { roomOptions, hoursOptions, usageHoursOptions } from '../data';
 import 'boxicons';
 import useCurrentDate from '../hooks/useCurrentDate';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const BookingPage = () => {
@@ -16,7 +17,12 @@ const BookingPage = () => {
   const [selectedUsageHour, setSelectedUsageHour] = useState(null);
   const [selectedSwitchOption, setSelectedSwitchOption] = useState('theo-gio');
   const currentDate = useCurrentDate();
-
+  const user = useSelector((state) => state.auth.login.currentUser);
+  useEffect(() => {
+    if(!user){
+      navigate('/login');
+    }
+  }, [])
   // Hàm xử lý click để mở/đóng dropdown
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);

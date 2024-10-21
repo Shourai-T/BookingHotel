@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/BookingDetail.css'
 import picroom from '../assets/phongdoi.jpg'
 import CancelPopup from '../components/CancelPopup';
-import { roomData } from '../data';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBookingDetail } from '../redux/ApiRequest/apiRequestBooking';
+import moment from 'moment';
 
 
 const BookingDetail = () => {
@@ -11,11 +13,14 @@ const BookingDetail = () => {
     const navigate = useNavigate();
     const [showCancelPopup, setShowCancelPopup] = useState(false); // State to manage popup visibility
     const [text, setText] = useState('');
-    
+    const dispatch = useDispatch();
+    useEffect(() => {
+        getBookingDetail(id, dispatch);
+    }, [id, dispatch ]);
     // Tìm thông tin phòng tương ứng với ID
-    const room = roomData.find((r) => r.id === id); // Tìm phòng dựa trên ID
-
-    if (!room) {
+    const booking= useSelector(state => state.booking.bookingDetail.data);
+    
+    if (!booking) {
         return <div>Không tìm thấy thông tin đặt phòng.</div>; // Thông báo nếu không tìm thấy
     }
 
@@ -49,61 +54,104 @@ const BookingDetail = () => {
     const handleGoToBooking = () => {
         navigate('/booking'); // Điều hướng tới trang đặt phòng
     };
-
+    let status = ''
+    switch (booking.bookingStatus) {
+        case 'Paid':
+          status = 'Đã thanh toán'
+          break;
+        case 'Unpaid':
+          status = 'Chưa thanh toán'
+          break;
+        case 'CheckedIn':
+          status = 'Đã nhận phòng'
+          break;
+        case 'CheckedIn':
+          status = 'Đã nhận phòng'
+          break; 
+        case 'CheckedOut':
+          status = 'Đã trả phòng'
+          break;
+        case 'Cancelled':
+          status = 'Đã hủy'
+          break;
+        default:
+          status = 'Đã đánh giá'
+          break;
+      }
+      let startTime='';
+      let endTime='';
+      let bookingType='';
+      let total=0
+      switch (booking.bookingType) {
+        case "Daily":
+          startTime = moment(booking.startTime).format('DD/MM/YYYY')
+          endTime = moment(booking.endTime).format('DD/MM/YYYY')
+          bookingType = 'Ngày'
+            total = moment(booking.endTime).diff(moment(booking.startTime), 'days') * booking.room.pricePerDay
+          break;
+        case "Hourly'":
+          startTime = moment(booking.startTime).format('DD/MM/YYYY HH:mm')
+          endTime = moment(booking.endTime).format('DD/MM/YYYY HH:mm')
+        bookingType = 'Giờ'
+            total = moment(booking.endTime).diff(moment(booking.startTime), 'hours') * booking.room.pricePerHour
+          break;
+        default:
+          break;
+      }
     return (
         <div id='booking-detail'>
             <div className="container">
                 <h1>CHI TIẾT ĐẶT PHÒNG</h1>
                 <div className="room-detail">
-                    <img src={picroom} alt="" />
+                    <img src={booking.room.image} alt="" />
                     <div className='room-info'>
-                        <h3>Windsor Room</h3>
-                        <p>Loại phòng: {room.roomName}</p>
+                        <h3>{booking.room.name}</h3>
+                        <p>Loại phòng: {booking.room.typeRoom.name}</p>
                     </div>
                 </div>
                 <div class="info-group">
                     <div class="info-item">
                         <span class="label">Booking ID:</span>
-                        <span class="value">{room.id}</span>
+                        <span class="value">{booking.bookingId}</span>
                     </div>
                     <div class="info-item">
                         <span class="label">Tên khách hàng:</span>
-                        <span class="value">Nguyễn Văn A</span>
+                        <span class="value">{booking.user.name}</span>
                     </div>
                     <div class="info-item">
                         <span class="label">Đặt phòng theo:</span>
-                        <span class="value">Ngày</span>
+                        <span class="value">{bookingType}</span>
                     </div>
                     <div class="info-item">
                         <span class="label">Checkin - Checkout:</span>
-                        <span class="value">02/01/2024 06:00:00 - 02/01/2024 12:00:00</span>
+                        <span class="value">{startTime} - {endTime}</span>
                     </div>
                     <div class="info-item">
                         <span class="label">Số khách:</span>
-                        <span class="value">2</span>
+                        <span class="value">{booking.numberOfGuest}</span>
                     </div>
                     <div class="info-item">
                         <span class="label">Trạng thái:</span>
-                        <span class="value">{room.status}</span>
+                        <span class="value">{status}</span>
                     </div>
                 </div>
                 <hr />
                 <div className="info-group">
                     <div class="info-item">
                         <span class="label">TỔNG TIỀN</span>
-                        <span class="value">{room.totalPrice}</span>
+                        <span class="value">{total.toLocaleString()}</span>
                     </div>
                 </div>
 
                 {/* Trạng thái đã đặt phòng */}
-                {room.status === 'Đã đặt phòng' && (
+                {booking.bookingStatus === 'Unpaid'||booking.bookingStatus === 'Paid' && (
                     <div className="btn-container">
                         <button onClick={handleCancelClick}>Hủy đặt phòng</button>
                     </div>
                 )}
 
                 {/* Trạng thái đã check-in */}
-                {room.status === 'Đã checkin' && (
+                {booking.bookingStatus === 'CheckedIn' && (
                     <div className="rating-container">
                         <h2>Đánh giá</h2>
                         <div className="rating-body">
@@ -135,7 +183,7 @@ const BookingDetail = () => {
                 )}
 
                 {/* Trạng thái đã hủy đặt phòng */}
-                {room.status === 'Đã hủy' && (
+                {booking.bookingStatus === 'Cancelled' && (
                     <div className="btn-container">
                         <button onClick={handleGoToBooking}>Đi tới đặt phòng</button>
                     </div>

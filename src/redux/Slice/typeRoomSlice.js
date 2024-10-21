@@ -8,6 +8,12 @@ const typeRoomSlice= createSlice({
             isFetching:false,
             error:false,
             success:false
+        },
+        getDetailTypeRoom:{
+            data:null,
+            isFetching:false,
+            error:false,
+            success:false
         }
     },
     reducers:{
@@ -25,6 +31,20 @@ const typeRoomSlice= createSlice({
         getTypeRoomListFailure:(state,action)=>{
             state.getTypeRoomList.isFetching=false;
             state.getTypeRoomList.error=true;
+        },
+        getDetailTypeRoomStart:(state)=>{
+            state.getDetailTypeRoom.isFetching=true;
+            state.getDetailTypeRoom.error=false;
+            state.getDetailTypeRoom.success=false;
+        },
+        getDetailTypeRoomSuccess:(state,action)=>{
+            state.getDetailTypeRoom.isFetching=false;
+            state.getDetailTypeRoom.data=action.payload.data;
+            state.getDetailTypeRoom.success=true;
+        },
+        getDetailTypeRoomFailure:(state,action)=>{
+            state.getDetailTypeRoom.isFetching=false;
+            state.getDetailTypeRoom.error=true;
         }
     }
 })
@@ -32,7 +52,10 @@ const typeRoomSlice= createSlice({
 export const {
     getTypeRoomListStart,
     getTypeRoomListSuccess,
-    getTypeRoomListFailure
+    getTypeRoomListFailure,
+    getDetailTypeRoomStart,
+    getDetailTypeRoomSuccess,
+    getDetailTypeRoomFailure
 }=typeRoomSlice.actions;
 
 export default typeRoomSlice.reducer;

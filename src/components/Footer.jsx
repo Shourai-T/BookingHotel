@@ -9,7 +9,7 @@ const Footer = () => {
                 <img src={logo} alt="logo" />
                 <div className='col-2'>
                     <p>(01)23456789</p>
-                    <p><a href="">theelegance@gmail.com</a></p>
+                    <p><a>elegancehotel.info@gmail.com</a></p>
                 </div>
                 <div className='col-3'>
                     <p>The Élélégance Hotel</p>

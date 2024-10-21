@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/filterRoom.css'
 import { useLocation, useNavigate } from 'react-router-dom';
-import picRoom from '../assets/phongdoi.jpg'
-
-import { rooms } from '../data';
 import { getRoomByFilter } from '../redux/ApiRequest/apiRequestRoom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';

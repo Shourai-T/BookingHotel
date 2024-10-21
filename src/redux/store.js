@@ -13,8 +13,9 @@ import {
     REGISTER,
   } from 'redux-persist'
   import storage from 'redux-persist/lib/storage'
+import bookingSlice from "./Slice/bookingSlice";
   const persistConfig = {
-    key: 'root',
+    key: 'auth',
     version: 1,
     storage,
     whitelist: ['auth'],
@@ -22,7 +23,8 @@ import {
   const rootReducer = combineReducers({
     auth: authSlice,
     typeRoom: typeRoomSlice,
-    room: roomSlice
+    room: roomSlice,
+    booking: bookingSlice
   })
   
   const persistedReducer = persistReducer(persistConfig, rootReducer)
