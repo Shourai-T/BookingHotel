@@ -15,14 +15,10 @@ const BookingPage = () => {
   const [selectedOption, setSelectedOption] = useState('Tên phòng');
   const [selectedHour, setSelectedHour] = useState(null);
   const [selectedUsageHour, setSelectedUsageHour] = useState(null);
-  const [selectedSwitchOption, setSelectedSwitchOption] = useState('theo-gio');
+  const [selectedSwitchOption, setSelectedSwitchOption] = useState('Hourly');
   const currentDate = useCurrentDate();
   const user = useSelector((state) => state.auth.login.currentUser);
-  useEffect(() => {
-    if(!user){
-      navigate('/login');
-    }
-  }, [])
+  
   // Hàm xử lý click để mở/đóng dropdown
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -35,10 +31,12 @@ const BookingPage = () => {
   };
 
   const handleHourClick = (hour) => {
+    console.log("select"+hour);
     setSelectedHour(hour); // Cập nhật giờ được chọn
   };
 
   const handleUsageHourClick = (usageHour) => {
+    console.log("select1"+usageHour);
     setSelectedUsageHour(usageHour); // Cập nhật giờ sử dụng được chọn
   };
 
@@ -52,6 +50,9 @@ const BookingPage = () => {
 
   // Hàm xử lý click bên ngoài dropdown để đóng dropdown
   useEffect(() => {
+    if(!user){
+      navigate('/login');
+    }
     const handleClickOutside = (event) => {
       if (!event.target.closest('#room-select')) {
         setIsDropdownOpen(false); // Đóng dropdown khi click bên ngoài
@@ -96,21 +97,21 @@ const BookingPage = () => {
             <div id="firstFilter" className="filter-switch">
               <input
 
-                checked={selectedSwitchOption === 'theo-gio'}
+                checked={selectedSwitchOption === 'Hourly'}
                 id="option1"
                 name="options"
                 type="radio"
-                value="theo-gio"
+                value="Hourly"
                 onChange={handleSwitchChange}
               />
               <label className="option" htmlFor="option1">Theo giờ</label>
 
               <input
-                checked={selectedSwitchOption === 'theo-ngay'}
+                checked={selectedSwitchOption === 'Daily'}
                 id="option2"
                 name="options"
                 type="radio"
-                value="theo-ngay"
+                value="Daily"
                 onChange={handleSwitchChange}
               />
               <label className="option" htmlFor="option2">Theo ngày</label>
@@ -119,7 +120,7 @@ const BookingPage = () => {
             </div>
           </div>
           {/* Hiển thị form dựa trên lựa chọn */}
-          {selectedSwitchOption === 'theo-gio' ? (
+          {selectedSwitchOption === 'Hourly' ? (
             <div className="hour-form-container">
               {/* Form đặt theo giờ */}
               <div className="choose-date">
@@ -151,7 +152,7 @@ const BookingPage = () => {
                       onClick={() => handleUsageHourClick(usageHour)}
                       className={selectedUsageHour === usageHour ? 'active' : ''} // Thêm class 'active' nếu giờ sử dụng được chọn
                     >
-                      {usageHour}
+                      {usageHour} gi
                     </button>
                   ))}
                 </div>
