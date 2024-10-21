@@ -12,11 +12,12 @@
 }
 
 #contact-us > .container {
-    width: 90%;
-    height: 600px;
+    width: 75%;
+    height: 500px;
     border-radius: 20px;
     border: 15px solid #fff;
     position: relative;
+    margin-bottom: 100px;
 }
 
 #contact-us .content-container {
@@ -32,22 +33,22 @@
 }
 
 #contact-us .content-container h2 {
-    font-size: 30px;
+    font-size: 20px;
     font-family: 'TAN - MON CHERI', sans-serif;
     font-weight: 400;
 }
 
 #contact-us .content-container p {
     font-family: 'Helvetica', sans-serif;
-    font-size: 20px;
+    font-size: 13px;
     font-weight: 400;
     line-height: 35px;
 }
 
 #contact-us img {
     position: absolute;
-    width: 230px;
-    /* height: 135px; */
+    width: 150px;
+    height: 100px;
     padding: 0 30px;
     background: #fff;
     border-radius: 10px;
