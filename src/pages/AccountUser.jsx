@@ -32,14 +32,16 @@ const AccountUser = () => {
                     <div className="col-1">
                         <div className='info-user'>
                             <i class="fa-solid fa-user" style={{ style: '#0000' }}></i>
-                            <p>Nguyễn Văn Á</p>
+                            <p>Nguyễn Văn A</p>
                         </div>
                         <p style={{
                             marginLeft: '28px',
+                            marginTop: '20px',
                             textDecoration: 'underline',
-                            color: '#1E1E1EBD'
+                            color: '#1E1E1EBD',
+                            fontSize: 12
                         }}>
-                            NguyenVanA@gmail.com
+                        NguyenVanA@gmail.com
                         </p>
                         <hr />
                         <b>Khách hàng</b>
@@ -54,6 +56,8 @@ const AccountUser = () => {
                                 <span class="label">Số điện thoại</span>
                                 <span class="value">666666666</span>
                             </div>
+
+
                             <div class="info-item">
                                 <span class="label">Địa chỉ</span>
                                 <span class="value">2 Võ Oanh, Bình Thạnh</span>

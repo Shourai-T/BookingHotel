@@ -152,7 +152,7 @@ const BookingPage = () => {
                       onClick={() => handleUsageHourClick(usageHour)}
                       className={selectedUsageHour === usageHour ? 'active' : ''} // Thêm class 'active' nếu giờ sử dụng được chọn
                     >
-                      {usageHour} gi
+                      {usageHour} giờ
                     </button>
                   ))}
                 </div>

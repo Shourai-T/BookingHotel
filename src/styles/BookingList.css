@@ -11,11 +11,12 @@
 }
 
 #booking-list .header-container img {
-    width: 500px;
+    width: 200px;
 }
 
 #booking-list .header-container h1 {
     font-weight: 400;
+    font-size: 20px;
 }
 
 #booking-list .list-container {
