@@ -146,16 +146,16 @@ const FilterRoomPage = () => {
             {filteredRooms.map((room) => {
                let imageUrl;
                switch (room.typeRoom.id) {
-                 case '9c72ac2a-0aa6-4bc1-bf50-15575be18683':
+                 case '1c72ac2a-0aa6-4bc1-bf50-15575be18683':
                    imageUrl = require(`../assets/phongdon/${room.image}`);
                    break;
-                 case '493d4386-791e-409b-85a8-78afbbc596d2':
+                 case '3f3d4386-791e-409b-85a8-78afbbc596d2':
                    imageUrl = require(`../assets/phonggiadinh/${room.image}`);
                    break;
-                 case '2fb24ae1-acb4-420b-b5a2-2dd674fcd899':
+                 case '4fb24ae1-acb4-420b-b5a2-2dd674fcd899':
                    imageUrl = require(`../assets/phonghangsang/${room.image}`);
                    break;
-                 case '1fd36d7a-65e1-43e1-b571-9279696dfe5d':
+                 case '2fd36d7a-65e1-43e1-b571-9279696dfe5d':
                    imageUrl = require(`../assets/phongdoi/${room.image}`);
                    break;
                  default:

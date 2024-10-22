@@ -19,6 +19,7 @@
     "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "react-social-login-buttons": "^4.1.0",
+    "react-spinners": "^0.14.1",
     "react-toastify": "^10.0.6",
     "reactjs-social-login": "^2.6.3",
     "redux-persist": "^6.0.0",

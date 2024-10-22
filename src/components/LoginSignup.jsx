@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ClipLoader } from 'react-spinners';
+import { loginInit, loginStart } from '../redux/Slice/authSlice';
 const LoginSignup = () => {
     const [isSecondFormVisible, setIsSecondFormVisible] = useState(false);
     const formRef = useRef(null);
@@ -53,6 +55,7 @@ const LoginSignup = () => {
     useEffect(() => {
         if (login.error) {
             toast.error("Đăng nhập thất bại!");
+            dispatch(loginInit());
         }
         // Thông báo khi đăng ký thành công hoặc thất bại
         if (register.success) {
@@ -132,7 +135,11 @@ const LoginSignup = () => {
     }
     return (
         <div id="login-body">
-            <div className="container" id="container">
+            {login.isFetching || register.isFetching ? (
+                <div className="loading-container">
+                    <ClipLoader color="#BCA992" loading={true} size={50} />
+                </div>
+            ) : (<div className="container" id="container">
                 <div className="form-container login-container">
                     <form ref={formRef} onSubmit={handleLogin}>
                         <h2>ĐĂNG NHẬP</h2>
@@ -234,7 +241,7 @@ const LoginSignup = () => {
                     </div>
                 </div>
                 <ToastContainer position="top-right" autoClose={5000} />
-            </div>
+            </div>)}
         </div>
     );
 };
