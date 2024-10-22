@@ -6,6 +6,8 @@ import 'boxicons';
 import useCurrentDate from '../hooks/useCurrentDate';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const BookingPage = () => {
@@ -16,11 +18,33 @@ const BookingPage = () => {
   const [selectedHour, setSelectedHour] = useState(null);
   const [selectedUsageHour, setSelectedUsageHour] = useState(null);
   const [selectedSwitchOption, setSelectedSwitchOption] = useState('Hourly');
+  const [checkinDate, setCheckinDate] = useState('');
+  const [checkoutDate, setCheckoutDate] = useState('');
   const currentDate = useCurrentDate();
   const user = useSelector((state) => state.auth.login.currentUser);
-  
+
   // Hàm xử lý click để mở/đóng dropdown
+  // const toggleDropdown = () => {
+  //   setIsDropdownOpen(!isDropdownOpen);
+  // };
+
   const toggleDropdown = () => {
+    // Kiểm tra điều kiện cho form theo giờ
+    if (selectedSwitchOption === 'Hourly') {
+      if (!checkinDate || !selectedHour || !selectedUsageHour) {
+        toast.error('Vui lòng chọn đầy đủ thông tin trước khi chọn phòng.');
+        return; // Không mở dropdown
+      }
+    }
+
+    // Kiểm tra điều kiện cho form theo ngày
+    if (selectedSwitchOption === 'Daily') {
+      if (!checkinDate || !checkoutDate) {
+        toast.error('Vui lòng chọn đầy đủ thông tin trước khi chọn phòng.');
+        return; // Không mở dropdown
+      }
+    }
+
     setIsDropdownOpen(!isDropdownOpen);
   };
 
@@ -31,12 +55,12 @@ const BookingPage = () => {
   };
 
   const handleHourClick = (hour) => {
-    console.log("select"+hour);
+    console.log("select" + hour);
     setSelectedHour(hour); // Cập nhật giờ được chọn
   };
 
   const handleUsageHourClick = (usageHour) => {
-    console.log("select1"+usageHour);
+    console.log("select1" + usageHour);
     setSelectedUsageHour(usageHour); // Cập nhật giờ sử dụng được chọn
   };
 
@@ -65,32 +89,15 @@ const BookingPage = () => {
     };
   }, []);
 
+  const canSelectRoomHourly = checkinDate && selectedHour && selectedUsageHour; // Chọn theo giờ
+  const canSelectRoomDaily = checkinDate && checkoutDate; // Chọn theo ngày
+
   return (
     <div id='booking'>
       <div className="">
         <div className="col-divide">
           <h2 className="title">ĐẶT PHÒNG</h2>
           <img src={Divider} className='Divider' alt="Divider" />
-        </div>
-        <div className="room-select-container">
-          <label htmlFor="room-select">Phòng</label>
-          <div
-            id="room-select"
-            className={`custom-select ${isDropdownOpen ? 'open' : ''}`}
-            onClick={toggleDropdown}
-          >
-            <div className="selected-option">
-              {selectedOption}
-              <box-icon name='chevron-down'></box-icon> {/* Không thêm class xoay */}
-            </div>
-            <div className="options">
-              {roomOptions.map((room) => (
-                <div key={room.value} onClick={() => handleOptionClick(room.label)}>
-                  {room.label}
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
         <div className="booking-container">
           <div className="switches-toggle">
@@ -126,7 +133,7 @@ const BookingPage = () => {
               <div className="choose-date">
                 <label htmlFor="date">Ngày checkin</label>
                 <div className="date-container">
-                  <input type="date" id="date" name="date" min={currentDate} />
+                  <input type="date" id="date" name="date" min={currentDate} value={checkinDate} onChange={(e) => setCheckinDate(e.target.value)} />
                 </div>
               </div>
               <div className="choose-hour">
@@ -157,6 +164,26 @@ const BookingPage = () => {
                   ))}
                 </div>
               </div>
+              <div className="room-select-container">
+                <label htmlFor="room-select">Phòng</label>
+                <div
+                  id="room-select"
+                  className={`custom-select ${isDropdownOpen ? 'open' : ''}`}
+                  onClick={toggleDropdown}
+                >
+                  <div className="selected-option">
+                    {selectedOption}
+                    <box-icon name='chevron-down'></box-icon> {/* Không thêm class xoay */}
+                  </div>
+                  <div className="options">
+                    {roomOptions.map((room) => (
+                      <div key={room.value} onClick={() => handleOptionClick(room.label)}>
+                        {room.label}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
               <div className="choose-number-guests">
                 <label htmlFor="hour">Số khách</label>
                 <div className="number-guests-container">
@@ -170,13 +197,33 @@ const BookingPage = () => {
               <div className="choose-date">
                 <label htmlFor="date">Ngày checkin</label>
                 <div className="date-container">
-                  <input type="date" id="date-checkin" name="date" min={currentDate} />
+                  <input type="date" id="date-checkin" name="date" min={currentDate} value={checkinDate} onChange={(e) => setCheckinDate(e.target.value)} />
                 </div>
               </div>
               <div className="choose-date">
                 <label htmlFor="date">Ngày checkout</label>
                 <div className="date-container">
-                  <input type="date" id="date-checkout" name="date" min={currentDate} />
+                  <input type="date" id="date-checkout" name="date" min={checkinDate} value={checkoutDate} onChange={(e) => setCheckoutDate(e.target.value)}/>
+                </div>
+              </div>
+              <div className="room-select-container">
+                <label htmlFor="room-select">Phòng</label>
+                <div
+                  id="room-select"
+                  className={`custom-select ${isDropdownOpen ? 'open' : ''}`}
+                  onClick={toggleDropdown}
+                >
+                  <div className="selected-option">
+                    {selectedOption}
+                    <box-icon name='chevron-down'></box-icon> {/* Không thêm class xoay */}
+                  </div>
+                  <div className="options">
+                    {roomOptions.map((room) => (
+                      <div key={room.value} onClick={() => handleOptionClick(room.label)}>
+                        {room.label}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="choose-number-guests">
@@ -193,6 +240,7 @@ const BookingPage = () => {
           <button className='booking-btn' onClick={handleBookingClick}>ĐẶT PHÒNG</button>
         </div>
       </div>
+      <ToastContainer position="top-right" autoClose={5000} />
     </div>
   );
 };
