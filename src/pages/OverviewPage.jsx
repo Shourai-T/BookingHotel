@@ -3,10 +3,12 @@ import '../styles/OverviewPage.css'
 import divine from '../assets/divine-white.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllTypeRoom } from '../redux/ApiRequest/apiRequestTypeRoom'
+import Loading from '../components/Loading'
 
 const OverviewPage = () => {
   const dispatch = useDispatch()
   const typeRoomList = useSelector(state => state.typeRoom.getTypeRoomList.data)
+  const { getTypeRoomList } = useSelector(state => state.typeRoom)
   useEffect(() => {
     getAllTypeRoom(dispatch)
   }, [])
@@ -19,7 +21,7 @@ const OverviewPage = () => {
           <img src={divine} alt="divine2" />
         </div>
       </div>
-      <div>
+      {getTypeRoomList.isFetching ? (<Loading/>) : (<div>
         {typeRoomList.map((typeRoom) => {
           const imageUrl = require(`../assets/${typeRoom.image}`)
           return (
@@ -36,7 +38,7 @@ const OverviewPage = () => {
         <button className="booking-now-btn">
           ĐẶT PHÒNG NGAY
         </button>
-      </div>
+      </div>)}
     </body>
   )
 }

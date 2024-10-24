@@ -30,7 +30,7 @@ const ListRoomPage = () => {
     <div>
       <div id="posterlistphong">
         <div className="content-listroom">
-          <h1>Danh sách phòng Tiêu Chuẩn</h1>
+          <h1>{roomList[0]?.typeRoom.name}</h1>
         </div>
       </div>
 

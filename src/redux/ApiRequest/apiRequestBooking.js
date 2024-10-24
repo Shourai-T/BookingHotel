@@ -31,6 +31,8 @@ export const createBooking = async (booking, dispatch) => {
     try {
         const res = await axiosInstance.post(`${API_URL}/api/v1/booking/my-booking`, booking)
         dispatch(createBookingSuccess(res.data))
+        console.log(res.data)
+        return res.data.data.bookingId;
     } catch (error) {
         console.error(error)
         dispatch(createBookingFailure())

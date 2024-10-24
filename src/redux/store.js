@@ -14,6 +14,9 @@ import {
   } from 'redux-persist'
   import storage from 'redux-persist/lib/storage'
 import bookingSlice from "./Slice/bookingSlice";
+import userSlice from "./Slice/userSlice";
+import discountSlice from "./Slice/discountSlice";
+import paymentSlice from "./Slice/paymentSlice";
   const persistConfig = {
     key: 'auth',
     version: 1,
@@ -24,7 +27,10 @@ import bookingSlice from "./Slice/bookingSlice";
     auth: authSlice,
     typeRoom: typeRoomSlice,
     room: roomSlice,
-    booking: bookingSlice
+    booking: bookingSlice,
+    user: userSlice,
+    discount: discountSlice,
+    payment: paymentSlice,
   })
   
   const persistedReducer = persistReducer(persistConfig, rootReducer)

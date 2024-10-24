@@ -5,9 +5,11 @@ import { roomOptions, hoursOptions, usageHoursOptions } from '../data';
 import 'boxicons';
 import useCurrentDate from '../hooks/useCurrentDate';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getRoomByFilter } from '../redux/ApiRequest/apiRequestRoom';
+import moment from 'moment';
 
 
 const BookingPage = () => {
@@ -20,9 +22,12 @@ const BookingPage = () => {
   const [selectedSwitchOption, setSelectedSwitchOption] = useState('Hourly');
   const [checkinDate, setCheckinDate] = useState('');
   const [checkoutDate, setCheckoutDate] = useState('');
+  const [numberGuests, setNumberGuests] = useState(1);
+  const [selectedRoomId, setSelectedRoomId] = useState(null);
   const currentDate = useCurrentDate();
   const user = useSelector((state) => state.auth.login.currentUser);
-
+  const roomList = useSelector((state) => state.room.getRoomList.data);
+  const dispatch = useDispatch();
   // Hàm xử lý click để mở/đóng dropdown
   // const toggleDropdown = () => {
   //   setIsDropdownOpen(!isDropdownOpen);
@@ -31,26 +36,34 @@ const BookingPage = () => {
   const toggleDropdown = () => {
     // Kiểm tra điều kiện cho form theo giờ
     if (selectedSwitchOption === 'Hourly') {
-      if (!checkinDate || !selectedHour || !selectedUsageHour) {
+      if (!checkinDate || !selectedHour || !selectedUsageHour || !numberGuests || numberGuests <= 0) {
         toast.error('Vui lòng chọn đầy đủ thông tin trước khi chọn phòng.');
         return; // Không mở dropdown
+      } else {
+        const startTime = checkinDate + ' ' + selectedHour + ':00:00';
+        const endTime = checkinDate + ' ' + (parseInt(selectedHour) + parseInt(selectedUsageHour)) + ':00:00';
+        getRoomByFilter(startTime, endTime, numberGuests, dispatch);
       }
     }
 
     // Kiểm tra điều kiện cho form theo ngày
     if (selectedSwitchOption === 'Daily') {
-      if (!checkinDate || !checkoutDate) {
+      if (!checkinDate || !checkoutDate || !numberGuests || numberGuests <= 0) {
         toast.error('Vui lòng chọn đầy đủ thông tin trước khi chọn phòng.');
         return; // Không mở dropdown
       }
+      else {
+        getRoomByFilter(checkinDate, checkoutDate, numberGuests, dispatch);
+      }
     }
-
+    console.log(checkinDate, checkoutDate, numberGuests);
     setIsDropdownOpen(!isDropdownOpen);
   };
 
   // Hàm chọn option
-  const handleOptionClick = (option) => {
+  const handleOptionClick = (option, id) => {
     setSelectedOption(option);
+    setSelectedRoomId(id)
     setIsDropdownOpen(false); // Đóng dropdown khi chọn xong
   };
 
@@ -69,12 +82,50 @@ const BookingPage = () => {
   };
 
   const handleBookingClick = () => {
-    navigate('/confirm-booking');
+    let startTime = '';
+    let endTime = '';
+    let total = 0;
+    const selectedRoom = roomList.find(room => room.id === selectedRoomId);
+    // Kiểm tra điều kiện cho form theo giờ
+    if (selectedSwitchOption === 'Hourly') {
+      if (!checkinDate || !selectedHour || !selectedUsageHour || !numberGuests || numberGuests <= 0||!selectedRoomId) {
+        toast.error('Vui lòng chọn đầy đủ thông tin trước khi chọn phòng.');
+        return; // Không mở dropdown
+      } else {
+        startTime = checkinDate + ' ' + selectedHour + ':00:00';
+        endTime = checkinDate + ' ' + (parseInt(selectedHour) + parseInt(selectedUsageHour)) + ':00:00';
+        total = selectedRoom.pricePerHour * parseInt(selectedUsageHour);
+      }
+    }
+
+    // Kiểm tra điều kiện cho form theo ngày
+    if (selectedSwitchOption === 'Daily') {
+      if (!checkinDate || !checkoutDate || !numberGuests || numberGuests <= 0||!selectedRoomId) {
+        toast.error('Vui lòng chọn đầy đủ thông tin trước khi chọn phòng.');
+        return; // Không mở dropdown
+      }
+      else {
+        startTime = checkinDate;
+        endTime = checkoutDate
+        total = selectedRoom.pricePerDay * moment(checkoutDate).diff(moment(checkinDate), 'days');
+      }
+    }
+
+    const bookingInfo = {
+      startTime: startTime,
+      endTime: endTime,
+      bookingType: selectedSwitchOption,
+      numberOfGuest: numberGuests,
+      roomId: selectedRoomId,
+      roomName: selectedOption,
+      total:total
+    }
+    navigate('/confirm-booking', { state: { bookingInfo } });
   };
 
   // Hàm xử lý click bên ngoài dropdown để đóng dropdown
   useEffect(() => {
-    if(!user){
+    if (!user) {
       navigate('/login');
     }
     const handleClickOutside = (event) => {
@@ -159,9 +210,16 @@ const BookingPage = () => {
                       onClick={() => handleUsageHourClick(usageHour)}
                       className={selectedUsageHour === usageHour ? 'active' : ''} // Thêm class 'active' nếu giờ sử dụng được chọn
                     >
-                      {usageHour} gi
+                      {usageHour} giờ
                     </button>
                   ))}
+                </div>
+              </div>
+
+              <div className="choose-number-guests">
+                <label htmlFor="hour">Số khách</label>
+                <div className="number-guests-container">
+                  <input type="number" id="number-guests" name="number-guests" min="1" onChange={(e) => setNumberGuests(e.target.value)} />
                 </div>
               </div>
               <div className="room-select-container">
@@ -176,18 +234,16 @@ const BookingPage = () => {
                     <box-icon name='chevron-down'></box-icon> {/* Không thêm class xoay */}
                   </div>
                   <div className="options">
-                    {roomOptions.map((room) => (
-                      <div key={room.value} onClick={() => handleOptionClick(room.label)}>
-                        {room.label}
-                      </div>
-                    ))}
+                    {roomList.length > 0 ? (
+                      roomList.map((room) => (
+                        <div key={room.id} onClick={() => handleOptionClick(room.name, room.id)}>
+                          {room.name}
+                        </div>
+                      ))
+                    ) : (
+                      <div className="no-options">Không có phòng nào khả dụng</div> // Thông báo nếu không có phòng
+                    )}
                   </div>
-                </div>
-              </div>
-              <div className="choose-number-guests">
-                <label htmlFor="hour">Số khách</label>
-                <div className="number-guests-container">
-                  <input type="number" id="number-guests" name="number-guests" min="1" />
                 </div>
               </div>
             </div>
@@ -203,7 +259,14 @@ const BookingPage = () => {
               <div className="choose-date">
                 <label htmlFor="date">Ngày checkout</label>
                 <div className="date-container">
-                  <input type="date" id="date-checkout" name="date" min={checkinDate} value={checkoutDate} onChange={(e) => setCheckoutDate(e.target.value)}/>
+                  <input type="date" id="date-checkout" name="date" min={checkinDate} value={checkoutDate} onChange={(e) => setCheckoutDate(e.target.value)} />
+                </div>
+              </div>
+
+              <div className="choose-number-guests">
+                <label htmlFor="hour">Số khách</label>
+                <div className="number-guests-container">
+                  <input type="number" id="number-guests" name="number-guests" min="1" onChange={(e) => setNumberGuests(e.target.value)} />
                 </div>
               </div>
               <div className="room-select-container">
@@ -218,18 +281,16 @@ const BookingPage = () => {
                     <box-icon name='chevron-down'></box-icon> {/* Không thêm class xoay */}
                   </div>
                   <div className="options">
-                    {roomOptions.map((room) => (
-                      <div key={room.value} onClick={() => handleOptionClick(room.label)}>
-                        {room.label}
-                      </div>
-                    ))}
+                    {roomList.length > 0 ? (
+                      roomList.map((room) => (
+                        <div key={room.id} onClick={() => handleOptionClick(room.name, room.id)}>
+                          {room.name}
+                        </div>
+                      ))
+                    ) : (
+                      <div className="no-options">Không có phòng nào khả dụng</div> // Thông báo nếu không có phòng
+                    )}
                   </div>
-                </div>
-              </div>
-              <div className="choose-number-guests">
-                <label htmlFor="hour">Số khách</label>
-                <div className="number-guests-container">
-                  <input type="number" id="number-guests" name="number-guests" min="1" />
                 </div>
               </div>
               <p>*Đối với đặt theo ngày, quy định giờ checkin là 09:00 sáng và checkout là trước 24:00 tối*</p>

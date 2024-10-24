@@ -15,6 +15,7 @@ import BookingList from '../pages/BookingList';
 import BookingDetail from '../pages/BookingDetail';
 import AccountUser from '../pages/AccountUser';
 import EditUser from '../pages/EditUser';
+import PaymentReturn from '../pages/PaymentReturn';
 
 const router = createBrowserRouter([
     {
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
         path: '/failure',
         element: <FailurePage />,
     },
+    {
+        path:"/payment-return",
+        element:<PaymentReturn/>
+    }
 ]);
 
 export default router;

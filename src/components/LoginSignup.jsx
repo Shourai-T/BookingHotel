@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ClipLoader } from 'react-spinners';
 import { loginInit, loginStart } from '../redux/Slice/authSlice';
+import Loading from './Loading';
 const LoginSignup = () => {
     const [isSecondFormVisible, setIsSecondFormVisible] = useState(false);
     const formRef = useRef(null);
@@ -136,9 +136,7 @@ const LoginSignup = () => {
     return (
         <div id="login-body">
             {login.isFetching || register.isFetching ? (
-                <div className="loading-container">
-                    <ClipLoader color="#BCA992" loading={true} size={50} />
-                </div>
+                <Loading />
             ) : (<div className="container" id="container">
                 <div className="form-container login-container">
                     <form ref={formRef} onSubmit={handleLogin}>
