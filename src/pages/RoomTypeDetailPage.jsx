@@ -8,6 +8,7 @@ import SizeIcon from '../assets/size_icon.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailTypeRoom } from "../redux/ApiRequest/apiRequestTypeRoom";
+import Loading from "../components/Loading";
 
 const RoomTypeDetailPage = () => {
     const navigate = useNavigate();
@@ -19,18 +20,18 @@ const RoomTypeDetailPage = () => {
 
     // Lấy dữ liệu từ state Redux
     const typeRoomDetail = useSelector(state => state.typeRoom.getDetailTypeRoom.data);
-
     // Kiểm tra dữ liệu đã được tải chưa
     if (!typeRoomDetail) {
-        return <p>Loading...</p>; // Hiển thị loading khi dữ liệu chưa sẵn sàng
+        return <Loading/>; // Hiển thị loading khi dữ liệu chưa sẵn sàng
     }
     const imageUrl = require(`../assets/${typeRoomDetail.image}`);
+    const result = typeRoomDetail.name.match(/\(([^)]+)\)/)
     return (
         <div id="roomtypedetail" style={{ minHeight: '1000px' }}>
             <div className="poster">
                 <img src={Divider} alt="Divider"/>
                 <h1>{typeRoomDetail.name}</h1>
-                <h1>DELUXE ROOM</h1>
+                <h1>{result[1]}</h1>
                 <img src={Divider} alt="Divider"/>
             </div>
 

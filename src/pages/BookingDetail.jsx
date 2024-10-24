@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBookingDetail } from '../redux/ApiRequest/apiRequestBooking';
 import moment from 'moment';
+import Loading from '../components/Loading';
 
 
 const BookingDetail = () => {
@@ -98,6 +99,9 @@ const BookingDetail = () => {
         default:
           break;
       }
+    if(!booking){
+        return <Loading/>
+    }
     return (
         <div id='booking-detail'>
             <div className="container">
