@@ -95,7 +95,8 @@ const BookingList = () => {
                       textDecoration: 'underline',
                       cursor: 'pointer',
                       color: '#000',
-                      fontWeight: 'bold',
+                      fontWeight: 600,
+                      fontSize:14
                     }}
                   >
                     Xem chi tiết {'>>'}

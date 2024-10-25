@@ -57,19 +57,39 @@
     height: 40px;
     width: 150px;
     padding: 5px;
+    margin-top : 0px;
 }
 
 .managebooking-filter input[type="text"] {
     margin-right: 10px;
     border-radius: 20px;
     border: 1px solid black;
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 .managebooking-options{
     border-radius: 20px;
     padding: 5px;
-    width: 100px;
+    width: 150px;
     height: 40px;
+}
+
+.create-booking i{
+    color: black;
+    width: 20px;
+    height: 40px;
+    size: 30px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    margin-left: -10px;
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.create-booking{
+    align-items: center;           /* Center items vertically */
+    justify-content: center;   
 }
 
