@@ -146,7 +146,7 @@ h2 {
     height: 170px;
     padding-left: 40px;
     margin-top: 70px;
-    margin-left: -80px;
+    margin-left: 0;
 }
 
 .room-price .thoitrang {

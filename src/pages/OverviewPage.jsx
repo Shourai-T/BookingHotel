@@ -3,10 +3,15 @@ import '../styles/OverviewPage.css'
 import divine from '../assets/divine-white.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllTypeRoom } from '../redux/ApiRequest/apiRequestTypeRoom'
+import { useParams, useNavigate } from 'react-router-dom'; 
 
 const OverviewPage = () => {
   const dispatch = useDispatch()
   const typeRoomList = useSelector(state => state.typeRoom.getTypeRoomList.data)
+  const navigate = useNavigate()
+  const handleGotoBooking = () => {
+    navigate('/booking'); 
+  };
   useEffect(() => {
     getAllTypeRoom(dispatch)
   }, [])
@@ -33,7 +38,7 @@ const OverviewPage = () => {
             </div>
           )
         })}
-        <button className="booking-now-btn">
+        <button onClick={handleGotoBooking} className="booking-now-btn">
           ĐẶT PHÒNG NGAY
         </button>
       </div>

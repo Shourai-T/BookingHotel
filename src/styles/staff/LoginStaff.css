@@ -1,0 +1,109 @@
+
+
+#loginStaffbody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #33241c;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    width: 100vw;
+    height:100vh;
+    border-radius: 0;
+}
+
+#loginStaffcontainer {
+    width : 900px;
+    height : 500px;
+    display: flex;
+    background-color: white;
+}
+
+/* Left-side: Login form */
+.login-form {
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form h2 {
+    text-align: center;
+    font-family: 'TAN - MON CHERI', sans-serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #33241c;
+    font-weight: 400;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid black;
+    border-radius: 25px; /* Rounded input */
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #33241c;
+}
+
+.input-field{
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.input-field input{
+    width:300px;
+    display: flex;
+    flex-direction: column;
+}
+
+span{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login-form button {
+    width: 200px;
+    padding: 12px;
+    background-color: #33241c;
+    color: white;
+    border: none;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    margin-top: 50px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    margin-left: 50px;
+}
+
+.login-form button:hover {
+    background-color: #4a3627;
+}
+
+.login-form logo{
+    width: 120px;
+    margin-top: -60px;
+    height: 120px;
+    background: url('../../assets/logo-nentrang.png') no-repeat center center/cover;
+}
+.right-img {
+    width: 40%;
+    height: 100%;
+    background: url('../../assets/anddangnhap_staff.jpg') no-repeat center center/cover;
+    display: flex;
+}
+
+hr{
+    border-top: 0.7px solid black;
+    width: 400px;
+    margin-bottom: 10px;
+}

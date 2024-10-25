@@ -1,0 +1,75 @@
+#managebooking-container {
+    padding: 20px;
+}
+
+#managebooking-container h2{
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 20px;
+}
+
+.managebooking-table table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    margin-top: 20px;
+}
+
+.managebooking-table th, .managebooking-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 0.8px solid black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
+
+.managebooking-table thead {
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+.managebooking-table th {
+    font-weight: bold;
+    text-align: center;
+}
+
+.managebooking-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.managebooking-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.managebooking-filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.managebooking-filter button{
+    border-radius: 20px;
+    border: 1px solid black;
+    font-size: 13px;
+    font-weight: 400;
+    margin-right: 30px;
+    height: 40px;
+    width: 150px;
+    padding: 5px;
+}
+
+.managebooking-filter input[type="text"] {
+    margin-right: 10px;
+    border-radius: 20px;
+    border: 1px solid black;
+    margin-top: 5px;
+}
+
+.managebooking-options{
+    border-radius: 20px;
+    padding: 5px;
+    width: 100px;
+    height: 40px;
+}
+
