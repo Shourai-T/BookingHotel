@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getRoomByFilter } from '../redux/ApiRequest/apiRequestRoom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
+import Loading from '../components/Loading';
 
 const FilterRoomPage = () => {
 
@@ -26,7 +27,7 @@ const FilterRoomPage = () => {
   useEffect(() => {
     getRoomByFilter(checkIn, checkOut, guests,dispatch);
   },[checkIn, checkOut, guests, dispatch])
-
+  const {getRoomList}=useSelector(state=>state.room)
   useEffect(() => {
     setFilteredRooms(roomList);
   }, [roomList]);
@@ -115,7 +116,7 @@ const FilterRoomPage = () => {
             </button>
           </ul>
         </div>
-        <div className="body-container">
+        {getRoomList.isFetching?(<Loading/>):(<div className="body-container">
           <div className="filter-price">
             <p>Giá tiền</p>
             <hr className='divider' />
@@ -223,7 +224,8 @@ const FilterRoomPage = () => {
               </div>
             </div> */}
           </div>
-        </div>
+        </div>)}
+        
       </div>
       <ToastContainer position="top-right" autoClose={5000} />
     </div>

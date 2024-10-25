@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { loginFailure, loginStart, loginSuccess, logoutFailure, logoutStart, logoutSuccess, registerFailure, registerStart, registerSuccess } from '../Slice/authSlice';
 import axiosInstance from '../../utility/axios.interceptor';
+
 const API_URL = process.env.REACT_APP_API_URL
 export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loginStart())

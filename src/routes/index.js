@@ -15,10 +15,13 @@ import BookingList from '../pages/BookingList';
 import BookingDetail from '../pages/BookingDetail';
 import AccountUser from '../pages/AccountUser';
 import EditUser from '../pages/EditUser';
+
 import LoginStaff from '../components/staff/LoginStaff';
 import ManageBooking from '../pages/staff/manageBooking';
 import ToggleNavStaff from '../components/staff/ToggleNavStaff';
 import MainLayoutStaff from '../layout/MainLayoutStaff';
+
+import PaymentReturn from '../pages/PaymentReturn';
 
 const router = createBrowserRouter([
     {
@@ -112,12 +115,17 @@ const router = createBrowserRouter([
         element: <FailurePage />,
     },
 
+
     {
         path:'/loginstaff',
         element: <LoginStaff/>,
     },
 
 
+    {
+        path:"/payment-return",
+        element:<PaymentReturn/>
+    }
 ]);
 
 export default router;

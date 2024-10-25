@@ -32,11 +32,11 @@ const PaymentMethodPopup = ({ isOpen, onClose, onConfirm }) => {
                     <label>
                         <input 
                             type="radio" 
-                            value="VNPay" 
-                            checked={selectedMethod === 'VNPay'} 
-                            onChange={() => setSelectedMethod('VNPay')} 
+                            value="Vnpay" 
+                            checked={selectedMethod === 'Vnpay'} 
+                            onChange={() => setSelectedMethod('Vnpay')} 
                         />
-                        Thanh toán bằng VNPay
+                        Thanh toán bằng Vnpay
                     </label>
                 </div>
                 <div className="popup-footer">
