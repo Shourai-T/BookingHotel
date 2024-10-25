@@ -1,0 +1,66 @@
+#bookingDetailStaff-body {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+#bookingDetailStaff-body h2 {
+    margin-bottom: 50px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+#bookingDetailStaff-body .bookingid {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 550;
+    margin-bottom: 15px;
+}
+#bookingDetailStaff-body .row-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    padding-top: 20px;
+}
+
+#bookingDetailStaff-body .row-info .title {
+    font-weight: 600;
+    flex: 1;
+    text-align: left;
+}
+
+#bookingDetailStaff-body .row-info .value{
+    font-weight: 400;
+    flex: 1;
+    text-align: left;
+}
+
+#bookingDetailStaff-body .row-info:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+
+#bookingDetailStaff-body .grp-btn {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+    width: 800px;
+    margin-left: -140px;
+}
+
+#bookingDetailStaff-body .grp-btn button {
+    background-color: black;
+    color: white;
+    width: 150px;
+    font-size: 14px;
+}
+
+#bookingDetailStaff-body .grp-btn .cancel-booking {
+    background-color: red;
+    color: white;
+    width: 150px;
+    font-size: 14px;
+}

@@ -53,7 +53,7 @@ const LoginStaff = () => {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                         </div>
-                        <div className="input-field">
+                        <div className="input-field-staff">
                             <span>Mật khẩu</span>
                             <input type="password"
                             onChange={(e) => setPassword(e.target.value)}

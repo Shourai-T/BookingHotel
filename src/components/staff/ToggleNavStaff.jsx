@@ -25,7 +25,7 @@ const ToggleNavStaff = ({ username, email }) => {
                     <p>nguyenvana@gmail.com</p>
                 </div>
             </div>
-            <hr></hr>
+            <hr className= 'user-divider'></hr>
             <ul className="options-nav">
                 <li
                     className={selectedOption === 'booking' ? 'selected' : ''}

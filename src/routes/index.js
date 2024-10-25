@@ -18,6 +18,7 @@ import EditUser from '../pages/EditUser';
 import LoginStaff from '../components/staff/LoginStaff';
 import ManageBooking from '../pages/staff/manageBooking';
 import MainLayoutStaff from '../layout/MainLayoutStaff';
+import BookingDetailStaff from '../pages/staff/bookingDetailStaff';
 
 import PaymentReturn from '../pages/PaymentReturn';
 
@@ -98,6 +99,11 @@ const router = createBrowserRouter([
                 element: <ManageBooking />,
             },
 
+            {
+                path:"booking-detail-staff",
+                element:<BookingDetailStaff/>
+            }
+
         ]
     },
     {
@@ -124,6 +130,8 @@ const router = createBrowserRouter([
         path:"/payment-return",
         element:<PaymentReturn/>
     }
+
+
 ]);
 
 export default router;

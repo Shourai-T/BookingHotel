@@ -14,14 +14,14 @@
     overflow-y: auto; /* Allow scrolling if content overflows */
 }
 
-.user-container {
+.togglenavstaff-container .user-container {
     display: flex;
     align-items: center;
     padding: 10px 0;
     color : white;
 }
 
-.user-container i{
+.togglenavstaff-container .user-container i{
     color: black;
     width: 25px;
     height: 25px;
@@ -34,7 +34,7 @@
     font-size: 13px;
 }
 
-.user-info-container h5{
+.togglenavstaff-container .user-info-container h5{
     margin: 0;
     padding-left: 10px;
     color: white;
@@ -42,7 +42,7 @@
     margin-bottom: 10px;
 }
 
-.user-info-container p {
+.togglenavstaff-container .user-info-container p {
     margin: 0;
     padding-left: 10px;
     color: white;
@@ -50,13 +50,13 @@
     font-size: 13px;
 }
 
-.options-nav {
+.togglenavstaff-container .options-nav {
     list-style-type: none;
     padding: 0;
 
 }
 
-.options-nav li {
+.togglenavstaff-container .options-nav li {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,20 +71,20 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.options-nav li:hover {
+.togglenavstaff-container .options-nav li:hover {
     background-color: white;
     color: black;
     font-weight: 600;
 }
 
-hr{
+.togglenavstaff-container .user-divider{
     margin-right: 10px;
     margin-left: 10px;
     width: 180px;
     margin-bottom: 30px;
 }
 
-.options-nav li.selected{
+.togglenavstaff-container .options-nav li.selected{
     background-color: white; 
     color: black;
     font-weight: 600;

@@ -37,6 +37,8 @@
     align-items: center;
     text-align: left;
     gap: 10px;
+    border-bottom: 0.8px solid black;
+    padding-bottom: 10px
 }
 
 .toggle-nav-container .user-container i {
@@ -58,14 +60,7 @@
     margin-top: 2px;
 }
 
-.divider {
-    border: none;
-    height: 0.5px;
-    background-color: #000;
-    margin: 10px 0;
-    width: 90%; 
-    align-self: center;
-}
+
 
 .toggle-nav-container .options-nav li {
     padding: 25px 0;
@@ -74,4 +69,5 @@
     cursor: pointer;
     text-align: center;
     font-size: 13px;
+    color: black;
 }
