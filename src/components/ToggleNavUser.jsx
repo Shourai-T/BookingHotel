@@ -30,7 +30,6 @@ const ToggleNavUser = ({ isOpen, toggleNav, username, email }) => {
                     <p>{email}</p>
                 </div>
             </div>
-            <hr className='divider' />
             <ul className="options-nav">
                 <li onClick={handleAccountClick}>Tài khoản</li>
                 <li onClick={handleClickGoBooking}>Đặt phòng của tôi</li>

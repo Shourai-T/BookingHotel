@@ -61,14 +61,14 @@ const BookingList = () => {
               let total = 0;
               switch (booking.bookingType) {
                 case "Daily":
-                  startTime = moment(booking.startTime).format('DD/MM/YYYY');
-                  endTime = moment(booking.endTime).format('DD/MM/YYYY');
-                  total = moment(booking.endTime).diff(moment(booking.startTime), 'days') * booking.room.pricePerDay;
+                  startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY')
+                  endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY')
+                  total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'days') * booking.room.pricePerDay
                   break;
                 case "Hourly":
-                  startTime = moment(booking.startTime).format('DD/MM/YYYY HH:mm');
-                  endTime = moment(booking.endTime).format('DD/MM/YYYY HH:mm');
-                  total = moment(booking.endTime).diff(moment(booking.startTime), 'hours') * booking.room.pricePerHour;
+                  startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY HH:mm')
+                  endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY HH:mm')
+                  total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'hours') * booking.room.pricePerHour
                   break;
                 default:
                   break;
@@ -95,7 +95,8 @@ const BookingList = () => {
                       textDecoration: 'underline',
                       cursor: 'pointer',
                       color: '#000',
-                      fontWeight: 'bold',
+                      fontWeight: 600,
+                      fontSize:14
                     }}
                   >
                     Xem chi tiết {'>>'}

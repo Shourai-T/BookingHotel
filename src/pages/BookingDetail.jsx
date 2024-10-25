@@ -5,7 +5,7 @@ import CancelPopup from '../components/CancelPopup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBookingDetail } from '../redux/ApiRequest/apiRequestBooking';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import Loading from '../components/Loading';
 
 
@@ -15,7 +15,11 @@ const BookingDetail = () => {
     const [showCancelPopup, setShowCancelPopup] = useState(false); // State to manage popup visibility
     const [text, setText] = useState('');
     const dispatch = useDispatch();
+    const user = useSelector(state => state.auth.login.currentUser);
     useEffect(() => {
+        if(!user){
+            navigate('/login'); 
+        }
         getBookingDetail(id, dispatch);
     }, [id, dispatch ]);
     // Tìm thông tin phòng tương ứng với ID
@@ -85,20 +89,40 @@ const BookingDetail = () => {
       let total=0
       switch (booking.bookingType) {
         case "Daily":
-          startTime = moment(booking.startTime).format('DD/MM/YYYY')
-          endTime = moment(booking.endTime).format('DD/MM/YYYY')
+          startTime = moment.tz(booking.startTime,"UTC").format('DD/MM/YYYY')
+          endTime = moment.tz(booking.endTime,"UTC").format('DD/MM/YYYY')
           bookingType = 'Ngày'
-            total = moment(booking.endTime).diff(moment(booking.startTime), 'days') * booking.room.pricePerDay
+        total = moment.tz(booking.endTime,"UTC").diff(moment.tz(booking.startTime,"UTC"), 'days') * booking.room.pricePerDay
           break;
-        case "Hourly'":
-          startTime = moment(booking.startTime).format('DD/MM/YYYY HH:mm')
-          endTime = moment(booking.endTime).format('DD/MM/YYYY HH:mm')
+        case "Hourly":
+          startTime = moment.tz(booking.startTime,"UTC").format('DD/MM/YYYY HH:mm')
+          endTime = moment.tz(booking.endTime,"UTC").format('DD/MM/YYYY HH:mm')
         bookingType = 'Giờ'
-            total = moment(booking.endTime).diff(moment(booking.startTime), 'hours') * booking.room.pricePerHour
+            total = moment.tz(booking.endTime,"UTC").diff(moment.tz(booking.startTime,"UTC"), 'hours') * booking.room.pricePerHour
           break;
         default:
+            console.log('Error')
           break;
       }
+      let imageUrl;
+            switch (booking.room.typeRoom.id) {
+              case '1c72ac2a-0aa6-4bc1-bf50-15575be18683':
+                imageUrl = require(`../assets/phongdon/${booking.room.image}`);
+                break;
+              case '3f3d4386-791e-409b-85a8-78afbbc596d2':
+                imageUrl = require(`../assets/phonggiadinh/${booking.room.image}`);
+                break;
+              case '4fb24ae1-acb4-420b-b5a2-2dd674fcd899':
+                imageUrl = require(`../assets/phonghangsang/${booking.room.image}`);
+                break;
+              case '2fd36d7a-65e1-43e1-b571-9279696dfe5d':
+                imageUrl = require(`../assets/phongdoi/${booking.room.image}`);
+                break;
+              default:
+                imageUrl = require(`../assets/${booking.room.image}`);
+                break;
+            }
+
     if(!booking){
         return <Loading/>
     }
@@ -107,7 +131,7 @@ const BookingDetail = () => {
             <div className="container">
                 <h1>CHI TIẾT ĐẶT PHÒNG</h1>
                 <div className="room-detail">
-                    <img src={booking.room.image} alt="" />
+                    <img src={imageUrl} alt="" />
                     <div className='room-info'>
                         <h3>{booking.room.name}</h3>
                         <p>Loại phòng: {booking.room.typeRoom.name}</p>
@@ -148,11 +172,11 @@ const BookingDetail = () => {
                 </div>
 
                 {/* Trạng thái đã đặt phòng */}
-                {booking.bookingStatus === 'Unpaid'||booking.bookingStatus === 'Paid' && (
+                {/* {(booking.bookingStatus === 'Paid') && (
                     <div className="btn-container">
                         <button onClick={handleCancelClick}>Hủy đặt phòng</button>
                     </div>
-                )}
+                )} */}
 
                 {/* Trạng thái đã check-in */}
                 {booking.bookingStatus === 'CheckedIn' && (

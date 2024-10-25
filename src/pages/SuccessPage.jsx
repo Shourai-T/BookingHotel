@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../styles/SuccessPage.css'
 import successGif from '../assets/success-gif.gif'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const SuccessPage = () => {
+    const nagivate = useNavigate()
+    const user = useSelector(state => state.auth.login.currentUser)
+    useEffect(() => {
+        if(!user){
+            nagivate('/login')
+        }   
+    },[nagivate])
     return (
         <div id='success-page'>
             <div className="container">
@@ -22,7 +31,7 @@ const SuccessPage = () => {
                 </div>
                 <div className="btn-container">
                     <button onClick={() => window.location.href = '/'}>Quay lại trang chủ</button>
-                    <button>Xem chi tiết đặt phòng</button>
+                    <button onClick={()=>window.location.href='/booking-list'}>Xem chi tiết đặt phòng</button>
                 </div>
             </div>
         </div>

@@ -21,7 +21,7 @@
 }
 
 #edit-account .row-info .col-1 {
-    width: 300px;
+    width: 250px;
     height: 150px;
     border: 1.5px solid #000;
     border-radius: 12px;
@@ -31,18 +31,18 @@
 #edit-account .col-1 .info-user {
     display: flex;
     gap: 10px;
-    font-size: 20px;
+    font-size: 15px;
     margin-bottom: 4px;
 }
 
 #edit-account .col-1 hr {
-    border: 1.5px solid #000;
-    margin: 12px 0 22px;
+    border: 0.9px solid #000;
+    margin: 22px 0 12px;
 }
 
 #edit-account .col-1 b {
     margin-left: 28px;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 #edit-account .row-info .col-2 {
@@ -50,17 +50,16 @@
     justify-content: center;
     align-items: center;
     width: 800px;
-    height: 200px;
+    height: 250px;
     border: 1.5px solid #000;
     border-radius: 12px;
-    padding: 10px 20px;
+    margin-left: 50px;
 }
 
 #edit-account .info-group {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 10px;
+    gap: 40px;
     width: 95%;
     font-family: 'Helvetica', sans-serif;
 }
@@ -68,8 +67,7 @@
 #edit-account .info-item {
     display: flex;
     justify-content: space-between;
-    font-size: 18px;
-    align-items: center;
+    font-size: 15px;
 }
 
 #edit-account .label {
@@ -78,17 +76,7 @@
 }
 
 #edit-account .value {
-    border: 1px solid #000;
-    width: 222px;
-    padding: 10px 5px;
-    font-size: 17px;
-    height: 40px;
-    outline: none;
-    border-radius: 24px;
-    font-family: 'Helvetica', sans-serif;
-}
-
-#edit-account .input-container {
+    text-align: left;
     flex: 2;
 }
 
@@ -100,7 +88,22 @@
 
 #edit-account .btn-row button {
     background-color: #000;
-    width: 240px;
-    height: 70px;
+    width: 170px;
+    height: 60px;
     color: #fff;
+    font-size: 15px;
 }
+
+.input-container {
+    width: 200px;
+    height: 30px;
+}
+
+.input-container input {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    border: 1.2px solid #000;
+    border-radius: 20px;
+
+}   

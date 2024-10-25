@@ -41,6 +41,11 @@ const authSlice = createSlice({
             state.login.error = true;
             state.login.msg = action.payload;
         },
+        registerInit:(state)=>{
+            state.register.isFetching = false;
+            state.register.error = false;
+            state.register.success = false;
+        },
         registerStart: (state) => {
             state.register.isFetching = true;
             state.register.error = false;
@@ -81,6 +86,7 @@ export const {
     loginStart,
     loginSuccess,
     loginFailure,
+    registerInit,
     registerStart,
     registerSuccess,
     registerFailure,

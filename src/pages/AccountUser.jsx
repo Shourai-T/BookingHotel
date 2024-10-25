@@ -10,15 +10,18 @@ const AccountUser = () => {
     const [showPopup, setShowPopup] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch()
+    const { getUser } = useSelector(state => state.user)
+    const user = getUser.data
+
     useEffect(() => {
+        if(!user){
+            navigate('/login');}
         getProfile(dispatch);
     }, [dispatch]);
-    const { getUser } = useSelector(state => state.user)
     
     const handleEditClick = () => {
         navigate('/account/edit');
     };
-    const user = getUser.data
     const handleDeleteClick = () => {
         setShowPopup(true);
     };

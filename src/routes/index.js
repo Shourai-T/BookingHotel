@@ -15,6 +15,11 @@ import BookingList from '../pages/BookingList';
 import BookingDetail from '../pages/BookingDetail';
 import AccountUser from '../pages/AccountUser';
 import EditUser from '../pages/EditUser';
+import LoginStaff from '../components/staff/LoginStaff';
+import ManageBooking from '../pages/staff/manageBooking';
+import MainLayoutStaff from '../layout/MainLayoutStaff';
+import BookingDetailStaff from '../pages/staff/bookingDetailStaff';
+
 import PaymentReturn from '../pages/PaymentReturn';
 
 const router = createBrowserRouter([
@@ -74,11 +79,32 @@ const router = createBrowserRouter([
             {
                 path: 'account/edit',
                 element: <EditUser />,
-            }
-
+            },
 
             
         ],
+
+        
+
+        
+    },
+
+    {
+        path: '/staff/',
+        element: <MainLayoutStaff/>,
+        children :[
+            {
+                
+                path: 'manage-booking',
+                element: <ManageBooking />,
+            },
+
+            {
+                path:"booking-detail-staff",
+                element:<BookingDetailStaff/>
+            }
+
+        ]
     },
     {
         path: '/login',
@@ -92,10 +118,20 @@ const router = createBrowserRouter([
         path: '/failure',
         element: <FailurePage />,
     },
+
+
+    {
+        path:'/loginstaff',
+        element: <LoginStaff/>,
+    },
+
+
     {
         path:"/payment-return",
         element:<PaymentReturn/>
     }
+
+
 ]);
 
 export default router;

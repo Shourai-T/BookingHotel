@@ -12,7 +12,7 @@
     align-items: center;
     position: absolute;
     left: -40px;
-    bottom: -80px;
+    bottom: 170px;
 }
 
 #booking .Divider {
@@ -34,13 +34,13 @@
 
 .room-select-container label {
     font-weight: 400;
-    font-size: 25px;
+    font-size: 18px;
     font-family: 'BT Suave Regular';
 }
 
 .room-select-container .custom-select {
-    width: 300px;
-    height: 56px;
+    width: 200px;
+    height: 30px;
     position: relative;
     border: 1.5px solid rgba(0, 0, 0, 1);
     border-radius: 40px;
@@ -55,7 +55,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    font-size: 20px;
+    font-size: 15px;
     background-color: #fff;
     border-radius: 30px;
 }
@@ -70,16 +70,17 @@
     background-color: #fff;
     border-radius: 30px;
     z-index: 10;
-    box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.25);
+    border: 1px solid black;
+    margin-top: 5px;
 
 }
 
 .room-select-container .custom-select .options div {
-    padding: 15px 20px;
-    font-size: 25px;
+    padding: 10px 15px;
+    font-size: 15px;
     cursor: pointer;
-    color: #5E5E5E;
-    border-bottom: 2px solid #ccc;
+    color: black;
+    border-bottom: 0.8px solid black;
 }
 
 .room-select-container .custom-select .options div:last-child {
@@ -104,7 +105,7 @@
 
 #booking .booking-container {
     width: 930px;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
 }
 
 .filter-switch {
@@ -113,8 +114,8 @@
     position: relative;
     display: flex;
     align-items: center;
-    height: 50px;
-    width: 300px;
+    height: 40px;
+    width: 200px;
     overflow: hidden;
 }
 
@@ -133,13 +134,13 @@
     z-index: 1;
     transition: all 0.5s;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 10px;
 }
 
 .filter-switch .background {
     position: absolute;
     width: 49%;
-    height: 38px;
+    height: 28px;
     background-color: #000;
     top: 4px;
     left: 4px;
@@ -170,19 +171,19 @@
     display: flex;
     width: 100%;
     justify-content: flex-end;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
 }
 
 .choose-date {
     display: flex;
     gap: 40px;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .choose-date label {
     font-weight: 400;
-    font-size: 25px;
+    font-size: 18px;
     color: #000;
     font-family: 'BT Suave Regular', sans-serif;
 }
@@ -191,62 +192,80 @@
     position: relative;
     display: flex;
     align-items: center;
-    width: 350px;
+    width: 180px;
 }
 
 .choose-date .date-container input[type="date"] {
     width: 100%;
-    height: 55px;
+    height: 40px;
     padding: 10px 40px 10px 15px;
-    font-size: 30px;
+    font-size: 14px;
     text-align: center;
     color: #000;
     border: 1px solid #000;
     border-radius: 50px;
     outline: none;
-    font-family: 'BT Suave Regular', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400px,;
+
 }
 
 .choose-hour {
     display: flex;
     gap: 40px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 .choose-hour label {
     font-weight: 400;
-    font-size: 25px;
+    font-size: 18px;
     color: #000;
     font-family: 'BT Suave Regular', sans-serif;
 }
 
+.hour-container button {
+    width: 60px;
+    height: 20px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
 .hour-container {
     position: relative;
     display: flex;
     align-items: center;
+    width: 40px;
+    height: 200px;
+    font-size: 13px;
     gap: 10px;
     flex-wrap: wrap;
     flex: 4;
 }
 
-/* #booking .hour-container>button {
+#booking .hour-container>button {
     width: 70px;
-    height: 50px;
+    height: 0px;
     border: 1px solid #000;
     border-radius: 42px;
     margin: 0;
-    font-family: 'BT Suave Regular', sans-serif;
-} */
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
 
 #booking .choose-hour-use {
     display: flex;
     gap: 40px;
-    margin-bottom: 50px;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .choose-hour-use label {
     font-weight: 400;
-    font-size: 25px;
+    font-size: 18px;
     color: #000;
     font-family: 'BT Suave Regular', sans-serif;
 }
@@ -260,7 +279,7 @@
     flex: 4;
 }
 
-/* #booking .hour-use-container>button {
+/* .hour-use-container button {
     width: 70px;
     height: 50px;
     border: 1px solid #000;
@@ -269,16 +288,27 @@
     font-family: 'BT Suave Regular', sans-serif;
 } */
 
+.hour-use-container button {
+    flex: 1;
+    width: 80px; 
+    padding: 10px; 
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
 #booking .choose-number-guests {
     display: flex;
     gap: 40px;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom:20px;
 }
 
 #booking .choose-number-guests label {
     font-weight: 400;
-    font-size: 25px;
+    font-size: 18px;
     color: #000;
     font-family: 'BT Suave Regular', sans-serif;
 }
@@ -287,14 +317,14 @@
     position: relative;
     display: flex;
     align-items: center;
-    width: 160px;
+    width: 100px;
 }
 
 #booking .choose-number-guests .number-guests-container input[type="number"] {
     width: 100%;
-    height: 55px;
+    height: 40px;
     padding: 10px 0;
-    font-size: 30px;
+    font-size: 15px;
     text-align: center;
     color: #000;
     border: 1px solid #000;
@@ -315,23 +345,26 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 #booking .btn-container .booking-btn {
-    width: 300px;
-    height: 65px;
+    width: 200px;
+    height: 45px;
     background-color: #000;
     color: #fff;
     font-family: 'TAN - MON CHERI', sans-serif;
     margin: 0;
+    font-size: 12px;
 }
 
 #booking .hour-container button,
 #booking .hour-use-container button {
-    width: 70px;
-    height: 50px;
+    width: 60px;
+    height: 40px;
     border: 1px solid #000;
     border-radius: 42px;
     margin: 0;
-    font-family: 'BT Suave Regular', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;
+    font-size: 13px;
+    font-weight: 300px;
     transition: all 0.3s ease;
 }
 
@@ -349,7 +382,8 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Form theo ngày */
 
 #booking .day-form-container .choose-date {
-    margin-bottom: 85px;
+    margin-bottom: 40px;
+
 }
 
 #booking .day-form-container p {

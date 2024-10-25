@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../styles/FailurePage.css'
 import failedGif from '../assets/failed-gif.gif'
 
 const FailurePage = () => {
+    useEffect(() => {})
   return (
     <div id='failure-page'>
             <div className="container">

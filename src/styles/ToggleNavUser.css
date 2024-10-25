@@ -1,7 +1,7 @@
 .toggle-nav-container  {
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 250px;
     height: 100vh;
     background-color: white;
     position: fixed; /* Định vị cố định */
@@ -17,10 +17,17 @@
     right: 0; /* Hiển thị khi mở */
 }
 
+.toggle-nav-container i.fa-x {
+    font-size: 15px; /* Thay đổi kích thước biểu tượng dấu "X" */
+    cursor: pointer;
+    color: #000; /* Thay đổi màu sắc nếu cần */
+    margin: 10px; /* Thêm khoảng cách nếu cần */
+}
+
 .toggle-nav-container i {
     text-align: right;
     margin-top: 20px;
-    margin-right: 20px;
+    margin-right: 5px;
     font-size: 25px;
     cursor: pointer;
 }
@@ -30,10 +37,12 @@
     align-items: center;
     text-align: left;
     gap: 10px;
+    border-bottom: 0.8px solid black;
+    padding-bottom: 10px
 }
 
 .toggle-nav-container .user-container i {
-    font-size: 30px;
+    font-size: 15px;
     margin-top: 0;
     margin-bottom: 0;
     margin-left: 25px;
@@ -41,24 +50,17 @@
 }
 
 .toggle-nav-container .user-info-container h5 {
-    font-size: 17px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 550;
 }
 
 .toggle-nav-container .user-info-container p {
-    font-size: 16px;
+    font-size: 13px;
     color: #1E1E1EBD;
     margin-top: 2px;
 }
 
-.divider {
-    border: none;
-    height: 0.5px;
-    background-color: #000;
-    margin: 10px 0;
-    width: 90%; 
-    align-self: center;
-}
+
 
 .toggle-nav-container .options-nav li {
     padding: 25px 0;
@@ -66,4 +68,6 @@
     list-style: none;
     cursor: pointer;
     text-align: center;
+    font-size: 13px;
+    color: black;
 }
