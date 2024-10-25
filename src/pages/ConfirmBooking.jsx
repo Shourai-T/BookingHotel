@@ -13,7 +13,6 @@ import { discountDetailInit } from '../redux/Slice/discountSlice';
 
 const ConfirmBooking = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false); // State để quản lý trạng thái mở/đóng popup
-    const [paymentMethod, setPaymentMethod] = useState(''); // Lưu phương thức thanh toán đã chọn
     const location = useLocation();
     const [discountCode, setDiscountCode] = useState('');
     const { bookingInfo } = location.state || {};
@@ -21,7 +20,6 @@ const ConfirmBooking = () => {
     const dispatch = useDispatch()
     const [discountError, setDiscountError] = useState('');
     const [discountName, setDiscountName] = useState('');
-    const payment= useSelector(state=>state.payment.createPayment.data)
     const handleOpenPopup = () => {
         setIsPopupOpen(true);
     };

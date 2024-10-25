@@ -11,6 +11,9 @@ const EditUser = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
+        if(!user){
+            navigate('/login');
+        }
         getProfile(dispatch);
     }, [dispatch]);
     const { getUser } = useSelector(state => state.user)
