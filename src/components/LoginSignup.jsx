@@ -63,6 +63,7 @@ const LoginSignup = () => {
             dispatch(registerInit());
         } else if (register.error) {
             toast.error("Đăng ký thất bại!");
+            dispatch(registerInit());
         }
     }, [login, register]);
 
