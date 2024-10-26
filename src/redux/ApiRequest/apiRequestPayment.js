@@ -1,5 +1,5 @@
 import axiosInstance from "../../utility/axios.interceptor"
-import { createPaymentFailure, createPaymentStart, createPaymentSuccess } from "../Slice/paymentSlice"
+import { createPaymentFailure, createPaymentStart, createPaymentSuccess, refundFailure, refundStart, refundSuccess } from "../Slice/paymentSlice"
 
 const API_URL = process.env.REACT_APP_API_URL
 export const createPaymentByZaloPay = async (data,dispatch) => {
@@ -22,5 +22,17 @@ export const createPaymentByVnpay = async (data,dispatch) => {
     } catch (error) {
         console.error(error)
         dispatch(createPaymentFailure())
+    }
+}
+
+export const refund =async(bookingId,dispatch)=>{
+    dispatch(refundStart())
+    try {
+        await axiosInstance.patch(`${API_URL}/api/v1/payment/${bookingId}`)
+        dispatch(refundSuccess())
+        window.location.reload()
+    } catch (error) {
+        console.error(error)
+        dispatch(refundFailure())
     }
 }
