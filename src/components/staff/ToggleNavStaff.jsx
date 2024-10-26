@@ -3,18 +3,27 @@ import '../../styles/staff/toggleNavStaff.css';
 import { useNavigate } from 'react-router-dom';
 
 const ToggleNavStaff = ({ username, email }) => {
-    const [selectedOption, setSelectedOption] = useState('booking'); 
     const navigate = useNavigate();
 
-    
-    useEffect(() => {
-        navigate('/staff/manage-booking');
-    }, [navigate]);
+    // Xác định selectedOption dựa trên pathname
+    const [selectedOption, setSelectedOption] = useState(() => {
+        const path = window.location.pathname;
+        if (path.includes('manage-booking')) return 'booking';
+        if (path.includes('manage-account')) return 'account';
+        if (path.includes('view-revenue')) return 'revenue';
+        if (path.includes('rooms')) return 'rooms';
+        return 'booking'; // Giá trị mặc định
+    });
 
     const handleNavigation = (path, option) => {
         setSelectedOption(option);
         navigate(path);
     };
+
+    useEffect(() => {
+        // Điều hướng ban đầu dựa trên URL hiện tại
+        navigate(window.location.pathname);
+    }, [navigate]);
 
     return (
         <div className='togglenavstaff-container'>
@@ -25,7 +34,7 @@ const ToggleNavStaff = ({ username, email }) => {
                     <p>nguyenvana@gmail.com</p>
                 </div>
             </div>
-            <hr className= 'user-divider'></hr>
+            <hr className='user-divider'></hr>
             <ul className="options-nav">
                 <li
                     className={selectedOption === 'booking' ? 'selected' : ''}
@@ -35,13 +44,13 @@ const ToggleNavStaff = ({ username, email }) => {
                 </li>
                 <li
                     className={selectedOption === 'account' ? 'selected' : ''}
-                    onClick={() => handleNavigation('/staff/account', 'account')}
+                    onClick={() => handleNavigation('/staff/manage-account', 'account')}
                 >
                     Quản lý tài khoản
                 </li>
                 <li
                     className={selectedOption === 'revenue' ? 'selected' : ''}
-                    onClick={() => handleNavigation('/staff/revenue', 'revenue')}
+                    onClick={() => handleNavigation('/staff/view-revenue', 'revenue')}
                 >
                     Doanh thu
                 </li>

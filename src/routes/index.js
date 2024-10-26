@@ -15,12 +15,14 @@ import BookingList from '../pages/BookingList';
 import BookingDetail from '../pages/BookingDetail';
 import AccountUser from '../pages/AccountUser';
 import EditUser from '../pages/EditUser';
-
+import ViewRevenue from '../pages/staff/viewRevenue';
 import LoginStaff from '../components/staff/LoginStaff';
 import ManageBooking from '../pages/staff/manageBooking';
 import ToggleNavStaff from '../components/staff/ToggleNavStaff';
 import MainLayoutStaff from '../layout/MainLayoutStaff';
 import BookingDetailStaff from '../pages/staff/bookingDetailStaff';
+import CreateBooking from '../pages/staff/createBooking';
+import ManageAccount from '../pages/staff/manageUserAccount';
 
 import PaymentReturn from '../pages/PaymentReturn';
 
@@ -104,7 +106,23 @@ const router = createBrowserRouter([
             {
                 path:"booking-detail-staff",
                 element:<BookingDetailStaff/>
-            }
+            },
+
+            {
+                path:"create-booking",
+                element:<CreateBooking/>
+            },
+
+            {
+                path:'manage-account',
+                element:<ManageAccount/>
+            },
+
+            {
+                path:'view-revenue',
+                element:<ViewRevenue/>
+            },
+
 
         ]
     },
