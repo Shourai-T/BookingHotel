@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { loginInit, loginStart } from '../redux/Slice/authSlice';
+import { loginInit, loginStart, registerInit } from '../redux/Slice/authSlice';
 import Loading from './Loading';
 const LoginSignup = () => {
     const [isSecondFormVisible, setIsSecondFormVisible] = useState(false);
@@ -60,8 +60,10 @@ const LoginSignup = () => {
         // Thông báo khi đăng ký thành công hoặc thất bại
         if (register.success) {
             toast.success("Đăng ký thành công!");
+            dispatch(registerInit());
         } else if (register.error) {
             toast.error("Đăng ký thất bại!");
+            dispatch(registerInit());
         }
     }, [login, register]);
 

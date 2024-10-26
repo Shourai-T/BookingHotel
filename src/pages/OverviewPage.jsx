@@ -4,7 +4,7 @@ import divine from '../assets/divine-white.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllTypeRoom } from '../redux/ApiRequest/apiRequestTypeRoom'
 
-import { useParams, useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 
 import Loading from '../components/Loading'
 

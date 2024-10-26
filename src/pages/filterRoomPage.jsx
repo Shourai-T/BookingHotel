@@ -24,6 +24,7 @@ const FilterRoomPage = () => {
   const [checkInDate, setCheckInDate] = useState(checkIn || '');
   const [checkOutDate, setCheckOutDate] = useState(checkOut || '');
   const [guestsInput, setGuests] = useState(guests || 1);
+  const nagivate=useNavigate();
   useEffect(() => {
     getRoomByFilter(checkIn, checkOut, guests,dispatch);
   },[checkIn, checkOut, guests, dispatch])
@@ -189,7 +190,7 @@ const FilterRoomPage = () => {
                   </div>
                   <div className="btn-container">
                     <button className="booking-btn">Đặt phòng này</button>
-                    <button className="detail-btn">Xem chi tiết</button>
+                    <button className="detail-btn" onClick={(e)=>nagivate(`/listroom/${room.typeRoom.id}`)}>Xem chi tiết</button>
                   </div>
                 </div>
               </div>

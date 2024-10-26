@@ -18,7 +18,6 @@ import EditUser from '../pages/EditUser';
 import ViewRevenue from '../pages/staff/viewRevenue';
 import LoginStaff from '../components/staff/LoginStaff';
 import ManageBooking from '../pages/staff/manageBooking';
-import ToggleNavStaff from '../components/staff/ToggleNavStaff';
 import MainLayoutStaff from '../layout/MainLayoutStaff';
 import BookingDetailStaff from '../pages/staff/bookingDetailStaff';
 import CreateBooking from '../pages/staff/createBooking';

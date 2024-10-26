@@ -4,9 +4,13 @@ import picroom from '../assets/phongdoi.jpg'
 import CancelPopup from '../components/CancelPopup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBookingDetail } from '../redux/ApiRequest/apiRequestBooking';
-import moment from 'moment';
+import { cancelBooking, getBookingDetail } from '../redux/ApiRequest/apiRequestBooking';
+import moment from 'moment-timezone';
 import Loading from '../components/Loading';
+import { createNewReview, createReview } from '../redux/ApiRequest/apiRequestReview';
+import { toast, ToastContainer } from 'react-toastify';
+import { createReviewInit } from '../redux/Slice/reviewSlice';
+import { refund } from '../redux/ApiRequest/apiRequestPayment';
 
 
 const BookingDetail = () => {
@@ -14,19 +18,36 @@ const BookingDetail = () => {
     const navigate = useNavigate();
     const [showCancelPopup, setShowCancelPopup] = useState(false); // State to manage popup visibility
     const [text, setText] = useState('');
+    const [rating, setRating] = useState(null)
     const dispatch = useDispatch();
+    const user = useSelector(state => state.auth.login.currentUser);
+    const {createReview}= useSelector(state => state.review)
     useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
         getBookingDetail(id, dispatch);
-    }, [id, dispatch ]);
+    }, [id, dispatch]);
     // Tìm thông tin phòng tương ứng với ID
-    const booking= useSelector(state => state.booking.bookingDetail.data);
-    
+    const booking = useSelector(state => state.booking.bookingDetail.data);
+
+    useEffect(()=>{
+        if(createReview.succes){
+            toast.success('Tạo đánh giá thành công !')
+            dispatch(createReviewInit())
+        }
+        else if(createReview.error){
+            toast.error('Tạo đánh giá thất bại !')
+            dispatch(createReviewInit())
+        }
+    },[createReview])
     if (!booking) {
         return <div>Không tìm thấy thông tin đặt phòng.</div>; // Thông báo nếu không tìm thấy
     }
 
     // Function to open popup
     const handleCancelClick = () => {
+        
         setShowCancelPopup(true);
     };
 
@@ -43,13 +64,21 @@ const BookingDetail = () => {
 
     // Function to handle cancellation logic
     const handleCancel = () => {
-        // Here, you can add logic to actually cancel the booking
-        alert("Đặt phòng đã bị hủy.");
+        try {
+            refund(id,dispatch)
+        } catch (error) {
+            console.error(error)
+            toast.error('Hủy đặt phòng có lỗi xảy ra !')
+        }
         setShowCancelPopup(false); // Close the popup after cancellation
     };
 
     const handleChange = (event) => {
         setText(event.target.value);
+    };
+
+    const handleRatingChange = (e) => {
+        setRating(e.target.value);
     };
 
     const handleGoToBooking = () => {
@@ -58,56 +87,98 @@ const BookingDetail = () => {
     let status = ''
     switch (booking.bookingStatus) {
         case 'Paid':
-          status = 'Đã thanh toán'
-          break;
+            status = 'Đã thanh toán'
+            break;
         case 'Unpaid':
-          status = 'Chưa thanh toán'
-          break;
+            status = 'Chưa thanh toán'
+            break;
         case 'CheckedIn':
-          status = 'Đã nhận phòng'
-          break;
+            status = 'Đã nhận phòng'
+            break;
         case 'CheckedIn':
-          status = 'Đã nhận phòng'
-          break; 
+            status = 'Đã nhận phòng'
+            break;
         case 'CheckedOut':
-          status = 'Đã trả phòng'
-          break;
+            status = 'Đã trả phòng'
+            break;
         case 'Cancelled':
-          status = 'Đã hủy'
-          break;
+            status = 'Đã hủy'
+            break;
         default:
-          status = 'Đã đánh giá'
-          break;
-      }
-      let startTime='';
-      let endTime='';
-      let bookingType='';
-      let total=0
-      switch (booking.bookingType) {
+            status = 'Đã đánh giá'
+            break;
+    }
+    let startTime = '';
+    let endTime = '';
+    let bookingType = '';
+    let total = 0
+    switch (booking.bookingType) {
         case "Daily":
-          startTime = moment(booking.startTime).format('DD/MM/YYYY')
-          endTime = moment(booking.endTime).format('DD/MM/YYYY')
-          bookingType = 'Ngày'
-            total = moment(booking.endTime).diff(moment(booking.startTime), 'days') * booking.room.pricePerDay
-          break;
-        case "Hourly'":
-          startTime = moment(booking.startTime).format('DD/MM/YYYY HH:mm')
-          endTime = moment(booking.endTime).format('DD/MM/YYYY HH:mm')
-        bookingType = 'Giờ'
-            total = moment(booking.endTime).diff(moment(booking.startTime), 'hours') * booking.room.pricePerHour
-          break;
+            startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY')
+            endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY')
+            bookingType = 'Ngày'
+            total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'days') * booking.room.pricePerDay
+            break;
+        case "Hourly":
+            startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY HH:mm')
+            endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY HH:mm')
+            bookingType = 'Giờ'
+            total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'hours') * booking.room.pricePerHour
+            break;
         default:
-          break;
-      }
-    if(!booking){
-        return <Loading/>
+            console.log('Error')
+            break;
+    }
+    let imageUrl;
+    switch (booking.room.typeRoom.id) {
+        case '1c72ac2a-0aa6-4bc1-bf50-15575be18683':
+            imageUrl = require(`../assets/phongdon/${booking.room.image}`);
+            break;
+        case '3f3d4386-791e-409b-85a8-78afbbc596d2':
+            imageUrl = require(`../assets/phonggiadinh/${booking.room.image}`);
+            break;
+        case '4fb24ae1-acb4-420b-b5a2-2dd674fcd899':
+            imageUrl = require(`../assets/phonghangsang/${booking.room.image}`);
+            break;
+        case '2fd36d7a-65e1-43e1-b571-9279696dfe5d':
+            imageUrl = require(`../assets/phongdoi/${booking.room.image}`);
+            break;
+        default:
+            imageUrl = require(`../assets/${booking.room.image}`);
+            break;
+    }
+
+
+    const handleCreateReview = () => {
+        if (!rating || !text) {
+            toast.warn('Vui lòng nhập đủ mục đánh giá')
+            return
+        }
+        const newReview = {
+            rating: rating,
+            comment: text,
+            bookingId: id,
+        }
+        try {
+            createNewReview(newReview, dispatch)
+        } catch (error) {
+            console.log(error)
+            toast.error('Đã có lỗi xảy ra !')
+        }
+    }
+
+    if (!booking) {
+        return <Loading />
     }
     return (
         <div id='booking-detail'>
-            <div className="container">
+            {createReview.isFetching?
+            (<Loading/>)
+            :
+            (<div className="container">
                 <h1>CHI TIẾT ĐẶT PHÒNG</h1>
                 <div className="room-detail">
-                    <img src={booking.room.image} alt="" />
+                    <img src={imageUrl} alt="" />
                     <div className='room-info'>
                         <h3>{booking.room.name}</h3>
                         <p>Loại phòng: {booking.room.typeRoom.name}</p>
@@ -148,18 +219,18 @@ const BookingDetail = () => {
                 </div>
 
                 {/* Trạng thái đã đặt phòng */}
-                {booking.bookingStatus === 'Unpaid'||booking.bookingStatus === 'Paid' && (
+                {(booking.bookingStatus === 'Paid'||booking.bookingStatus ==='Unpaid') && (
                     <div className="btn-container">
                         <button onClick={handleCancelClick}>Hủy đặt phòng</button>
                     </div>
                 )}
 
                 {/* Trạng thái đã check-in */}
-                {booking.bookingStatus === 'CheckedIn' && (
+                {booking.bookingStatus === 'CheckedOut' && (
                     <div className="rating-container">
                         <h2>Đánh giá</h2>
                         <div className="rating-body">
-                            <div className="rating">
+                            <div className="rating" onChange={handleRatingChange}>
                                 <input value="5" name="rating" id="star5" type="radio" />
                                 <label htmlFor="star5"></label>
                                 <input value="4" name="rating" id="star4" type="radio" />
@@ -180,7 +251,7 @@ const BookingDetail = () => {
                                 placeholder="Nhận xét ở đây"
                             />
                             <div className="btn-container">
-                                <button>Đánh giá</button>
+                                <button onClick={handleCreateReview}>Đánh giá</button>
                             </div>
                         </div>
                     </div>
@@ -193,6 +264,8 @@ const BookingDetail = () => {
                     </div>
                 )}
             </div>
+        )
+        }
 
             {showCancelPopup && (
                 <CancelPopup
@@ -201,6 +274,8 @@ const BookingDetail = () => {
                     onCancel={handleCancel}
                 />
             )}
+            <ToastContainer position="top-right" autoClose={5000} />
+
         </div>
     )
 }

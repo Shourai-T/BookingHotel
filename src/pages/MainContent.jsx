@@ -8,6 +8,7 @@ import img1 from '../assets/datphong1.jpg'
 import img2 from '../assets/datphong2.jpg'
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import useCurrentDate from '../hooks/useCurrentDate';
 
 const MainContent = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -22,41 +23,41 @@ const MainContent = () => {
     const today = new Date();
     const checkIn = new Date(checkInDate);
     const checkOut = new Date(checkOutDate);
-  
+    today.setHours(0, 0, 0, 0);
     // Kiểm tra nếu trường check-in trống
     if (!checkInDate) {
       toast.warn("Vui lòng chọn ngày check-in.");
       return;
     }
-  
+
     // Kiểm tra nếu trường check-out trống
     if (!checkOutDate) {
       toast.warn("Vui lòng chọn ngày check-out.");
       return;
     }
-  
+
     // Kiểm tra nếu số khách trống hoặc nhỏ hơn 1
     if (!guests || guests <= 0) {
       toast.warn("Vui lòng chọn số lượng khách lớn hơn 0.");
       return;
     }
-  
+
     // Kiểm tra nếu checkInDate lớn hơn hoặc bằng hôm nay
-    if (checkIn < today) {
+    if (checkIn <= today) {
       toast.warn("Ngày check-in phải lớn hơn hoặc bằng hôm nay.");
       return;
     }
-  
+
     // Kiểm tra nếu checkOutDate lớn hơn checkInDate
     if (checkOut <= checkIn) {
       toast.warn("Ngày check-out phải lớn hơn ngày check-in.");
       return;
     }
-  
+
     // Nếu tất cả điều kiện đều hợp lệ, điều hướng sang trang filter
     navigate(`/filter?checkIn=${checkInDate}&checkOut=${checkOutDate}&guests=${guests}`);
   };
-  
+
 
 
   useEffect(() => {
@@ -92,7 +93,7 @@ const MainContent = () => {
       }
     }
   }, [isFullscreen]);
-
+  const currentDate = useCurrentDate();
 
   return (
     <body id='main'>
@@ -102,15 +103,15 @@ const MainContent = () => {
             <h1>THE ÉLÉGANCE</h1>
             <p>Vẻ đẹp thanh lịch, nghỉ dưỡng trọn vẹn</p>
           </div>
-          <button className='booking-btn'>Booking now</button>
+          <button className='booking-btn' onClick={(e) => window.location.href = "/booking"}>Booking now</button>
         </div>
         <div className="booking-section">
           <ul>
             <li>Check in
-              <input type="date" value={checkInDate} onChange={(e) => setCheckInDate(e.target.value)} />
+              <input type="date" value={checkInDate} min={currentDate} onChange={(e) => setCheckInDate(e.target.value)} />
             </li>
             <li>Check out
-              <input type="date" value={checkOutDate} onChange={(e) => setCheckOutDate(e.target.value)} />
+              <input type="date" value={checkOutDate} min={currentDate} onChange={(e) => setCheckOutDate(e.target.value)} />
             </li>
             <li style={{ border: 'none', }}>Khách
               <input type="number" min="1" value={guests} onChange={(e) => setGuests(e.target.value)} style={{ width: '100px', }} />

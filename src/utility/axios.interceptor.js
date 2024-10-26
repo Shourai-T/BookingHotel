@@ -56,6 +56,13 @@ axiosInstance.interceptors.response.use(
                 originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
                 return axiosInstance(originalRequest); // Retry lại request ban đầu
             }
+            else {
+                // Nếu refresh token thất bại, dispatch logout và chuyển hướng về login
+                dispatch(loginSuccess(null));
+
+                // Chuyển hướng về trang login (sử dụng window.location nếu không có access tới history)
+                window.location.href = '/login'; // hoặc sử dụng useHistory để điều hướng
+            }
         }
         return Promise.reject(error);
     }

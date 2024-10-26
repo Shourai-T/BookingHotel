@@ -2,6 +2,8 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authSlice from "./Slice/authSlice";
 import typeRoomSlice from "./Slice/typeRoomSlice";
 import roomSlice from "./Slice/roomSlice";
+import reviewSlice from "./Slice/reviewSlice";
+
 import {
     persistStore,
     persistReducer,
@@ -31,6 +33,7 @@ import paymentSlice from "./Slice/paymentSlice";
     user: userSlice,
     discount: discountSlice,
     payment: paymentSlice,
+    review: reviewSlice,
   })
   
   const persistedReducer = persistReducer(persistConfig, rootReducer)
