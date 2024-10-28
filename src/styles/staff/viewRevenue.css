@@ -19,8 +19,7 @@
 }
 
 #view-revenue .viewRevenue-body{
-    width: 900px;
-    height: 300px;
+    width: 100%;
     margin-bottom: 20px;
     align-items: center;
     justify-content: center;

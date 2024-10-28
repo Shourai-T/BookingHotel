@@ -63,7 +63,7 @@ const RevenueChart = ({ data, timeRange }) => {
     };
 
     return (
-        <div style={{ width: '80%', height:'400px', marginTop:'180px'}}>
+        <div style={{ width: '80%', height:'400px', marginTop:'20px'}}>
             <Line data={chartData} options={options} />
         </div>
     );
