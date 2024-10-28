@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Booking.css';
-import Divider from '../assets/divider-black-twostar.png';
 import { roomOptions, hoursOptions, usageHoursOptions } from '../data';
 import 'boxicons';
 import useCurrentDate from '../hooks/useCurrentDate';
@@ -148,7 +147,6 @@ const BookingPage = () => {
       <div className="">
         <div className="col-divide">
           <h2 className="title">ĐẶT PHÒNG</h2>
-          <img src={Divider} className='Divider' alt="Divider" />
         </div>
         <div className="booking-container">
           <div className="switches-toggle">

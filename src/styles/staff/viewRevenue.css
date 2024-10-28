@@ -1,0 +1,37 @@
+#view-revenue{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#view-revenue h2{
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+#view-revenue .revenue-chart{
+    width: 900px;
+    height: 300px;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.revenue-options {
+    display: flex;
+    align-items: center;
+}
+
+.revenue-options select {
+    padding : 7px 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+    margin-left: 400px;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+

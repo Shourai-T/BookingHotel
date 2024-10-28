@@ -1,0 +1,68 @@
+#deleteAccountPopup-body {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#deleteAccountPopup-body .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 350px;
+    width: 100%;
+    text-align: center;
+}
+
+#deleteAccountPopup-body .popup-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    font-family: 'Helvetica', sans-serif;
+    position: relative;
+}
+
+#deleteAccountPopup-body .popup-body {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#deleteAccountPopup-body b{
+    font-size: 14px;
+}
+
+#deleteAccountPopup-body .popup-body p {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 14px;
+}
+
+#deleteAccountPopup-body .popup-footer {
+    display: flex;
+    justify-content: space-around;
+}
+
+#deleteAccountPopup-body .back-btn,
+#deleteAccountPopup-body .delete-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#deleteAccountPopup-body .back-btn {
+    background-color: #000;
+    color: #fff;
+    font-size: 14px;
+}
+
+#deleteAccountPopup-body .delete-btn {
+    background-color: red;
+    color: white;
+    font-size: 14px;
+}
+

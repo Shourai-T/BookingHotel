@@ -1,0 +1,158 @@
+#bookingInvoice-staff {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 20px;
+}
+
+#bookingInvoice-staff h2 {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+#bookingInvoice-staff .bookingInvoice-info{
+    width: 1000px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#bookingInvoice-staff .row-info {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+    width: 80%;
+}
+
+#bookingInvoice-staff .row-info .title {
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    flex: 1;
+}
+
+#bookingInvoice-staff .row-info .value {
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    flex: 1;
+}
+
+#bookingInvoice-staff .bookingid {
+    font-size: 14px; /* Corrected from 14x to 14px */
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    margin-bottom: 40px;
+    margin-left: -600px;
+    text-align: start;
+}
+#bookingInvoice-staff .service-options {
+    position: relative; /* Ensure dropdown is positioned correctly */
+}
+
+#bookingInvoice-staff .service-dropdown {
+    padding: 10px; /* Reduced padding for a more compact look */
+    display: flex;
+    flex-direction: column; 
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: white; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+#bookingInvoice-staff .service-rows {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping for multiple rows */
+    margin-bottom: 10px; /* Space between service options and buttons */
+}
+
+#bookingInvoice-staff .service-row {
+    flex: 0 0 50%; /* Two items per row (for 2 services) */
+    box-sizing: border-box; /* Include padding and border in the width */
+    margin-bottom: 10px; /* Space between rows */
+    display: flex; /* Use flex to align checkbox and label */
+    align-items: center; /* Center vertically */
+}
+
+#bookingInvoice-staff .service-dropdown-buttons {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 10px;
+}
+
+#bookingInvoice-staff .ok-button,
+#bookingInvoice-staff .cancel-button {
+    padding: 8px 12px; /* Increased padding for buttons */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: black; /* Bootstrap primary color */
+    color: white;
+    margin-right: 15px;
+    font-size: 14px; /* Slightly larger font size */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+#bookingInvoice-staff .ok-button:hover,
+#bookingInvoice-staff .cancel-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+#bookingInvoice-staff .service-dropdown label {
+    font-size: 14px; /* Slightly larger font for better readability */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#bookingInvoice-staff .service-dropdown input {
+    margin-right: 10px;
+    transform: scale(1.2); /* Slightly larger checkbox */
+}
+
+#bookingInvoice-staff .service-toggle-button {
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid #007bff; /* Matching border color with button */
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-top: -5px;
+    background-color: white; /* Match background to dropdown */
+    color: #007bff; /* Text color for button */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+#bookingInvoice-staff .service-toggle-button:hover {
+    background-color: #007bff; /* Change background on hover */
+    color: white; /* Change text color on hover */
+}
+
+#bookingInvoice-staff .service{
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    justify-content:flex-start;
+    width: 80%;
+}
+
+#bookingInvoice-staff .buttons{
+    display: flex;
+    justify-content: end;
+}
+
+#bookingInvoice-staff .grp-btns{
+    display: flex;
+    justify-content: center;
+    width: 40%;
+
+}
+
+#bookingInvoice-staff .grp-btns button{
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    margin-right: 100px ;
+}

@@ -15,10 +15,15 @@ import BookingList from '../pages/BookingList';
 import BookingDetail from '../pages/BookingDetail';
 import AccountUser from '../pages/AccountUser';
 import EditUser from '../pages/EditUser';
+import ViewRevenue from '../pages/staff/viewRevenue';
 import LoginStaff from '../components/staff/LoginStaff';
 import ManageBooking from '../pages/staff/manageBooking';
 import MainLayoutStaff from '../layout/MainLayoutStaff';
 import BookingDetailStaff from '../pages/staff/bookingDetailStaff';
+import CreateBooking from '../pages/staff/createBooking';
+import ManageAccount from '../pages/staff/manageUserAccount';
+import BookingInvoice from '../pages/staff/booking-invoice';
+import ManageRoom from '../pages/staff/ManageRoom';
 
 import PaymentReturn from '../pages/PaymentReturn';
 
@@ -102,7 +107,32 @@ const router = createBrowserRouter([
             {
                 path:"booking-detail-staff",
                 element:<BookingDetailStaff/>
-            }
+            },
+
+            {
+                path:"create-booking",
+                element:<CreateBooking/>
+            },
+
+            {
+                path:'manage-account',
+                element:<ManageAccount/>
+            },
+
+            {
+                path:'view-revenue',
+                element:<ViewRevenue/>
+            },
+
+            {
+                path:'booking-invoice',
+                element:<BookingInvoice/>
+            },
+
+            {
+                path:'manage-room',
+                element:<ManageRoom/>
+            },
 
         ]
     },
@@ -129,7 +159,7 @@ const router = createBrowserRouter([
     {
         path:"/payment-return",
         element:<PaymentReturn/>
-    }
+    },
 
 
 ]);
