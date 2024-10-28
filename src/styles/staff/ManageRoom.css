@@ -1,0 +1,73 @@
+/* Đặt các thuộc tính chung cho phần chứa toàn bộ trang */
+#manageRoom-body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Định dạng tiêu đề */
+#manageRoom-body h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Định dạng bảng */
+.manageRoom-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Chỉ có kẻ ngang, không có kẻ dọc */
+.manageRoom-table th, .manageRoom-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd; /* Kẻ ngang */
+}
+
+/* Định dạng tiêu đề bảng */
+.manageRoom-table th {
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Định dạng hàng trong bảng */
+.manageRoom-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.manageRoom-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Định dạng hình ảnh */
+.manageRoom-table img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+/* Định dạng nút xóa */
+.manageRoom-table button {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto; /* Căn giữa */
+}
+
+.manageRoom-table button:hover {
+    background-color: #c9302c;
+}
+
+.manageRoom-table .bx-trash-alt {
+    font-size: 20px;
+}

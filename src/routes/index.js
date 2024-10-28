@@ -22,6 +22,8 @@ import MainLayoutStaff from '../layout/MainLayoutStaff';
 import BookingDetailStaff from '../pages/staff/bookingDetailStaff';
 import CreateBooking from '../pages/staff/createBooking';
 import ManageAccount from '../pages/staff/manageUserAccount';
+import BookingInvoice from '../pages/staff/booking-invoice';
+import ManageRoom from '../pages/staff/ManageRoom';
 
 import PaymentReturn from '../pages/PaymentReturn';
 
@@ -122,6 +124,15 @@ const router = createBrowserRouter([
                 element:<ViewRevenue/>
             },
 
+            {
+                path:'booking-invoice',
+                element:<BookingInvoice/>
+            },
+
+            {
+                path:'manage-room',
+                element:<ManageRoom/>
+            },
 
         ]
     },
@@ -148,7 +159,7 @@ const router = createBrowserRouter([
     {
         path:"/payment-return",
         element:<PaymentReturn/>
-    }
+    },
 
 
 ]);

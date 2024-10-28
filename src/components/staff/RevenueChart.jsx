@@ -22,9 +22,9 @@ ChartJS.register(
     Legend
 );
 
-const RevenueChart = ({ data }) => {
+const RevenueChart = ({ data, timeRange }) => {
     const chartData = {
-        labels: data.map(item => item.month),
+        labels: data.map(item => item.period), // Sử dụng period thay vì chỉ month để linh hoạt với các loại dữ liệu
         datasets: [
             {
                 label: 'Doanh Thu (VND)',
@@ -43,13 +43,27 @@ const RevenueChart = ({ data }) => {
             legend: { position: 'top' },
             title: {
                 display: true,
-                text: 'Doanh Thu Theo Tháng',
+                text: `Biểu Đồ Doanh Thu Theo ${timeRange === 'day' ? 'Ngày' : timeRange === 'month' ? 'Tháng' : 'Năm'}`,
             },
         },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: timeRange === 'day' ? 'Ngày' : timeRange === 'month' ? 'Tháng' : 'Năm',
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Doanh Thu (VND)'
+                }
+            }
+        }
     };
 
     return (
-        <div style={{ width: '100%'}}>
+        <div style={{ width: '60%'}}>
             <Line data={chartData} options={options} />
         </div>
     );

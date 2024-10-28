@@ -11,7 +11,7 @@ const ToggleNavStaff = ({ username, email }) => {
         if (path.includes('manage-booking')) return 'booking';
         if (path.includes('manage-account')) return 'account';
         if (path.includes('view-revenue')) return 'revenue';
-        if (path.includes('rooms')) return 'rooms';
+        if (path.includes('manage-room')) return 'manage-room'; 
         return 'booking'; // Giá trị mặc định
     });
 
@@ -55,8 +55,8 @@ const ToggleNavStaff = ({ username, email }) => {
                     Doanh thu
                 </li>
                 <li
-                    className={selectedOption === 'rooms' ? 'selected' : ''}
-                    onClick={() => handleNavigation('/staff/rooms', 'rooms')}
+                    className={selectedOption === 'manage-room' ? 'selected' : ''}
+                    onClick={() => handleNavigation('/staff/manage-room', 'manage-room')}
                 >
                     Quản lý phòng
                 </li>
