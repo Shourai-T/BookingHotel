@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const SuccessPage = () => {
-    const nagivate = useNavigate()
+    const navigate = useNavigate()
     const user = useSelector(state => state.auth.login.currentUser)
     useEffect(() => {
         if(!user){
-            nagivate('/login')
+            navigate('/login')
         }   
-    },[nagivate])
+    },[navigate])
     return (
         <div id='success-page'>
             <div className="container">
@@ -30,8 +30,8 @@ const SuccessPage = () => {
                     </p>
                 </div>
                 <div className="btn-container">
-                    <button onClick={() => window.location.href = '/'}>Quay lại trang chủ</button>
-                    <button onClick={()=>window.location.href='/booking-list'}>Xem chi tiết đặt phòng</button>
+                    <button onClick={() => navigate( '/')}>Quay lại trang chủ</button>
+                    <button onClick={()=>navigate('/booking-list')}>Xem chi tiết đặt phòng</button>
                 </div>
             </div>
         </div>

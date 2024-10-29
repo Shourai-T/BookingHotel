@@ -35,6 +35,7 @@ const BookingDetail = () => {
         if(createReview.succes){
             toast.success('Tạo đánh giá thành công !')
             dispatch(createReviewInit())
+            getBookingDetail(id, dispatch);
         }
         else if(createReview.error){
             toast.error('Tạo đánh giá thất bại !')
@@ -63,9 +64,10 @@ const BookingDetail = () => {
     };
 
     // Function to handle cancellation logic
-    const handleCancel = () => {
+    const handleCancel = async () => {
         try {
-            refund(id,dispatch)
+            await refund(id,dispatch)
+            getBookingDetail(id, dispatch);
         } catch (error) {
             console.error(error)
             toast.error('Hủy đặt phòng có lỗi xảy ra !')

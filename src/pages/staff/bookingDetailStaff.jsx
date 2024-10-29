@@ -63,19 +63,15 @@ const BookingDetailStaff = () => {
             </p>
 
             <p className="row-info">
-                <span className="title">Checkin - Checkout</span>
+                <span className="title">Check in - Check out</span>
                 <span className='value'>01/02/2023 09:00:00 - 03/02/2023 12:00:00</span>
             </p>
 
             <p className="row-info">
-                <span className="title">Phụ phí</span>
-                <span className='value'>0</span>
+                <span className="title">Trạng thái</span>
+                <span className='value'>Đã thanh toán</span>
             </p>
 
-            <p className="row-info">
-                <span className="title">Dịch vụ giặt thêm</span>
-                <span className='value'>Rượu vang, Giặt ủi</span>
-            </p>
             <div className='grp-btn'>
                 <button className='cancel-booking' onClick={handleCancelClick}>Hủy đặt phòng</button>
                 <button className='checkin' onClick={handleCheckin}>Checkin</button>

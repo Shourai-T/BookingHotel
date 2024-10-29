@@ -20,7 +20,6 @@ import LoginStaff from '../components/staff/LoginStaff';
 import ManageBooking from '../pages/staff/manageBooking';
 import MainLayoutStaff from '../layout/MainLayoutStaff';
 import BookingDetailStaff from '../pages/staff/bookingDetailStaff';
-import CreateBooking from '../pages/staff/createBooking';
 import ManageAccount from '../pages/staff/manageUserAccount';
 import BookingInvoice from '../pages/staff/booking-invoice';
 import ManageRoom from '../pages/staff/ManageRoom';
@@ -108,11 +107,6 @@ const router = createBrowserRouter([
             {
                 path:"booking-detail-staff",
                 element:<BookingDetailStaff/>
-            },
-
-            {
-                path:"create-booking",
-                element:<CreateBooking/>
             },
 
             {
