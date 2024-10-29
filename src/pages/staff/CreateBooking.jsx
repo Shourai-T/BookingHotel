@@ -79,18 +79,6 @@ const CreateBooking = () => {
       endTime = checkoutDate;
       total = selectedRoom.pricePerDay * moment(checkoutDate).diff(moment(checkinDate), 'days');
     }
-
-    const bookingInfo = {
-      startTime,
-      endTime,
-      bookingType: selectedSwitchOption,
-      numberOfGuest: numberGuests,
-      roomId: selectedRoomId,
-      roomName: selectedOption,
-      total,
-    };
-    
-    navigate('/confirm-booking', { state: { bookingInfo } });
   };
 
   useEffect(() => {

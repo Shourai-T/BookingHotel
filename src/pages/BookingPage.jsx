@@ -120,9 +120,9 @@ const BookingPage = () => {
 
   // Hàm xử lý click bên ngoài dropdown để đóng dropdown
   useEffect(() => {
-    // if (!currentUser) {
-    //   navigate('/login');
-    // }
+    if (!currentUser) {
+      navigate('/login');
+    }
     const handleClickOutside = (event) => {
       if (!event.target.closest('#room-select')) {
         setIsDropdownOpen(false); // Đóng dropdown khi click bên ngoài
