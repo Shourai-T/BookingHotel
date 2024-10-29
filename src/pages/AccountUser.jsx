@@ -12,9 +12,9 @@ const AccountUser = () => {
     const dispatch = useDispatch()
     const { getUser } = useSelector(state => state.user)
     const user = getUser.data
-
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
     useEffect(() => {
-        if(!user){
+        if(!currentUser){
             navigate('/login');}
         getProfile(dispatch);
     }, [dispatch]);
