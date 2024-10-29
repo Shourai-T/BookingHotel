@@ -19,7 +19,8 @@ const ManageBooking = () => {
                     <button className='create-booking' onClick={handleCreateClick}><i class="fa-solid fa-plus" style={{style: '#0000'}}></i>Tạo đặt phòng</button>
                     <select className='managebooking-options'>
                         <option value="all-booking">Tất cả</option>
-                        <option value="payment-success">Đã chuyển khoản</option>
+                        <option value="checked-out">Hôm nay</option>
+                        <option value="payment-success">Đã thanh toán</option>
                         <option value="checked-in">Đã checkin</option>
                         <option value="checked-out">Đã checkout</option>
                     </select>

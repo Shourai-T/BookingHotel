@@ -103,7 +103,7 @@ const MainContent = () => {
             <h1>THE ÉLÉGANCE</h1>
             <p>Vẻ đẹp thanh lịch, nghỉ dưỡng trọn vẹn</p>
           </div>
-          <button className='booking-btn' onClick={(e) => window.location.href = "/booking"}>Booking now</button>
+          <button className='booking-btn' onClick={(e) => navigate("/booking")}>Booking now</button>
         </div>
         <div className="booking-section">
           <ul>

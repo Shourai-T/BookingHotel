@@ -8,7 +8,6 @@ export const createNewReview = async (data,dispatch) => {
     try{
         const res= await axiosInstance.post(`${API_URL}/api/v1/reviews`,data)
         dispatch(createReviewSuccess(res.data))
-        window.location.reload()
     }
     catch(error){
         console.error(error)

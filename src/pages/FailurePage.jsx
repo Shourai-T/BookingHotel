@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import '../styles/FailurePage.css'
 import failedGif from '../assets/failed-gif.gif'
+import { useNavigate } from 'react-router-dom';
 
 const FailurePage = () => {
-    useEffect(() => {})
+    const navigate = useNavigate();
   return (
     <div id='failure-page'>
             <div className="container">
@@ -26,7 +27,7 @@ const FailurePage = () => {
                     </p>
                 </div>
                 <div className="btn-container">
-                    <button onClick={() => window.location.href = '/'}>Quay lại trang chủ</button>
+                    <button onClick={() => navigate("/")}>Quay lại trang chủ</button>
                 </div>
             </div>
         </div>

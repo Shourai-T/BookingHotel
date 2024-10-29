@@ -25,12 +25,11 @@ export const createPaymentByVnpay = async (data,dispatch) => {
     }
 }
 
-export const refund =async(bookingId,dispatch)=>{
+export const refund = async(bookingId,dispatch)=>{
     dispatch(refundStart())
     try {
         await axiosInstance.patch(`${API_URL}/api/v1/payment/${bookingId}`)
         dispatch(refundSuccess())
-        window.location.reload()
     } catch (error) {
         console.error(error)
         dispatch(refundFailure())

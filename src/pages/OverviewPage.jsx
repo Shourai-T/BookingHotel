@@ -23,6 +23,11 @@ const OverviewPage = () => {
   useEffect(() => {
     getAllTypeRoom(dispatch)
   }, [])
+
+  const handleGotoRoomTypeDetail = (id) => {
+    navigate(`/roomtypedetail/${id}`);
+  };
+
   return (
     <body id='overview' style={{ minHeight: '1000px' }}>
       <div style={{ backgroundColor: '#000', height: '500px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -41,7 +46,7 @@ const OverviewPage = () => {
               <div className="room-item-content">
                 <h3>{typeRoom.name}</h3>
                 <p>{typeRoom.introduction}</p>
-                <a href={`/roomtypedetail/${typeRoom.id}`}>Xem chi tiết</a>
+                <button onClick={() => handleGotoRoomTypeDetail(typeRoom.id)}>Xem chi tiết</button>
               </div>
             </div>
           )
