@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Booking.css';
-import { roomOptions, hoursOptions, usageHoursOptions } from '../data';
+import { hoursOptions, usageHoursOptions } from '../data';
 import 'boxicons';
 import useCurrentDate from '../hooks/useCurrentDate';
 import { useNavigate } from 'react-router-dom';
@@ -26,11 +26,9 @@ const BookingPage = () => {
   const currentDate = useCurrentDate();
   const user = useSelector((state) => state.auth.login.currentUser);
   const roomList = useSelector((state) => state.room.getRoomList.data);
+  const currentUser = useSelector((state) => state.auth.login.currentUser);
+
   const dispatch = useDispatch();
-  // Hàm xử lý click để mở/đóng dropdown
-  // const toggleDropdown = () => {
-  //   setIsDropdownOpen(!isDropdownOpen);
-  // };
 
   const toggleDropdown = () => {
     // Kiểm tra điều kiện cho form theo giờ
@@ -67,12 +65,10 @@ const BookingPage = () => {
   };
 
   const handleHourClick = (hour) => {
-    console.log("select" + hour);
     setSelectedHour(hour); // Cập nhật giờ được chọn
   };
 
   const handleUsageHourClick = (usageHour) => {
-    console.log("select1" + usageHour);
     setSelectedUsageHour(usageHour); // Cập nhật giờ sử dụng được chọn
   };
 
@@ -124,7 +120,7 @@ const BookingPage = () => {
 
   // Hàm xử lý click bên ngoài dropdown để đóng dropdown
   useEffect(() => {
-    if (!user) {
+    if (!currentUser) {
       navigate('/login');
     }
     const handleClickOutside = (event) => {
@@ -139,8 +135,9 @@ const BookingPage = () => {
     };
   }, []);
 
-  const canSelectRoomHourly = checkinDate && selectedHour && selectedUsageHour; // Chọn theo giờ
-  const canSelectRoomDaily = checkinDate && checkoutDate; // Chọn theo ngày
+  // const canSelectRoomHourly = checkinDate && selectedHour && selectedUsageHour; // Chọn theo giờ
+  // const canSelectRoomDaily = checkinDate && checkoutDate; // Chọn theo ngày
+
 
   return (
     <div id='booking'>

@@ -38,7 +38,7 @@
 #account .col-1 hr {
     border: 0.9px solid #000;
     margin: 22px 0 12px;
-    width: 260px;
+    width: 100%;
 }
 
 #account .col-1 b {
