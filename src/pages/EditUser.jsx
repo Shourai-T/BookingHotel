@@ -57,7 +57,8 @@ const EditUser = () => {
                             <i class="fa-solid fa-user" style={{ style: '#0000' }}></i>
                             <p>{user?.name}</p>
                         </div>
-                        <p style={{
+                        <p className='userEmail' 
+                            style={{
                             marginLeft: '28px',
                             textDecoration: 'underline',
                             color: '#1E1E1EBD'
