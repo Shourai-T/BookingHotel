@@ -7,12 +7,19 @@
 
 #view-revenue h2{
     font-size: 20px;
-    margin-bottom: 40px;
+    margin-bottom:10px;
 }
 
 #view-revenue .revenue-chart{
-    width: 900px;
-    height: 300px;
+    width: 100%;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+#view-revenue .viewRevenue-body{
+    width: 100%;
     margin-bottom: 20px;
     align-items: center;
     justify-content: center;
@@ -28,7 +35,7 @@
     padding : 7px 10px;
     border: 1px solid black;
     border-radius: 20px;
-    margin-left: 400px;
+    margin-left: 600px;
     font-size: 14px;
     cursor: pointer;
     outline: none;

@@ -1,0 +1,156 @@
+#createRoom-body {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex; 
+    margin: 30px;
+}
+
+#createRoom-body h2 {
+    text-align: center;
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 20px;
+    width: 100%; /* Make sure the title spans the full width */
+}
+
+#createRoom-body .form-container {
+    flex: 1; /* Allow form container to take available space */
+    margin-right: 20px; /* Add some space between form and image */
+    width: 1200px;
+
+}
+
+#createRoom-body .form-group {
+    margin-bottom: 45px;
+    display: flex;
+    gap: 20px; /* Reduced gap for better alignment */
+    align-items: center;
+    width: 400px;
+}
+
+#createRoom-body .form-group label {
+    display: block;
+    font-weight: bold;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+#createRoom-body .form-group input,
+#createRoom-body .form-group select {
+    border: 1px solid black;
+    padding: 8px;
+    font-size: 13px;
+    width: 200px; /* Take full width */
+    border-radius: 20px;
+}
+
+#createRoom-body button {
+    cursor: pointer;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: black;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+#createRoom-body button:hover {
+    background-color: #333;
+}
+
+#createRoom-body .delete-interior,
+#createRoom-body .delete-facilities {
+    background: none;
+    border: none;
+    color: #ff5c5c;
+    font-size: 18px;
+    padding: 0;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+    margin-top: -1px;;
+}
+
+#createRoom-body .delete-interior:hover,
+#createRoom-body .delete-facilities:hover {
+    color: black;
+}
+
+#createRoom-body .interior-list,
+#createRoom-body .facilities-list {
+    margin-top: 10px;
+    padding: 0;
+}
+
+#createRoom-body .interior-list div,
+#createRoom-body .facilities-list div {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    font-weight: 400;
+    height: 30px;
+}
+
+#createRoom-body .interior-list span,
+#createRoom-body .facilities-list span {
+    flex-grow: 1; 
+    font-weight: 400;
+}
+
+#createRoom-body .image-preview {
+    margin-top: 0px; 
+}
+
+#createRoom-body .upload-image{
+    display: flex;
+    gap: 10px;
+}
+
+#createRoom-body .upload-image p{
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#createRoom-body .imgandbutton{
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50px;
+    border: 1px solid black;
+    width: 400px;
+    padding: 10px;
+    height: 300px;
+    border-radius: 20px;
+
+}
+
+#createRoom-body .createRoom-container .submit-btn{
+    width: 300px;
+    color: white;
+    background-color: black;
+    padding: 10px;
+    margin-left: 120px;
+    margin-top: 30px;
+    height: 40px;
+}
+
+#createRoom-body .createRoom-container{
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    width: 600px;
+}
+
+

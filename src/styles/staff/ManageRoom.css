@@ -71,3 +71,20 @@
 .manageRoom-table .bx-trash-alt {
     font-size: 20px;
 }
+
+.createRoom-btn{
+    float: left;
+    display: flex;
+    align-items: center;
+    margin-left: 630px;
+    gap: 5px; 
+    padding: 8px 12px;
+    height: 35px;
+    font-size: 14px;
+    border: 1px solid black;
+    border-radius: 20px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 20px; 
+}

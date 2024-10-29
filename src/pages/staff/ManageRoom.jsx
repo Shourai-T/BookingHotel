@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // Updated import
 import RoomImage from '../../assets/Windsor Room.jpg';
 import 'boxicons';
 import DeleteRoomPopup from '../../components/staff/DeleteRoomPopup';
 import '../../styles/staff/ManageRoom.css';
 
 const ManageRoom = () => {
+    const navigate = useNavigate();  // Corrected navigation hook
     const [showDeletePopup, setShowDeletePopup] = useState(false);
 
     const handleDeleteClick = () => {
@@ -27,6 +29,9 @@ const ManageRoom = () => {
     return (
         <div id='manageRoom-body'>
             <h2>DANH SÁCH PHÒNG</h2>
+            <button className='createRoom-btn' onClick={() => navigate('/staff/create-room')}>
+                <box-icon name='plus' ></box-icon>Tạo phòng
+            </button>
             <div className='manageRoom-table'>
                 <table>
                     <thead>
