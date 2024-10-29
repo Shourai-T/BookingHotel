@@ -26,6 +26,7 @@ import ManageRoom from '../pages/staff/ManageRoom';
 import CreateRoom from '../pages/staff/CreateRoom'
 
 import PaymentReturn from '../pages/PaymentReturn';
+import CreateBooking from '../pages/staff/CreateBooking';
 
 const router = createBrowserRouter([
     {
@@ -133,6 +134,10 @@ const router = createBrowserRouter([
                 path:'create-room',
                 element:<CreateRoom/>
             },
+            {
+                path: 'create-booking',
+                element:<CreateBooking/>
+            }
 
         ]
     },
