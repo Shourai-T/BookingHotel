@@ -56,7 +56,7 @@ const userSlice = createSlice({
         },
         getUserListSuccess:(state,action)=>{
             state.getUserList.isFetching = false;
-            state.getUserList.data = action.payload.data;
+            state.getUserList.data = action.payload.data.ressult;
         },
         getUserListFailure:(state)=>{
             state.getUserList.isFetching = false;
