@@ -2,7 +2,6 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import MainContent from './pages/MainContent';
 import Routes from './routes';
 
 function App() {

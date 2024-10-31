@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteUser, getAllUsers } from '../../redux/ApiRequest/apiRequestUser';
 import {  useNavigate } from 'react-router-dom';
 import Loading from '../../components/Loading';
+import { toast, ToastContainer } from 'react-toastify';
 
 const ManageUserAccount = () => {
     const [showDeletePopup, setShowDeletePopup] = useState(false);
@@ -18,8 +19,11 @@ const ManageUserAccount = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
-        if (user.user.role !== "Customer") { // sửa lại là Staff tại chưa có acc Staff
-            navigate("/loginstaff");
+        if(!user){
+            navigate('/loginstaff');
+        }
+        if (user.user.role !== "Staff") { 
+            navigate("/login");
         }
         getAllUsers(dispatch);
     }, [dispatch]);
@@ -41,7 +45,8 @@ const ManageUserAccount = () => {
     const handleConfirmCancel = () => {
         setShowDeletePopup(false);
         deleteUser(selectedUserId, dispatch);
-        alert("Tài khoản xóa thành công.");
+        getAllUsers(dispatch);
+        toast.success("Tài khoản xóa thành công.");
     };
     
     return (
@@ -76,7 +81,7 @@ const ManageUserAccount = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="5">Không có dữ liệu</td>
+                                    <td colSpan="6">Không có dữ liệu</td>
                                 </tr>
                             )}
                         </tbody>
@@ -92,6 +97,7 @@ const ManageUserAccount = () => {
                     onDelete={handleConfirmCancel}
                 />
             )}
+            <ToastContainer position="top-right" autoClose={5000} />
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { loginSuccess } from '../redux/Slice/authSlice';
+import { loginSuccess, logoutSuccess } from '../redux/Slice/authSlice';
 import { store } from '../redux/store';
 
 // Tạo instance axios
@@ -50,14 +50,14 @@ axiosInstance.interceptors.response.use(
             }
 
             const newAccessToken = res?.data.access_token;
-
             if (newAccessToken) {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
                 originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
                 return axiosInstance(originalRequest); // Retry lại request ban đầu
             }
             else {
-                dispatch(loginSuccess(null));
+                console.log('Token expired');
+                dispatch(logoutSuccess());
 
                 window.location.href = '/login'; // hoặc sử dụng useHistory để điều hướng
             }
