@@ -1,5 +1,5 @@
 import axiosInstance from "../../utility/axios.interceptor"
-import { getUserFailure, getUserStart, getUserSuccess } from "../Slice/userSlice"
+import { getUserFailure, getUserStart, getUserSuccess, getUserListStart, getUserListSuccess, getUserListFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure } from "../Slice/userSlice"
 
 const API_URL = process.env.REACT_APP_API_URL
 export const getProfile = async (dispatch) => {
@@ -22,5 +22,27 @@ export const updateUser=async (id,data,dispatch,navigate)=>{
     } catch (error) {
         console.log(error)
         dispatch(getUserFailure())
+    }
+}
+
+export const getAllUsers = async (dispatch) => {
+    dispatch(getUserListStart())
+    try {
+        const res = await axiosInstance.get(`${API_URL}/api/v1/users`)
+        dispatch(getUserListSuccess(res.data))
+    } catch (error) {
+        console.log(error)
+        dispatch(getUserListFailure())
+    }
+}
+
+export const deleteUser = async (id, dispatch) => {
+    dispatch(deleteUserStart())
+    try {
+        await axiosInstance.delete(`${API_URL}/api/v1/users/${id}`)
+        dispatch(deleteUserSuccess())
+    } catch (error) {
+        console.log(error)
+        dispatch(deleteUserFailure())
     }
 }
