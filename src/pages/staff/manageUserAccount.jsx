@@ -75,7 +75,7 @@ const ManageUserAccount = () => {
                                         <td>{user.phoneNumber}</td>
                                         <td>{user.email}</td>
                                         <td>{user.address}</td>
-                                        <td>{user.gender}</td>
+                                        <td>{user.gender ? "Nữ" : "Nam"}</td>
                                         <td><button onClick={() => handleDeleteClick(user.id)}><i class="fa-solid fa-trash" style={{style: '#0000'}}></i></button></td>
                                     </tr>
                                 ))

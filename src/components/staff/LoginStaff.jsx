@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
-import { loginUser} from '../../redux/ApiRequest/apiRequestAuth'; 
+import { loginStaff} from '../../redux/ApiRequest/apiRequestAuth'; 
 import '../../styles/staff/LoginStaff.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import {logoImage} from '../../assets/logo-nentrang.png'
+import { loginInit } from '../../redux/Slice/authSlice';
+import Loading from '../Loading';
+import { toast, ToastContainer } from 'react-toastify';
+
+
 
 const LoginStaff = () => {
     const dispatch = useDispatch();
@@ -18,7 +22,9 @@ const LoginStaff = () => {
     useEffect(() => {
         if (login.error) {
             toast.error("Đăng nhập thất bại!"); // Hiển thị thông báo lỗi nếu đăng nhập thất bại
-        } else if (login.success) {
+            dispatch(loginInit());
+        }
+        else if (login.success) {
             toast.success("Đăng nhập thành công!"); // Hiển thị thông báo nếu đăng nhập thành công
         }
     }, [login]);
@@ -33,13 +39,18 @@ const LoginStaff = () => {
             email: email,
             password: password,
         }
-        navigate("/staff/manage-booking")
+        loginStaff(newUser, dispatch, navigate);
+        
     }
 
 
     return (
         <div id = "loginStaffbody">
-            <div id="loginStaffcontainer">
+            <ToastContainer position="top-right" autoClose={5000} /> 
+            {login.isFetching ?(
+                <Loading />
+            ) :
+            (<div id="loginStaffcontainer">
                 <div className='login-form'>
                     <div className='logo'>
                         
@@ -67,8 +78,8 @@ const LoginStaff = () => {
                 <div className='right-img'>
                     {/* Thêm hình ảnh nếu cần */}
                 </div>
-            </div>
-
+            </div>)
+            }
         </div>
     );
 };
