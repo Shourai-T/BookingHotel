@@ -12,6 +12,16 @@ const userSlice = createSlice({
             msg:'',
             isFetching:false,
             error:false,
+        },
+        getUserList:{
+            data:[],
+            isFetching:false,
+            error:false,
+        },
+        deleteUser:{
+            msg:'',
+            isFetching:false,
+            error:false,
         }
     },
     reducers:{
@@ -39,6 +49,32 @@ const userSlice = createSlice({
             state.updateUser.isFetching = false;
             state.updateUser.error = true;
             state.updateUser.msg = 'Update user failed';
+        },
+        getUserListStart:(state)=>{
+            state.getUserList.isFetching = true;
+            state.getUserList.error = false;
+        },
+        getUserListSuccess:(state,action)=>{
+            state.getUserList.isFetching = false;
+            state.getUserList.data = action.payload.data;
+        },
+        getUserListFailure:(state)=>{
+            state.getUserList.isFetching = false;
+            state.getUserList.error = true;
+        },
+        deleteUserStart:(state)=>{
+            state.deleteUser.isFetching = true;
+            state.deleteUser.error = false;
+        },
+        deleteUserSuccess:(state)=>{
+            state.deleteUser.isFetching = false;
+            state.deleteUser.error = false;
+            state.deleteUser.msg = 'Delete user success';
+        },
+        deleteUserFailure:(state)=>{
+            state.deleteUser.isFetching = false;
+            state.deleteUser.error = true;
+            state.deleteUser.msg = 'Delete user failed';
         }
     }
 })
@@ -49,7 +85,13 @@ export const {
     getUserFailure,
     updateUserStart,
     updateUserSuccess,
-    updateUserFailure
+    updateUserFailure,
+    getUserListStart,
+    getUserListSuccess,
+    getUserListFailure,
+    deleteUserStart,
+    deleteUserSuccess,
+    deleteUserFailure
 } = userSlice.actions;
 
 export default userSlice.reducer;

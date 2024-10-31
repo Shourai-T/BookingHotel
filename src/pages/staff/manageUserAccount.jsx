@@ -1,17 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../styles/staff/manageUserAccount.css';
 import DeleteAccountPopup from '../../components/staff/DeleteAccountPopup';
 import 'boxicons';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteUser, getAllUsers } from '../../redux/ApiRequest/apiRequestUser';
+import {  useNavigate } from 'react-router-dom';
+import Loading from '../../components/Loading';
 
 const ManageUserAccount = () => {
     const [showDeletePopup, setShowDeletePopup] = useState(false);
+    const [selectedUserId, setSelectedUserId] = useState(null); // State để lưu ID người dùng
 
-    const handleDeleteClick = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const userList = useSelector(state => state.user.getUserList.data);
+    const {getUserList} = useSelector((state) => state.user)
+    const user = useSelector((state) => state.auth.login.currentUser);
+
+    useEffect(() => {
+        if (user.user.role !== "Customer") { // sửa lại là Staff tại chưa có acc Staff
+            navigate("/loginstaff");
+        }
+        getAllUsers(dispatch);
+    }, [dispatch]);
+
+    const handleDeleteClick = (userid) => {
+        setSelectedUserId(userid);
         setShowDeletePopup(true);
     };
 
     const handleClosePopup = () => {
         setShowDeletePopup(false);
+        setSelectedUserId(null);
     };
 
     const handleBack = () => {
@@ -20,60 +40,50 @@ const ManageUserAccount = () => {
 
     const handleConfirmCancel = () => {
         setShowDeletePopup(false);
+        deleteUser(selectedUserId, dispatch);
         alert("Tài khoản xóa thành công.");
     };
-
+    
     return (
         <div id="manageUserAccount-body">
             <h2>DANH SÁCH TÀI KHOẢN NGƯỜI DÙNG</h2>
-            <div className="manageAccount-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tên người dùng</th>
-                            <th>SĐT</th>
-                            <th>Email</th>
-                            <th>Địa chỉ</th>
-                            <th>Giới tính</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Nguyễn Văn A</td>
-                            <td>0987654321</td>
-                            <td>user1@example.com</td>
-                            <td>123 Main St, City</td>
-                            <td>Nam</td>
-                            <td><button onClick={handleDeleteClick}><i class="fa-solid fa-trash" style={{style: '#0000'}}></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>Nguyễn Văn A</td>
-                            <td>0987654321</td>
-                            <td>user1@example.com</td>
-                            <td>123 Main St, City</td>
-                            <td>Nam</td>
-                            <td><button onClick={handleDeleteClick}><i class="fa-solid fa-trash" style={{style: '#0000'}}></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>Nguyễn Văn A</td>
-                            <td>0987654321</td>
-                            <td>user1@example.com</td>
-                            <td>123 Main St, City</td>
-                            <td>Nam</td>
-                            <td><button onClick={handleDeleteClick}><i class="fa-solid fa-trash" style={{style: '#0000'}}></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>Nguyễn Văn A</td>
-                            <td>0987654321</td>
-                            <td>user1@example.com</td>
-                            <td>123 Main St, City</td>
-                            <td>Nam</td>
-                            <td><button onClick={handleDeleteClick}><i class="fa-solid fa-trash" style={{style: '#0000'}}></i></button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            {getUserList.isFetching ? (
+                <Loading />
+            ) : (
+                <div className="manageAccount-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tên người dùng</th>
+                                <th>SĐT</th>
+                                <th>Email</th>                
+                                <th>Địa chỉ</th>
+                                <th>Giới tính</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {userList && userList.length > 0 ? (
+                                userList.map((user, index) => (
+                                    <tr key={index}>
+                                        <td>{user.name}</td>
+                                        <td>{user.phoneNumber}</td>
+                                        <td>{user.email}</td>
+                                        <td>{user.address}</td>
+                                        <td>{user.gender}</td>
+                                        <td><button onClick={() => handleDeleteClick(user.id)}><i class="fa-solid fa-trash" style={{style: '#0000'}}></i></button></td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="5">Không có dữ liệu</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+
+            )}
 
             {showDeletePopup && (
                 <DeleteAccountPopup
