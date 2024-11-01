@@ -24,7 +24,7 @@
     font-family: 'TAN - MON CHERI', sans-serif;
 }
 
-.room-select-container {
+#booking .room-select-container {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -32,13 +32,13 @@
     position: relative;
 }
 
-.room-select-container label {
+#booking .room-select-container label {
     font-weight: 400;
     font-size: 18px;
     font-family: 'BT Suave Regular';
 }
 
-.room-select-container .custom-select {
+#booking .room-select-container .custom-select {
     width: 200px;
     height: 30px;
     position: relative;
@@ -47,6 +47,12 @@
     background-color: #fff;
     cursor: pointer;
     font-family: 'BT Suave Regular';
+}
+
+#booking .dividerofh2{
+    width: 400px;
+    margin-top: -20px;
+    height: auto
 }
 
 .room-select-container .custom-select .selected-option {
