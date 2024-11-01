@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { all } from "axios";
 
 const bookingSlice= createSlice({
     name:"booking",
@@ -17,6 +18,12 @@ const bookingSlice= createSlice({
         },
         createBooking:{
             data:null,
+            isFetching:false,
+            error:false,
+            success:false,
+        },
+        allBooking:{
+            data:[],
             isFetching:false,
             error:false,
             success:false,
@@ -61,7 +68,20 @@ const bookingSlice= createSlice({
         createBookingFailure: (state) => {
             state.createBooking.isFetching = false;
             state.createBooking.error = true;
-        }
+        },
+        allBookingStart: (state) => {
+            state.allBooking.isFetching = true;
+            state.allBooking.error = false;
+        },
+        allBookingSuccess: (state, action) => {
+            state.allBooking.isFetching = false;
+            state.allBooking.data = action.payload.data.bookings;
+            state.allBooking.success = true;
+        },
+        allBookingFailure: (state) => {
+            state.allBooking.isFetching = false;
+            state.allBooking.error = true;
+        },
     }
 })
 
@@ -76,7 +96,12 @@ export const {
 
     createBookingStart,
     createBookingSuccess,
-    createBookingFailure
+    createBookingFailure,
+
+    allBookingStart,
+    allBookingSuccess,
+    allBookingFailure
+
 } = bookingSlice.actions
 
 export default bookingSlice.reducer
