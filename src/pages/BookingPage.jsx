@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getRoomByFilter } from '../redux/ApiRequest/apiRequestRoom';
 import moment from 'moment';
+import Divider from '../assets/divider-black-twostar.png'
 
 
 const BookingPage = () => {
@@ -144,6 +145,7 @@ const BookingPage = () => {
       <div className="">
         <div className="col-divide">
           <h2 className="title">ĐẶT PHÒNG</h2>
+          <img src ={Divider} className='dividerofh2'></img>
         </div>
         <div className="booking-container">
           <div className="switches-toggle">

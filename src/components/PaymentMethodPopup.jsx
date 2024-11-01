@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/PaymentMethodPopup.css';
 import 'boxicons'
+import ZaloPay from '../assets/zalopay.png'
+import VnPay from '../assets/vnpay.jpg'
 
 const PaymentMethodPopup = ({ isOpen, onClose, onConfirm }) => {
     const [selectedMethod, setSelectedMethod] = useState(''); // State để lưu phương thức được chọn
@@ -22,21 +24,21 @@ const PaymentMethodPopup = ({ isOpen, onClose, onConfirm }) => {
                 <div className="popup-body">
                     <label>
                         <input 
-                            type="radio" 
+                            type="checkbox" 
                             value="ZaloPay" 
                             checked={selectedMethod === 'ZaloPay'} 
                             onChange={() => setSelectedMethod('ZaloPay')} 
                         />
-                        Thanh toán bằng ZaloPay
+                        <img src={ZaloPay} className='payment-logo'></img>Thanh toán bằng ZaloPay
                     </label>
                     <label>
                         <input 
-                            type="radio" 
+                            type="checkbox" 
                             value="Vnpay" 
                             checked={selectedMethod === 'Vnpay'} 
                             onChange={() => setSelectedMethod('Vnpay')} 
                         />
-                        Thanh toán bằng Vnpay
+                        <img src={VnPay} className='payment-logo'></img>Thanh toán bằng VNPay
                     </label>
                 </div>
                 <div className="popup-footer">

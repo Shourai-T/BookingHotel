@@ -9,7 +9,7 @@ const PaymentPopup = ({ onClose, onBack, onPay}) => {
             <div className="popup-content">
                 <div className="popup-header">
                     <box-icon name='x' onClick={onClose} style={{ cursor: 'pointer', position: 'absolute', right: '0' }}></box-icon>
-                    <b style={{marginTop: '25px'}}>XBạn muốn thanh toán hóa đơn này?</b>
+                    <b style={{marginTop: '25px'}}>Bạn muốn thanh toán hóa đơn này?</b>
                 </div>
                 <div className="popup-body">
                     <p>Hành động này không thể hoàn tác</p>

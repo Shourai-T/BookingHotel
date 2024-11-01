@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 999;
+    z-index: 1;
 }
 
 .popup-content {
@@ -18,12 +18,19 @@
     border-radius: 10px;
     width: 300px;
     text-align: center;
+    justify-content: center;
 }
 
 .popup-header {
-    display: flex;
+    display: block;
     justify-content: space-between;
     flex-direction: row-reverse;
+}
+
+.payment-logo{
+    width: 40px;
+    height: 100%;
+    margin-right:5px ;
 }
 
 .popup-body {
@@ -32,9 +39,12 @@
 }
 
 .popup-body label {
-    display: block;
+    display: flex;
     margin-bottom: 20px;
     font-family: 'Helvetica', sans-serif;
+    margin-left: 60px;
+    font-size: 14px;
+    align-items: center;
 }
 
 .popup-footer {
@@ -43,12 +53,13 @@
 }
 
 .cancel-btn, .confirm-btn {
-    width: 120px;
-    height: 40px;
+    width: 100px;
+    height: 30px;
     background-color: #000;
     color: white;
     border: none;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .cancel-btn:hover, .confirm-btn:hover {
