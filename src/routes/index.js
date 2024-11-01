@@ -106,7 +106,7 @@ const router = createBrowserRouter([
             },
 
             {
-                path:"booking-detail-staff",
+                path:"booking-detail-staff/:bookingId",
                 element:<BookingDetailStaff/>
             },
 

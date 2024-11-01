@@ -25,9 +25,8 @@ const ManageBooking = () => {
     getAllBookings(dispatch);
   }, [dispatch]);
 
-  const handleRowClick = () => {
-    
-    navigate("/staff/booking-detail-staff");
+  const handleRowClick = (bookingId) => {
+    navigate(`/staff/booking-detail-staff/${bookingId}`);
   };
 
   const handleCreateClick = () => {
@@ -111,8 +110,8 @@ const ManageBooking = () => {
                   }
                   return (
                     <tr
-                      onClick={() => handleRowClick()}
-                      key={booking.bookingid}
+                      onClick={() => handleRowClick(booking.bookingId)}
+                      key={booking.bookingId}
                     >
                       <td>{booking.user.name}</td>
                       <td>{booking.user.phoneNumber}</td>
