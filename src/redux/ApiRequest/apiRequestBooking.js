@@ -29,7 +29,6 @@ export const getBookingDetail = async (id, dispatch) => {
     dispatch(bookingDetailStart())
     try {
         const res = await axiosInstance.get(`${API_URL}/api/v1/booking/findById/${id}`)
-        console.log(res.data)
         dispatch(bookingDetailSuccess(res.data))
     } catch (error) {
         console.error(error)
@@ -42,7 +41,6 @@ export const createBooking = async (booking, dispatch) => {
     try {
         const res = await axiosInstance.post(`${API_URL}/api/v1/booking/my-booking`, booking)
         dispatch(createBookingSuccess(res.data))
-        console.log(res.data)
         return res.data.data.bookingId;
     } catch (error) {
         console.error(error)

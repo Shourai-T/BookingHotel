@@ -84,7 +84,7 @@ const BookingList = () => {
                   </div>
                   <p className="total-price">
                     <span>TỔNG TIỀN</span>
-                    <span>{total.toLocaleString()}</span>
+                    <span>{booking.payments[0].amount?(booking.payments[0].amount).toLocaleString():total.toLocaleString()}</span>
                   </p>
                   <Link
                     to={`/booking-list/${booking.bookingId}`} // Sử dụng Link để chuyển đến chi tiết

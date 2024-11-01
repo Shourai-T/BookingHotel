@@ -200,7 +200,7 @@ const BookingDetail = () => {
                         <span class="value">{bookingType}</span>
                     </div>
                     <div class="info-item">
-                        <span class="label">Checkin - Checkout:</span>
+                        <span class="label">Check in - Check out:</span>
                         <span class="value">{startTime} - {endTime}</span>
                     </div>
                     <div class="info-item">
@@ -216,12 +216,12 @@ const BookingDetail = () => {
                 <div className="info-group">
                     <div class="info-item">
                         <span class="label">TỔNG TIỀN</span>
-                        <span class="value">{total.toLocaleString()}</span>
+                        <span class="value">{booking.payments[0].amount?(booking.payments[0].amount).toLocaleString():total.toLocaleString()}</span>
                     </div>
                 </div>
 
                 {/* Trạng thái đã đặt phòng */}
-                {(booking.bookingStatus === 'Paid'||booking.bookingStatus ==='Unpaid') && (
+                {(booking.bookingStatus === 'Paid') && (
                     <div className="btn-container">
                         <button onClick={handleCancelClick}>Hủy đặt phòng</button>
                     </div>
