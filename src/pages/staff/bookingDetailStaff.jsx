@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import '../../styles/staff/bookingDetailStaff.css';
 import CancelPopup from '../../components/CancelPopup';
 import { useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 
 const BookingDetailStaff = () => {
     const [showCancelPopup, setShowCancelPopup] = useState(false);
+    const navigate = useNavigate();
 
     const handleCancelClick = () => {
         setShowCancelPopup(true);
@@ -29,10 +29,9 @@ const BookingDetailStaff = () => {
     };
 
     const handleCheckout = () => {
-        alert("Checkout thành công!");
+        navigate('/staff/booking-invoice')
     };
 
-    const navigate = useNavigate();
 
     return (
         <div id="bookingDetailStaff-body">
