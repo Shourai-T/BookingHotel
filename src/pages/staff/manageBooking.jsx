@@ -113,8 +113,8 @@ const ManageBooking = () => {
                       onClick={() => handleRowClick(booking.bookingId)}
                       key={booking.bookingId}
                     >
-                      <td>{booking.user.name}</td>
-                      <td>{booking.user.phoneNumber}</td>
+                      <td>{booking.user?.name}</td>
+                      <td>{booking.user?.phoneNumber}</td>
                       <td>{booking.room.id}</td>
                       <td>
                         {startTime} - {endTime}

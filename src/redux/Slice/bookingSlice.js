@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { all } from "axios";
+import { updateBookingStatus } from "../ApiRequest/apiRequestBooking";
 
 const bookingSlice= createSlice({
     name:"booking",
@@ -24,6 +25,11 @@ const bookingSlice= createSlice({
         },
         allBooking:{
             data:[],
+            isFetching:false,
+            error:false,
+            success:false,
+        },
+        updateBookingStatus:{
             isFetching:false,
             error:false,
             success:false,
@@ -82,6 +88,18 @@ const bookingSlice= createSlice({
             state.allBooking.isFetching = false;
             state.allBooking.error = true;
         },
+        updateBookingStatusStart: (state) => {
+            state.updateBookingStatus.isFetching = true;
+            state.updateBookingStatus.error = false;
+        },
+        updateBookingStatusSuccess: (state) => {
+            state.updateBookingStatus.isFetching = false;
+            state.updateBookingStatus.success = true;
+        },
+        updateBookingStatusFailure: (state) => {
+            state.updateBookingStatus.isFetching = false;
+            state.updateBookingStatus.error = true;
+        }
     }
 })
 
@@ -100,7 +118,11 @@ export const {
 
     allBookingStart,
     allBookingSuccess,
-    allBookingFailure
+    allBookingFailure,
+
+    updateBookingStatusStart,
+    updateBookingStatusSuccess,
+    updateBookingStatusFailure
 
 } = bookingSlice.actions
 

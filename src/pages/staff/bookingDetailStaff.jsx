@@ -3,9 +3,11 @@ import '../../styles/staff/bookingDetailStaff.css';
 import CancelPopup from '../../components/CancelPopup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBookingDetail } from '../../redux/ApiRequest/apiRequestBooking';
+import { getBookingDetail, updateBookingStatus } from '../../redux/ApiRequest/apiRequestBooking';
 import moment from 'moment';
 import Loading from '../../components/Loading';
+import { refund } from '../../redux/ApiRequest/apiRequestPayment';
+import { toast, ToastContainer } from 'react-toastify';
 
 const BookingDetailStaff = () => {
     const [showCancelPopup, setShowCancelPopup] = useState(false);
@@ -16,14 +18,17 @@ const BookingDetailStaff = () => {
     
     useEffect(() => {
         if (!user) {
-            navigate('/login');
-        }
+            navigate("/loginstaff");
+          }
+          if (user.user.role !== "Staff") {
+            navigate("/login");
+          }
         getBookingDetail(bookingId, dispatch);
     }, [bookingId, dispatch]);
     // Tìm thông tin phòng tương ứng với ID
     const booking = useSelector(state => state.booking.bookingDetail.data);
     if (!booking) {
-        return <div>Không tìm thấy thông tin đặt phòng.</div>; // Thông báo nếu không tìm thấy
+        return <div>Không tìm thấy thông tin đặt phòng.</div>;
     }
 
     const handleCancelClick = () => {
@@ -37,10 +42,26 @@ const BookingDetailStaff = () => {
     const handleBack = () => {
         setShowCancelPopup(false);
     };
-
-    const handleConfirmCancel = () => {
+    const bookingStatus = "Cancelled";
+    const handleConfirmCancel = async () => {
+        try {
+            if (booking.bookingStatus === 'Paid') {
+                
+                await refund(bookingId ,dispatch);
+            } else if (booking.bookingStatus === 'Unpaid') {
+                const data = {
+                    bookingStatus: "Cancelled",
+                    utilities: []
+                } 
+                await updateBookingStatus(bookingId,data ,dispatch);
+            }
+            getBookingDetail(bookingId, dispatch);
+            toast.success('Đặt phòng đã bị hủy thành công.');
+        } catch (error) {
+            console.error(error);
+            toast.error('Hủy đặt phòng có lỗi xảy ra!');
+        }
         setShowCancelPopup(false);
-        alert("Đặt phòng đã bị hủy thành công.");
     };
 
     const handleCheckin = () => {
@@ -103,11 +124,11 @@ const BookingDetailStaff = () => {
             <p className='bookingid'>Booking ID: {booking.bookingId}</p>
             <p className="row-info">
                 <span className="title">Tên khách hàng</span>
-                <span className='value'>{booking.user.name}</span>
+                <span className='value'>{booking.user?.name}</span>
             </p>
             <p className="row-info">
                 <span className="title">SDT khách hàng</span>
-                <span className='value'>{booking.user.phoneNumber}</span>
+                <span className='value'>{booking.user?.phoneNumber}</span>
             </p>
 
             <p className="row-info">
@@ -136,7 +157,7 @@ const BookingDetailStaff = () => {
             </p>
 
             <div className='grp-btn'>
-                <button className='cancel-booking' onClick={handleCancelClick}>Hủy đặt phòng</button>
+                <button className='cancel-booking' onClick={handleCancelClick} disabled={status === 'Đã hủy'}>Hủy đặt phòng</button>
                 <button className='checkin' onClick={handleCheckin}>Checkin</button>
                 <button className='checkout' onClick={handleCheckout}>Checkout</button>
                 <button className='return' onClick={() => navigate(-1)}>Quay về</button>
@@ -149,6 +170,7 @@ const BookingDetailStaff = () => {
                     onCancel={handleConfirmCancel} 
                 />
             )}
+            <ToastContainer position="top-right" autoClose={5000} />
         </div>
     );
 }
