@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/staff/toggleNavStaff.css';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ToggleNavStaff = ({ username, email }) => {
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
+    
     // Xác định selectedOption dựa trên pathname
     const [selectedOption, setSelectedOption] = useState(() => {
         const path = window.location.pathname;
@@ -30,8 +32,10 @@ const ToggleNavStaff = ({ username, email }) => {
             <div className="user-container">
                 <i className="fa-solid fa-user"></i>
                 <div className="user-info-container">
-                    <h5>Nguyễn Văn A</h5>
-                    <p>nguyenvana@gmail.com</p>
+                    {/* <h5>Nguyễn Văn A</h5>
+                    <p>nguyenvana@gmail.com</p> */}
+                    <h5>{username}</h5>
+                    <p>{email}</p>
                 </div>
             </div>
             <hr className='user-divider'></hr>

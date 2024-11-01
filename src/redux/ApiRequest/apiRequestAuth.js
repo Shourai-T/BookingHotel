@@ -20,6 +20,23 @@ export const loginUser = async (user, dispatch, navigate) => {
     }
 }
 
+export const loginStaff = async (user, dispatch, navigate) => {
+    dispatch(loginStart())
+    try {
+        console.log(user)
+        const res = await axios.post(`${API_URL}/api/v1/auth/login`, user, {
+            withCredentials: true, // Bật để gửi cookie
+        })
+        console.log(res.data)
+        dispatch(loginSuccess(res.data))
+        navigate("/staff/manage-booking")
+    } catch (error) {
+        console.log(error)
+        dispatch(loginFailure())
+        navigate('/loginStaff')
+    }
+}
+
 export const loginUserByFacebook = async (token, dispatch, navigate) => {
     dispatch(loginStart())
     try {
