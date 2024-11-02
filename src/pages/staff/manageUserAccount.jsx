@@ -23,7 +23,7 @@ const ManageUserAccount = () => {
             navigate('/loginstaff');
         }
         if (user.user.role !== "Staff") { 
-            navigate("/login");
+            navigate("/");
         }
         getAllUsers(dispatch);
     }, [dispatch]);
