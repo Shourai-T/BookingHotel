@@ -122,11 +122,11 @@ const BookingDetailStaff = () => {
             <p className='bookingid'>Booking ID: {booking.bookingId}</p>
             <p className="row-info">
                 <span className="title">Tên khách hàng</span>
-                <span className='value'>{booking.user?.name}</span>
+                <span className='value'>{booking.user?.name?booking.user.name:"Khách đặt tại chỗ" }</span>
             </p>
             <p className="row-info">
                 <span className="title">SDT khách hàng</span>
-                <span className='value'>{booking.user?.phoneNumber}</span>
+                <span className='value'>{booking.user?.phoneNumber?booking.user.phoneNumber:"Không có"}</span>
             </p>
 
             <p className="row-info">
