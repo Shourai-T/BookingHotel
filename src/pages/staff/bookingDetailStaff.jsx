@@ -30,7 +30,7 @@ const BookingDetailStaff = () => {
     const fetching = useSelector(state => state.booking.bookingDetail.isFetching);
 
     if (!booking) {
-        return <div>Không tìm thấy thông tin đặt phòng.</div>;
+        return <Loading />;
     }
 
     const handleCancelClick = () => {
@@ -117,7 +117,7 @@ const BookingDetailStaff = () => {
             console.log('Error')
             break;
     }
-    if (!booking || fetching) {
+    if (fetching) {
         return <Loading />
     }
     return (
