@@ -14,7 +14,18 @@ export const getMyBookings = async (dispatch) => {
     }
 }
 
-export const getAllBookings = async (dispatch) => {
+export const getBookingByStatus = async ( status,dispatch) => {
+    dispatch(allBookingStart())
+    try {
+        const res = await axiosInstance.get(`${API_URL}/api/v1/booking/findBookingByStatus/`, { params: { status } })
+        dispatch(allBookingSuccess(res.data))
+    } catch (error) {
+        console.error(error)
+        dispatch(allBookingFailure())
+    }
+}
+
+export const getAllBooking = async (dispatch) => {
     dispatch(allBookingStart())
     try {
         const res = await axiosInstance.get(`${API_URL}/api/v1/booking/findAll`)
@@ -40,6 +51,18 @@ export const createBooking = async (booking, dispatch) => {
     dispatch(createBookingStart())
     try {
         const res = await axiosInstance.post(`${API_URL}/api/v1/booking/my-booking`, booking)
+        dispatch(createBookingSuccess(res.data))
+        return res.data.data.bookingId;
+    } catch (error) {
+        console.error(error)
+        dispatch(createBookingFailure())
+    }
+}
+
+export const createBookingByStaff = async (booking, dispatch) => {
+    dispatch(createBookingStart())
+    try {
+        const res = await axiosInstance.post(`${API_URL}/api/v1/booking`, booking)
         dispatch(createBookingSuccess(res.data))
         return res.data.data.bookingId;
     } catch (error) {

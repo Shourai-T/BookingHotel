@@ -16,17 +16,16 @@ const ManageUserAccount = () => {
     const navigate = useNavigate();
     const userList = useSelector(state => state.user.getUserList.data);
     const {getUserList} = useSelector((state) => state.user)
-    const user = useSelector((state) => state.auth.login.currentUser);
-
+    const user = useSelector(state => state.auth.login.currentUser);
     useEffect(() => {
-        if(!user){
+        if(!user) {
             navigate('/loginstaff');
         }
         if (user.user.role !== "Staff") { 
             navigate("/");
         }
         getAllUsers(dispatch);
-    }, [dispatch]);
+    }, [dispatch, user, navigate]);
 
     const handleDeleteClick = (userid) => {
         setSelectedUserId(userid);

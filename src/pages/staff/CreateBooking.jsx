@@ -4,10 +4,12 @@ import { hoursOptions, usageHoursOptions } from '../../data';
 import 'boxicons';
 import useCurrentDate from '../../hooks/useCurrentDate';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import moment from 'moment';
+import { getRoomByFilter } from '../../redux/ApiRequest/apiRequestRoom';
+import { createBookingByStaff } from '../../redux/ApiRequest/apiRequestBooking';
 
 const CreateBooking = () => {
   const navigate = useNavigate();
@@ -21,18 +23,27 @@ const CreateBooking = () => {
   const [numberGuests, setNumberGuests] = useState(1);
   const [selectedRoomId, setSelectedRoomId] = useState(null);
   const currentDate = useCurrentDate();
+  const user = useSelector((state) => state.auth.login.currentUser);
   const roomList = useSelector((state) => state.room.getRoomList.data);
-  
+  const dispatch = useDispatch();
+
   const toggleDropdown = () => {
     if (selectedSwitchOption === 'Hourly') {
       if (!checkinDate || !selectedHour || !selectedUsageHour || !numberGuests || numberGuests <= 0) {
         toast.error('Vui lòng chọn đầy đủ thông tin trước khi chọn phòng.');
         return;
+      } else {
+        const startTime = checkinDate + ' ' + selectedHour + ':00:00';
+        const endTime = checkinDate + ' ' + (parseInt(selectedHour) + parseInt(selectedUsageHour)) + ':00:00';
+        getRoomByFilter(startTime, endTime, numberGuests, dispatch);
       }
+      
     } else if (selectedSwitchOption === 'Daily') {
       if (!checkinDate || !checkoutDate || !numberGuests || numberGuests <= 0) {
         toast.error('Vui lòng chọn đầy đủ thông tin trước khi chọn phòng.');
         return;
+      } else {
+        getRoomByFilter(checkinDate, checkoutDate, numberGuests, dispatch);
       }
     }
     setIsDropdownOpen(!isDropdownOpen);
@@ -56,7 +67,7 @@ const CreateBooking = () => {
     setSelectedSwitchOption(event.target.value);
   };
 
-  const handleBookingClick = () => {
+  const handleBookingClick = async () => {
     let startTime = '';
     let endTime = '';
     let total = 0;
@@ -79,9 +90,33 @@ const CreateBooking = () => {
       endTime = checkoutDate;
       total = selectedRoom.pricePerDay * moment(checkoutDate).diff(moment(checkinDate), 'days');
     }
+
+    const bookingInfo = {
+      startTime: startTime,
+      endTime: endTime,
+      bookingType: selectedSwitchOption,
+      numberOfGuest: parseInt(numberGuests),
+      roomId: selectedRoomId.toString(),
+    }
+    // console.log(bookingInfo);
+    const bookingId = await createBookingByStaff(bookingInfo, dispatch);
+    if (!bookingId) {
+      toast.error('Đặt phòng thất bại!');
+      return;
+    }
+    toast.success('Đặt phòng thành công!');
+    navigate(`/staff/booking-detail-staff/${bookingId}`);
   };
 
+  
+
   useEffect(() => {
+    if (!user) {
+      navigate("/loginstaff");
+    }
+    if (user.user.role !== "Staff") {
+      navigate("/login");
+    }
     const handleClickOutside = (event) => {
       if (!event.target.closest('#room-select')) {
         setIsDropdownOpen(false);

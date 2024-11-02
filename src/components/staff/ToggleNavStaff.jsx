@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/staff/toggleNavStaff.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { logOutStaff } from '../../redux/ApiRequest/apiRequestAuth';
 
 const ToggleNavStaff = ({ username, email }) => {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ const ToggleNavStaff = ({ username, email }) => {
         if (path.includes('manage-booking')) return 'booking';
         if (path.includes('manage-account')) return 'account';
         if (path.includes('view-revenue')) return 'revenue';
-        if (path.includes('manage-room')) return 'manage-room'; 
+        if (path.includes('manage-room')) return 'manage-room';
         return 'booking'; // Giá trị mặc định
     });
 
@@ -22,10 +23,15 @@ const ToggleNavStaff = ({ username, email }) => {
         navigate(path);
     };
 
+    const handleLogout = () => {
+        logOutStaff(dispatch, navigate);
+    };
+
     useEffect(() => {
         // Điều hướng ban đầu dựa trên URL hiện tại
         navigate(window.location.pathname);
     }, [navigate]);
+    
 
     return (
         <div className='togglenavstaff-container'>
@@ -63,6 +69,11 @@ const ToggleNavStaff = ({ username, email }) => {
                     onClick={() => handleNavigation('/staff/manage-room', 'manage-room')}
                 >
                     Quản lý phòng
+                </li>
+                <li
+                    onClick={handleLogout}
+                >
+                    Đăng xuất
                 </li>
             </ul>
         </div>
