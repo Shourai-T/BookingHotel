@@ -20,7 +20,7 @@ const ManageBooking = () => {
       navigate("/loginstaff");
     }
     if (user.user.role !== "Staff") {
-      navigate("/login");
+      navigate("/");
     }
     getAllBookings(dispatch);
   }, [dispatch]);
@@ -113,9 +113,9 @@ const ManageBooking = () => {
                       onClick={() => handleRowClick(booking.bookingId)}
                       key={booking.bookingId}
                     >
-                      <td>{booking.user?.name}</td>
-                      <td>{booking.user?.phoneNumber}</td>
-                      <td>{booking.room.id}</td>
+                      <td>{booking.user?.name?booking.user.name:"Khách đặt tại chỗ" }</td>
+                      <td>{booking.user?.phoneNumber?booking.user.phoneNumber:"Không có"}</td>
+                      <td>{booking.room?.id}</td>
                       <td>
                         {startTime} - {endTime}
                       </td>

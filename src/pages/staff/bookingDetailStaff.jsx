@@ -21,14 +21,14 @@ const BookingDetailStaff = () => {
             navigate("/loginstaff");
           }
           if (user.user.role !== "Staff") {
-            navigate("/login");
+            navigate("/");
           }
         getBookingDetail(bookingId, dispatch);
     }, [bookingId, dispatch]);
     // Tìm thông tin phòng tương ứng với ID
     const booking = useSelector(state => state.booking.bookingDetail.data);
     if (!booking) {
-        return <div>Không tìm thấy thông tin đặt phòng.</div>;
+        return <Loading />
     }
 
     const handleCancelClick = () => {
@@ -42,7 +42,6 @@ const BookingDetailStaff = () => {
     const handleBack = () => {
         setShowCancelPopup(false);
     };
-    const bookingStatus = "Cancelled";
     const handleConfirmCancel = async () => {
         try {
             if (booking.bookingStatus === 'Paid') {
@@ -69,11 +68,11 @@ const BookingDetailStaff = () => {
     };
 
     const handleCheckout = () => {
-        navigate('/staff/booking-invoice')
+        navigate('/staff/booking-invoice',{state: {booking}});
     };
     // Hiển thị trạng thái đặt phòng
     let status = "";
-    switch (booking.bookingStatus) {
+    switch (booking?.bookingStatus) {
         case "Paid":
           status = "Đã thanh toán";
           break;
@@ -97,27 +96,22 @@ const BookingDetailStaff = () => {
     let startTime = '';
     let endTime = '';
     let bookingType = '';
-    let total = 0
     switch (booking.bookingType) {
         case "Daily":
             startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY')
             endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY')
             bookingType = 'Ngày'
-            total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'days') * booking.room.pricePerDay
             break;
         case "Hourly":
             startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY HH:mm')
             endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY HH:mm')
             bookingType = 'Giờ'
-            total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'hours') * booking.room.pricePerHour
             break;
         default:
             console.log('Error')
             break;
     }
-    if (!booking) {
-        return <Loading />
-    }
+    
     return (
         <div id="bookingDetailStaff-body">
             <h2>CHI TIẾT ĐẶT PHÒNG</h2>
@@ -156,12 +150,13 @@ const BookingDetailStaff = () => {
                 <span className='value'>{status}</span>
             </p>
 
-            <div className='grp-btn'>
+           {booking.bookingStatus === 'Paid' && ( <div className='grp-btn'>
                 <button className='cancel-booking' onClick={handleCancelClick} disabled={status === 'Đã hủy'}>Hủy đặt phòng</button>
                 <button className='checkin' onClick={handleCheckin}>Checkin</button>
                 <button className='checkout' onClick={handleCheckout}>Checkout</button>
                 <button className='return' onClick={() => navigate(-1)}>Quay về</button>
             </div>
+        )}
 
             {showCancelPopup && (
                 <CancelPopup 

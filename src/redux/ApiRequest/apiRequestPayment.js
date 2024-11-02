@@ -35,3 +35,14 @@ export const refund = async(bookingId,dispatch)=>{
         dispatch(refundFailure())
     }
 }
+
+export const createPaymentByCash = async (data,dispatch) => {
+    dispatch(createPaymentStart())
+    try {
+        const response = await axiosInstance.post(`${API_URL}/api/v1/payment`, data)
+        dispatch(createPaymentSuccess(response.data))
+    } catch (error) {
+        console.error(error)
+        dispatch(createPaymentFailure())
+    }
+}
