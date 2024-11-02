@@ -154,7 +154,7 @@ const BookingDetailStaff = () => {
                 <span className='value'>{status}</span>
             </p>
 
-           {booking.bookingStatus === 'Paid' && ( <div className='grp-btn'>
+           {booking.bookingStatus === 'Paid'|| booking.bookingStatus === 'Unpaid'|| booking.bookingStatus === 'CheckedIn'&& ( <div className='grp-btn'>
                 <button className='cancel-booking' onClick={handleCancelClick} disabled={status === 'Đã hủy'}>Hủy đặt phòng</button>
                 <button className='checkin' onClick={handleCheckin}>Checkin</button>
                 <button className='checkout' onClick={handleCheckout}>Checkout</button>
