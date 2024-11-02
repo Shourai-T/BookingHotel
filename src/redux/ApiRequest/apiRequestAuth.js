@@ -74,3 +74,15 @@ export const logOut = async (dispatch, navigate) => {
         dispatch(logoutFailure())
     }
 }
+
+export const logOutStaff = async (dispatch, navigate) => {
+    dispatch(logoutStart())
+    try {
+        await axiosInstance.post(`${API_URL}/api/v1/auth/logout`, {},{withCredentials: true})
+        dispatch(logoutSuccess())
+        navigate('/loginstaff')
+    } catch (error) {
+        console.log(error)
+        dispatch(logoutFailure())
+    }
+}

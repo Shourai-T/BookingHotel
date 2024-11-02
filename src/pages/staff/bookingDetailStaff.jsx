@@ -27,6 +27,8 @@ const BookingDetailStaff = () => {
     }, [bookingId, dispatch]);
     // Tìm thông tin phòng tương ứng với ID
     const booking = useSelector(state => state.booking.bookingDetail.data);
+    const fetching = useSelector(state => state.booking.bookingDetail.isFetching);
+
     if (!booking) {
         return <div>Không tìm thấy thông tin đặt phòng.</div>;
     }
@@ -115,7 +117,7 @@ const BookingDetailStaff = () => {
             console.log('Error')
             break;
     }
-    if (!booking) {
+    if (!booking || fetching) {
         return <Loading />
     }
     return (
