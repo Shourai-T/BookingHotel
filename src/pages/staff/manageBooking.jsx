@@ -36,7 +36,7 @@ const ManageBooking = () => {
   const handleFilterChange = (event) => {
     const status = event.target.value;
     setSelectedFilter(status);
-    console.log(status);
+    // console.log(status);
     if (status === 'all-booking') {
       getAllBooking(dispatch);
     } else {
@@ -55,7 +55,7 @@ const ManageBooking = () => {
         <select className="managebooking-options" value={selectedFilter} onChange={handleFilterChange}>
           <option value="all-booking">Tất cả</option>
           <option value='Unpaid'>Chưa thanh toán</option>
-          <option value='Paid'>Đã thanh toán</option>
+          {/* <option value='Paid'>Đã thanh toán</option> */}
           <option value='CheckedIn'>Đã checkin</option>
           <option value='CheckedOut'>Đã checkout</option>
           <option value='Cancelled'>Đã hủy</option>
