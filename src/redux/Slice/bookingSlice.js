@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { all } from "axios";
-import { updateBookingStatus } from "../ApiRequest/apiRequestBooking";
 
 const bookingSlice= createSlice({
     name:"booking",

@@ -19,6 +19,9 @@ import bookingSlice from "./Slice/bookingSlice";
 import userSlice from "./Slice/userSlice";
 import discountSlice from "./Slice/discountSlice";
 import paymentSlice from "./Slice/paymentSlice";
+import utilitySlice from "./Slice/utilitySlice";
+import surchargeSlice from "./Slice/surchargeSlice";
+
   const persistConfig = {
     key: 'auth',
     version: 1,
@@ -34,6 +37,8 @@ import paymentSlice from "./Slice/paymentSlice";
     discount: discountSlice,
     payment: paymentSlice,
     review: reviewSlice,
+    utility: utilitySlice,
+    surcharge: surchargeSlice,
   })
   
   const persistedReducer = persistReducer(persistConfig, rootReducer)
