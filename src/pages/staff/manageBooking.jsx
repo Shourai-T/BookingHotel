@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/staff/manage-booking.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBookings } from "../../redux/ApiRequest/apiRequestBooking";
+import {  getBookingByStatus, getAllBooking } from "../../redux/ApiRequest/apiRequestBooking";
 import Loading from "../../components/Loading";
 import moment from 'moment';
 
@@ -10,7 +10,7 @@ import moment from 'moment';
 const ManageBooking = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [selectedFilter, setSelectedFilter] = useState('all-booking');
   const bookingList = useSelector((state) => state.booking.allBooking.data);
   const { allBooking } = useSelector((state) => state.booking);
   const user = useSelector((state) => state.auth.login.currentUser);
@@ -22,7 +22,7 @@ const ManageBooking = () => {
     if (user.user.role !== "Staff") {
       navigate("/login");
     }
-    getAllBookings(dispatch);
+    getAllBooking(dispatch);
   }, [dispatch]);
 
   const handleRowClick = (bookingId) => {
@@ -32,6 +32,18 @@ const ManageBooking = () => {
   const handleCreateClick = () => {
     navigate("/staff/create-booking");
   };
+
+  const handleFilterChange = (event) => {
+    const status = event.target.value;
+    setSelectedFilter(status);
+    console.log(status);
+    if (status === 'all-booking') {
+      getAllBooking(dispatch);
+    } else {
+      getBookingByStatus(status, dispatch);
+    }
+  };
+
   return (
     <div id="managebooking-container">
       <h2>DANH SÁCH ĐẶT PHÒNG</h2>
@@ -40,12 +52,14 @@ const ManageBooking = () => {
           <i class="fa-solid fa-plus" style={{ style: "#0000" }}></i>Tạo đặt
           phòng
         </button>
-        <select className="managebooking-options">
+        <select className="managebooking-options" value={selectedFilter} onChange={handleFilterChange}>
           <option value="all-booking">Tất cả</option>
-          <option value="checked-out">Hôm nay</option>
-          <option value="payment-success">Đã thanh toán</option>
-          <option value="checked-in">Đã checkin</option>
-          <option value="checked-out">Đã checkout</option>
+          <option value='Unpaid'>Chưa thanh toán</option>
+          <option value='Paid'>Đã thanh toán</option>
+          <option value='CheckedIn'>Đã checkin</option>
+          <option value='CheckedOut'>Đã checkout</option>
+          <option value='Cancelled'>Đã hủy</option>
+          <option value='Reviewed'>Đã đánh giá</option>
         </select>
       </div>
       {allBooking.isFetching ? (
