@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { useSelector } from 'react-redux';
+import Loading from '../components/Loading';
 
 const MainLayout = () => {
     const [scrolled, setScrolled] = useState(false);
-
+    const { logout } = useSelector((state) => state.auth);
+    
     useEffect(() => {
         const handleScroll = () => {
             const mainContentSection = document.getElementById('main');
@@ -24,6 +27,10 @@ const MainLayout = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    if (logout.isFetching) {
+        return <Loading />;
+    }
 
     return (
         <div>
