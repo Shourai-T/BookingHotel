@@ -64,3 +64,9 @@
     width: 150px;
     font-size: 14px;
 }
+#bookingDetailStaff-body .grp-btn button:disabled {
+    background-color: #cccccc; /* Màu nền khi button bị vô hiệu */
+    color: #666666; /* Màu chữ khi button bị vô hiệu */
+    cursor: not-allowed; /* Con trỏ chuột chuyển thành không cho phép */
+    opacity: 0.6; /* Giảm độ trong suốt để dễ nhận biết */
+}

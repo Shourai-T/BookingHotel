@@ -81,3 +81,14 @@ export const updateBookingStatus = async (bookingId, data, dispatch) => {
         dispatch(updateBookingStatusFailure())
     }
 }
+
+export const getBookingsToday = async (dispatch) => {
+    dispatch(allBookingStart())
+    try {
+        const res = await axiosInstance.get(`${API_URL}/api/v1/booking/findBookingToday`)
+        dispatch(allBookingSuccess(res.data))
+    } catch (error) {
+        console.error(error)
+        dispatch(allBookingFailure())
+    }
+}
