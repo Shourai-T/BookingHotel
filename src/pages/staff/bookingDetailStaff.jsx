@@ -83,8 +83,6 @@ const BookingDetailStaff = () => {
       console.error(error);
       toast.error("CheckedIn có lỗi xảy ra!");
     }
-  };
-
   const handleCheckout = () => {
     navigate("/staff/booking-invoice", { state: { booking } });
   };
