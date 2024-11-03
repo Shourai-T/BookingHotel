@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../styles/staff/manage-booking.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {  getBookingByStatus, getAllBooking } from "../../redux/ApiRequest/apiRequestBooking";
+import {  getBookingByStatus, getAllBooking, getBookingsToday } from "../../redux/ApiRequest/apiRequestBooking";
 import Loading from "../../components/Loading";
 import moment from 'moment';
 
@@ -39,7 +39,11 @@ const ManageBooking = () => {
     // console.log(status);
     if (status === 'all-booking') {
       getAllBooking(dispatch);
-    } else {
+    } 
+    else if (status === 'Today') {
+      getBookingsToday(dispatch);
+    }
+    else {
       getBookingByStatus(status, dispatch);
     }
   };
@@ -54,12 +58,12 @@ const ManageBooking = () => {
         </button>
         <select className="managebooking-options" value={selectedFilter} onChange={handleFilterChange}>
           <option value="all-booking">Tất cả</option>
+          <option value='Today'>Hôm nay</option>
           <option value='Unpaid'>Chưa thanh toán</option>
           {/* <option value='Paid'>Đã thanh toán</option> */}
           <option value='CheckedIn'>Đã checkin</option>
           <option value='CheckedOut'>Đã checkout</option>
           <option value='Cancelled'>Đã hủy</option>
-          <option value='Reviewed'>Đã đánh giá</option>
         </select>
       </div>
       {allBooking.isFetching ? (

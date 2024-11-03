@@ -29,15 +29,11 @@ const BookingDetailStaff = () => {
     }
     getBookingDetail(bookingId, dispatch);
   }, [bookingId, dispatch]);
-  // Tìm thông tin phòng tương ứng với ID
+
   const booking = useSelector((state) => state.booking.bookingDetail.data);
   const fetching = useSelector(
     (state) => state.booking.bookingDetail.isFetching
   );
-
-  if (!booking) {
-    return <Loading />;
-  }
 
   const handleCancelClick = () => {
     setShowCancelPopup(true);
@@ -50,6 +46,7 @@ const BookingDetailStaff = () => {
   const handleBack = () => {
     setShowCancelPopup(false);
   };
+
   const handleConfirmCancel = async () => {
     try {
       if (booking.bookingStatus === "Paid") {
@@ -83,10 +80,16 @@ const BookingDetailStaff = () => {
       console.error(error);
       toast.error("CheckedIn có lỗi xảy ra!");
     }
+  };
+
   const handleCheckout = () => {
     navigate("/staff/booking-invoice", { state: { booking } });
   };
-  // Hiển thị trạng thái đặt phòng
+
+  if (fetching || !booking) {
+    return <Loading />;
+  }
+
   let status = "";
   switch (booking?.bookingStatus) {
     case "Paid":
@@ -108,11 +111,11 @@ const BookingDetailStaff = () => {
       status = "Đã đánh giá";
       break;
   }
-  // hieern thij type room
+
   let startTime = "";
   let endTime = "";
   let bookingType = "";
-  switch (booking.bookingType) {
+  switch (booking?.bookingType) {
     case "Daily":
       startTime = moment.tz(booking.startTime, "UTC").format("DD/MM/YYYY");
       endTime = moment.tz(booking.endTime, "UTC").format("DD/MM/YYYY");
@@ -129,9 +132,7 @@ const BookingDetailStaff = () => {
       console.log("Error");
       break;
   }
-  if (fetching) {
-    return <Loading />;
-  }
+
   return (
     <div id="bookingDetailStaff-body">
       <h2>CHI TIẾT ĐẶT PHÒNG</h2>
@@ -176,15 +177,15 @@ const BookingDetailStaff = () => {
         <span className="value">{status}</span>
       </p>
 
-      {booking.bookingStatus === "Paid" && (
+      {
         <div className="grp-btn">
           <button
             className="cancel-booking"
             onClick={handleCancelClick}
             disabled={
-              status === "Đã hủy" ||
-              status === "Đã nhận phòng" ||
-              status === "Đã trả phòng"
+              booking?.bookingStatus === "Cancelled" ||
+              booking?.bookingStatus === "CheckedIn" ||
+              booking?.bookingStatus === "CheckedOut"
             }
           >
             Hủy đặt phòng
@@ -192,14 +193,14 @@ const BookingDetailStaff = () => {
           <button
             className="checkin"
             onClick={handleCheckin}
-            disabled={status === "Đã hủy" || status === "Đã trả phòng"}
+            disabled={booking?.bookingStatus === "Cancelled" || booking?.bookingStatus === "CheckedIn" || booking?.bookingStatus === "CheckedOut"}
           >
             Checkin
           </button>
           <button
             className="checkout"
             onClick={handleCheckout}
-            disabled={status === "Đã hủy" || status === "Đã trả phòng"}
+            disabled={booking?.bookingStatus === "Cancelled" || booking?.bookingStatus === "CheckedOut"}
           >
             Checkout
           </button>
@@ -207,7 +208,7 @@ const BookingDetailStaff = () => {
             Quay về
           </button>
         </div>
-      )}
+      }
 
       {showCancelPopup && (
         <CancelPopup
