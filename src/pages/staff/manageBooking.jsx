@@ -60,7 +60,7 @@ const ManageBooking = () => {
           <option value="all-booking">Tất cả</option>
           <option value='Today'>Hôm nay</option>
           <option value='Unpaid'>Chưa thanh toán</option>
-          {/* <option value='Paid'>Đã thanh toán</option> */}
+          <option value='Paid'>Đã thanh toán</option>
           <option value='CheckedIn'>Đã checkin</option>
           <option value='CheckedOut'>Đã checkout</option>
           <option value='Cancelled'>Đã hủy</option>
