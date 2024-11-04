@@ -1,5 +1,7 @@
 import axios from "axios";
-import { getRoomListFailure, getRoomListStart, getRoomListSuccess } from "../Slice/roomSlice";
+import { getRoomListFailure, getRoomListStart, getRoomListSuccess,
+    deleteRoomFailure, deleteRoomStart, deleteRoomSuccess
+ } from "../Slice/roomSlice";
 
 const API_URL= process.env.REACT_APP_API_URL
 
@@ -25,5 +27,29 @@ export const getRoomByType= async (dispatch,id) => {
     catch(error){
         console.log(error)
         dispatch(getRoomListFailure())
+    }
+}
+
+export const getRoomList= async (dispatch) => {
+    dispatch( getRoomListStart())
+    try{
+        const res= await axios.get(`${API_URL}/api/v1/rooms`)
+        dispatch(getRoomListSuccess(res.data))
+    }
+    catch(error){
+        console.log(error)
+        dispatch(getRoomListFailure())
+    }
+}
+
+export const deleteRoom= async (dispatch,room) => {
+    dispatch(deleteRoomStart())
+    try{
+        await axios.delete(`${API_URL}/api/v1/rooms/${room.id}`)
+        dispatch(deleteRoomSuccess())
+    }
+    catch(error){
+        console.log(error)
+        dispatch(deleteRoomFailure())
     }
 }

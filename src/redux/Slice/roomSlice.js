@@ -8,7 +8,13 @@ const roomSlice = createSlice({
             isFetching:false,
             error:false,
             success:false
+        },
+        deleteRoom:{
+            isFetching:false,
+            error:false,
+            success:false
         }
+
     },
 
     reducers:{
@@ -25,6 +31,21 @@ const roomSlice = createSlice({
         getRoomListFailure:(state)=>{
             state.getRoomList.isFetching=false;
             state.getRoomList.error=true;
+        },
+        deleteRoomStart:(state)=>{
+            state.deleteRoom.isFetching=true;
+            state.deleteRoom.error=false;
+            state.deleteRoom.success=false;
+        },
+        deleteRoomSuccess:(state)=>{
+            state.deleteRoom.isFetching=false;
+            state.deleteRoom.error=false;
+            state.deleteRoom.success=true;
+        },
+        deleteRoomFailure:(state)=>{
+            state.deleteRoom.isFetching=false;
+            state.deleteRoom.error=true;
+            state.deleteRoom.success=false;
         }
     }
 })
@@ -32,7 +53,11 @@ const roomSlice = createSlice({
 export const {
     getRoomListStart,
     getRoomListSuccess,
-    getRoomListFailure
+    getRoomListFailure,
+
+    deleteRoomStart,
+    deleteRoomSuccess,
+    deleteRoomFailure
 } = roomSlice.actions;
 
 export default roomSlice.reducer;

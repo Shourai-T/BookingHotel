@@ -27,8 +27,8 @@ const ManageUserAccount = () => {
         getAllUsers(dispatch);
     }, [dispatch, user, navigate]);
 
-    const handleDeleteClick = (userid) => {
-        setSelectedUserId(userid);
+    const handleDeleteClick = (userId) => {
+        setSelectedUserId(userId);
         setShowDeletePopup(true);
     };
 
