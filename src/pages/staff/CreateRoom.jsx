@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createRoom } from "../../redux/ApiRequest/apiRequestRoom";
 import { toast, ToastContainer } from "react-toastify";
-
+import { storage } from "../../utility/firebase";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 const CreateRoom = () => {
   const [interiors, setInteriors] = useState([]); // Mảng lưu trữ danh sách nội thất
   const [currentInterior, setCurrentInterior] = useState(""); // Nội thất hiện tại
@@ -17,7 +18,7 @@ const CreateRoom = () => {
   const [roomPrice, setRoomPrice] = useState(""); // Giá phòng theo ngày
   const [roomPricePerHour, setRoomPricePerHour] = useState(""); // Giá phòng theo giờ
   const [roomNumber, setRoomNumber] = useState(''); // Số phòng
-
+  const [url, setUrl] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.login.currentUser);
@@ -70,12 +71,36 @@ const CreateRoom = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setRoomImage(URL.createObjectURL(file)); // Tạo URL cho hình ảnh
+      setRoomImage(file); // Tạo URL cho hình ảnh
     }
+  };
+
+
+  const handleUpload =async () => {
+    if (!roomImage) return;
+
+    // Tạo tham chiếu tới Firebase Storage
+    const imageRef = ref(storage, `/upload/${roomImage.name}`);
+
+    // Upload ảnh lên Firebase Storage
+    uploadBytes(imageRef, roomImage)
+        .then((snapshot) => {
+            console.log('Upload successful');
+            // Lấy URL của ảnh sau khi upload xong
+            return getDownloadURL(snapshot.ref);
+        })
+        .then((downloadURL) => {
+            setUrl(downloadURL);
+            console.log('File available at', downloadURL);
+        })
+        .catch((error) => {
+            console.error("Error uploading image: ", error);
+        });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await handleUpload();
     const formattedInteriors = interiors.map(item => `<li>${item}</li>`).join('\r\n');
     const formattedFacilities = facilities.map(item => `<li>${item}</li>`).join('\r\n');
     const roomData = {
@@ -84,7 +109,7 @@ const CreateRoom = () => {
         pricePerHour: roomPricePerHour,
         interior: formattedFacilities,
         name: roomName,
-        image: roomImage,
+        image: url,
         facilities: formattedInteriors,
         typeRoomId: roomType,
         
