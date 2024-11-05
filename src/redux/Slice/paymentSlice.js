@@ -12,6 +12,10 @@ export const paymentSlice = createSlice({
             isFetching:false,
             success:false,
             error:false,
+        },
+        revenue:{
+            isFetching:false,
+            error:false,
         }
     },
     reducers: {
@@ -48,6 +52,18 @@ export const paymentSlice = createSlice({
             state.refund.isFetching=false;
             state.refund.success=false;
             state.refund.error=true;
+        },
+        getRevenueStart:(state)=>{
+            state.revenue.isFetching=true;
+            state.revenue.error=false;
+        },
+        getRevenueSuccess:(state)=>{
+            state.revenue.isFetching=false;
+            state.revenue.error=false;
+        },
+        getRevenueFailure:(state)=>{
+            state.revenue.isFetching=false;
+            state.revenue.error=true;
         }
     }
 });
@@ -59,7 +75,11 @@ export const{
     refundInit,
     refundStart,
     refundSuccess,
-    refundFailure
+    refundFailure,
+
+    getRevenueStart,
+    getRevenueSuccess,
+    getRevenueFailure
 }=paymentSlice.actions;
 
 export default paymentSlice.reducer;

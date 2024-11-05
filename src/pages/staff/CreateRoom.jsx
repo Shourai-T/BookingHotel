@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { createRoom } from "../../redux/ApiRequest/apiRequestRoom";
 import { toast, ToastContainer } from "react-toastify";
 import { storage } from "../../utility/firebase";
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getAllTypeRoom } from "../../redux/ApiRequest/apiRequestTypeRoom";
 const CreateRoom = () => {
   const [interiors, setInteriors] = useState([]); // Mảng lưu trữ danh sách nội thất
   const [currentInterior, setCurrentInterior] = useState(""); // Nội thất hiện tại
@@ -17,11 +18,14 @@ const CreateRoom = () => {
   const [roomType, setRoomType] = useState(""); // Loại phòng
   const [roomPrice, setRoomPrice] = useState(""); // Giá phòng theo ngày
   const [roomPricePerHour, setRoomPricePerHour] = useState(""); // Giá phòng theo giờ
-  const [roomNumber, setRoomNumber] = useState(''); // Số phòng
-  const [url, setUrl] = useState('');
+  const [roomNumber, setRoomNumber] = useState(""); // Số phòng
+  const [url, setUrl] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.login.currentUser);
+  const typeRoomList = useSelector(
+    (state) => state.typeRoom.getTypeRoomList.data
+  );
 
   useEffect(() => {
     if (!user) {
@@ -30,6 +34,7 @@ const CreateRoom = () => {
     if (user.user.role !== "Staff") {
       navigate("/");
     }
+    getAllTypeRoom(dispatch);
   }, [user, navigate, dispatch]);
   // Hàm xử lý khi nhấn nút "OK" để thêm nội thất vào danh sách
   const handleAddInterior = () => {
@@ -68,53 +73,67 @@ const CreateRoom = () => {
   };
 
   // Hàm xử lý khi chọn hình ảnh
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setRoomImage(file); // Tạo URL cho hình ảnh
+      await setRoomImage(file); // Tạo URL cho hình ảnh
     }
   };
 
-
-  const handleUpload =async () => {
+  const handleUpload = async () => {
     if (!roomImage) return;
 
     // Tạo tham chiếu tới Firebase Storage
     const imageRef = ref(storage, `/upload/${roomImage.name}`);
 
     // Upload ảnh lên Firebase Storage
-    uploadBytes(imageRef, roomImage)
-        .then((snapshot) => {
-            console.log('Upload successful');
-            // Lấy URL của ảnh sau khi upload xong
-            return getDownloadURL(snapshot.ref);
-        })
-        .then((downloadURL) => {
-            setUrl(downloadURL);
-            console.log('File available at', downloadURL);
-        })
-        .catch((error) => {
-            console.error("Error uploading image: ", error);
-        });
+    await uploadBytes(imageRef, roomImage)
+      .then((snapshot) => {
+        console.log("Upload successful");
+        // Lấy URL của ảnh sau khi upload xong
+        return getDownloadURL(snapshot.ref);
+      })
+      .then((downloadURL) => {
+        setUrl(downloadURL);
+        console.log("File available at", downloadURL);
+      })
+      .catch((error) => {
+        console.error("Error uploading image: ", error);
+      });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await handleUpload();
-    const formattedInteriors = interiors.map(item => `<li>${item}</li>`).join('\r\n');
-    const formattedFacilities = facilities.map(item => `<li>${item}</li>`).join('\r\n');
+
+    const checkUrl = () =>
+      new Promise((resolve) => {
+        const interval = setInterval(() => {
+          if (url) {
+            clearInterval(interval);
+            resolve();
+          }
+        }, 100);
+      });
+
+    await checkUrl();
+    const formattedInteriors = interiors
+      .map((item) => `<li>${item}</li>`)
+      .join("\r\n");
+    const formattedFacilities = facilities
+      .map((item) => `<li>${item}</li>`)
+      .join("\r\n");
     const roomData = {
-        id: roomNumber,
-        pricePerDay: roomPrice,
-        pricePerHour: roomPricePerHour,
-        interior: formattedFacilities,
-        name: roomName,
-        image: url,
-        facilities: formattedInteriors,
-        typeRoomId: roomType,
-        
+      id: roomNumber,
+      pricePerDay: roomPrice,
+      pricePerHour: roomPricePerHour,
+      interior: formattedFacilities,
+      name: roomName,
+      image: url,
+      facilities: formattedInteriors,
+      typeRoomId: roomType,
     };
-    console.log(roomData);
+
     const newRoom = await createRoom(dispatch, roomData);
     if (newRoom) {
       toast.success("Tạo phòng thành công.");
@@ -126,20 +145,20 @@ const CreateRoom = () => {
 
   return (
     <div id="createRoom-body">
-        <ToastContainer />
+      <ToastContainer />
       <form className="createRoom-container" onSubmit={handleSubmit}>
-      <div className="form-group">
-                    <label htmlFor="roomNumber">Số phòng</label>
-                    <input 
-                        type="text" 
-                        className="form-control" 
-                        id="roomNumber" 
-                        placeholder="Nhập số phòng" 
-                        value={roomNumber}
-                        onChange={(e) => setRoomNumber(e.target.value)}
-                    />
-                </div>
-        
+        <div className="form-group">
+          <label htmlFor="roomNumber">Số phòng</label>
+          <input
+            type="text"
+            className="form-control"
+            id="roomNumber"
+            placeholder="Nhập số phòng"
+            value={roomNumber}
+            onChange={(e) => setRoomNumber(e.target.value)}
+          />
+        </div>
+
         <div className="form-group">
           <label htmlFor="roomName">Tên phòng</label>
           <input
@@ -154,12 +173,16 @@ const CreateRoom = () => {
 
         <div className="form-group">
           <label htmlFor="roomType">Loại phòng</label>
-          <select value={roomType} onChange={(e) => setRoomType(e.target.value)}>
+          <select
+            value={roomType}
+            onChange={(e) => setRoomType(e.target.value)}
+          >
             <option value="">Chọn loại phòng</option>
-            <option value="standard">Phòng Tiêu chuẩn</option>
-            <option value="couple">Phòng Đôi</option>
-            <option value="family">Phòng Gia đình</option>
-            <option value="4fb24ae1-acb4-420b-b5a2-2dd674fcd899">Phòng hạng sang</option>
+            {typeRoomList.map((typeRoom) => (
+              <option key={typeRoom.id} value={typeRoom.id}>
+                {typeRoom.name}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -171,7 +194,7 @@ const CreateRoom = () => {
             id="roomPrice"
             placeholder="Nhập giá phòng"
             value={roomPrice}
-    onChange={(e) => setRoomPrice(e.target.value)}
+            onChange={(e) => setRoomPrice(e.target.value)}
           />
         </div>
 
@@ -183,7 +206,7 @@ const CreateRoom = () => {
             id="roomPricePerHour"
             placeholder="Nhập giá phòng"
             value={roomPricePerHour}
-    onChange={(e) => setRoomPricePerHour(e.target.value)}
+            onChange={(e) => setRoomPricePerHour(e.target.value)}
           />
         </div>
 
