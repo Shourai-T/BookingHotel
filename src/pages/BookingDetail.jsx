@@ -131,25 +131,6 @@ const BookingDetail = () => {
             console.log('Error')
             break;
     }
-    let imageUrl;
-    switch (booking.room.typeRoom.id) {
-        case '1c72ac2a-0aa6-4bc1-bf50-15575be18683':
-            imageUrl = require(`../assets/phongdon/${booking.room.image}`);
-            break;
-        case '3f3d4386-791e-409b-85a8-78afbbc596d2':
-            imageUrl = require(`../assets/phonggiadinh/${booking.room.image}`);
-            break;
-        case '4fb24ae1-acb4-420b-b5a2-2dd674fcd899':
-            imageUrl = require(`../assets/phonghangsang/${booking.room.image}`);
-            break;
-        case '2fd36d7a-65e1-43e1-b571-9279696dfe5d':
-            imageUrl = require(`../assets/phongdoi/${booking.room.image}`);
-            break;
-        default:
-            imageUrl = require(`../assets/${booking.room.image}`);
-            break;
-    }
-
 
     const handleCreateReview = () => {
         if (!rating || !text) {
@@ -180,7 +161,7 @@ const BookingDetail = () => {
             (<div className="container">
                 <h1>CHI TIẾT ĐẶT PHÒNG</h1>
                 <div className="room-detail">
-                    <img src={imageUrl} alt="" />
+                    <img src={booking.room.image} alt="" />
                     <div className='room-info'>
                         <h3>{booking.room.name}</h3>
                         <p>Loại phòng: {booking.room.typeRoom.name}</p>
