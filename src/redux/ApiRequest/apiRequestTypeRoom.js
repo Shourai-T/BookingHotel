@@ -7,7 +7,7 @@ export const getAllTypeRoom= async (dispatch) => {
     dispatch( getTypeRoomListStart())
     try{
         const res= await axiosInstance.get(`${API_URL}/api/v1/type-rooms`)
-        console.log(res.data)
+        // console.log(res.data)
         dispatch(getTypeRoomListSuccess(res.data))
     }
     catch(error){

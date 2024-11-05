@@ -23,7 +23,6 @@ const typeRoomSlice= createSlice({
             state.getTypeRoomList.success=false;
         },
         getTypeRoomListSuccess:(state,action)=>{
-            console.log(action.payload.data)
             state.getTypeRoomList.isFetching=false;
             state.getTypeRoomList.data=action.payload.data.typeRooms;
             state.getTypeRoomList.success=true;

@@ -60,9 +60,11 @@ export const createRoom= async (dispatch,room) => {
     try{
         await axiosInstance.post(`${API_URL}/api/v1/rooms`,room)
         dispatch(createRoomSuccess())
+        return true;
     }
     catch(error){
         console.log(error)
         dispatch(createRoomFailure())
+        return false;
     }
 }
