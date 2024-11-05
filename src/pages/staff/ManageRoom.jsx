@@ -54,9 +54,6 @@ const ManageRoom = () => {
       >
         <box-icon name="plus"></box-icon>Tạo phòng
       </button>
-      {isFetching ? (
-        <Loading />
-      ) : (
         <div className="manageRoom-table">
           <table>
             <thead>
@@ -130,7 +127,7 @@ const ManageRoom = () => {
             </tbody>
           </table>
         </div>
-      )}
+      
       {showDeletePopup && (
         <DeleteRoomPopup
           onClose={handleClosePopup}
