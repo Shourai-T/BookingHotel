@@ -13,7 +13,7 @@ const CreateRoom = () => {
   const [facilities, setFacilities] = useState([]); // Mảng lưu trữ danh sách tiện nghi
   const [currentFacility, setCurrentFacility] = useState(""); // Tiện nghi hiện tại
   const [roomImage, setRoomImage] = useState(null); // Hình ảnh phòng
-  //
+  const [imageDisplay, setImageDisplay] = useState(null);
   const [roomName, setRoomName] = useState(""); // Tên phòng
   const [roomType, setRoomType] = useState(""); // Loại phòng
   const [roomPrice, setRoomPrice] = useState(""); // Giá phòng theo ngày
@@ -76,7 +76,8 @@ const CreateRoom = () => {
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      await setRoomImage(file); // Tạo URL cho hình ảnh
+      setRoomImage(file); 
+      setImageDisplay(URL.createObjectURL(file))// Tạo URL cho hình ảnh
     }
   };
 
@@ -301,10 +302,10 @@ const CreateRoom = () => {
           />
         </div>
         <div className="showImage">
-          {roomImage && (
+          {imageDisplay && (
             <div className="image-preview">
               <img
-                src={roomImage}
+                src={imageDisplay}
                 alt="Room"
                 style={{ width: "300px", height: "200px", objectFit: "cover" }}
               />
