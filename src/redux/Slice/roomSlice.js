@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createRoom } from "../ApiRequest/apiRequestRoom";
 
 const roomSlice = createSlice({
     name:"room",
@@ -10,6 +11,11 @@ const roomSlice = createSlice({
             success:false
         },
         deleteRoom:{
+            isFetching:false,
+            error:false,
+            success:false
+        },
+        createRoom:{
             isFetching:false,
             error:false,
             success:false
@@ -46,6 +52,21 @@ const roomSlice = createSlice({
             state.deleteRoom.isFetching=false;
             state.deleteRoom.error=true;
             state.deleteRoom.success=false;
+        },
+        createRoomStart:(state)=>{
+            state.createRoom.isFetching=true;
+            state.createRoom.error=false;
+            state.createRoom.success=false;
+        },
+        createRoomSuccess:(state)=>{
+            state.createRoom.isFetching=false;
+            state.createRoom.error=false;
+            state.createRoom.success=true;
+        },
+        createRoomFailure:(state)=>{
+            state.createRoom.isFetching=false;
+            state.createRoom.error=true;
+            state.createRoom.success=false;
         }
     }
 })
@@ -57,7 +78,11 @@ export const {
 
     deleteRoomStart,
     deleteRoomSuccess,
-    deleteRoomFailure
+    deleteRoomFailure,
+
+    createRoomStart,
+    createRoomSuccess,
+    createRoomFailure
 } = roomSlice.actions;
 
 export default roomSlice.reducer;

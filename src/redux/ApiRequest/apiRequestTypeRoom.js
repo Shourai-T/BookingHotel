@@ -1,12 +1,12 @@
-import axios from "axios"
 import { getDetailTypeRoomFailure, getDetailTypeRoomStart, getDetailTypeRoomSuccess, getTypeRoomListFailure, getTypeRoomListStart, getTypeRoomListSuccess } from "../Slice/typeRoomSlice"
+import axiosInstance from "../../utility/axios.interceptor"
 
 const API_URL= process.env.REACT_APP_API_URL
 
 export const getAllTypeRoom= async (dispatch) => {
     dispatch( getTypeRoomListStart())
     try{
-        const res= await axios.get(`${API_URL}/api/v1/type-rooms`)
+        const res= await axiosInstance.get(`${API_URL}/api/v1/type-rooms`)
         console.log(res.data)
         dispatch(getTypeRoomListSuccess(res.data))
     }
@@ -19,7 +19,7 @@ export const getAllTypeRoom= async (dispatch) => {
 export const getDetailTypeRoom= async (dispatch,id) => {
     dispatch(getDetailTypeRoomStart())
     try{
-        const res= await axios.get(`${API_URL}/api/v1/type-rooms/${id}`)
+        const res= await axiosInstance.get(`${API_URL}/api/v1/type-rooms/${id}`)
         console.log(res.data)
         dispatch(getDetailTypeRoomSuccess(res.data))
     }

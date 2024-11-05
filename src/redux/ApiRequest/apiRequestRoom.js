@@ -1,14 +1,15 @@
-import axios from "axios";
 import { getRoomListFailure, getRoomListStart, getRoomListSuccess,
-    deleteRoomFailure, deleteRoomStart, deleteRoomSuccess
+    deleteRoomFailure, deleteRoomStart, deleteRoomSuccess,
+    createRoomFailure, createRoomStart, createRoomSuccess
  } from "../Slice/roomSlice";
+import axiosInstance from "../../utility/axios.interceptor";
 
 const API_URL= process.env.REACT_APP_API_URL
 
 export const getRoomByFilter= async (startTime,endTime,numberOfPeople,dispatch) => {
     dispatch( getRoomListStart())
     try{
-        const res= await axios.get(`${API_URL}/api/v1/rooms/available/search?startTime=${startTime}&endTime=${endTime}&numberOfPeople=${numberOfPeople}`)
+        const res= await axiosInstance.get(`${API_URL}/api/v1/rooms/available/search?startTime=${startTime}&endTime=${endTime}&numberOfPeople=${numberOfPeople}`)
         dispatch(getRoomListSuccess(res.data))
     }
     catch(error){
@@ -20,7 +21,7 @@ export const getRoomByType= async (dispatch,id) => {
     dispatch( getRoomListStart())
 
     try{
-        const res= await axios.get(`${API_URL}/api/v1/rooms/type-room/${id}`)
+        const res= await axiosInstance.get(`${API_URL}/api/v1/rooms/type-room/${id}`)
         console.log(res.data)
         dispatch(getRoomListSuccess(res.data))
     }
@@ -33,7 +34,7 @@ export const getRoomByType= async (dispatch,id) => {
 export const getRoomList= async (dispatch) => {
     dispatch( getRoomListStart())
     try{
-        const res= await axios.get(`${API_URL}/api/v1/rooms`)
+        const res= await axiosInstance.get(`${API_URL}/api/v1/rooms`)
         dispatch(getRoomListSuccess(res.data))
     }
     catch(error){
@@ -45,11 +46,23 @@ export const getRoomList= async (dispatch) => {
 export const deleteRoom= async (dispatch,room) => {
     dispatch(deleteRoomStart())
     try{
-        await axios.delete(`${API_URL}/api/v1/rooms/${room.id}`)
+        await axiosInstance.delete(`${API_URL}/api/v1/rooms/${room}`)
         dispatch(deleteRoomSuccess())
     }
     catch(error){
         console.log(error)
         dispatch(deleteRoomFailure())
+    }
+}
+
+export const createRoom= async (dispatch,room) => {
+    dispatch(createRoomStart())
+    try{
+        await axiosInstance.post(`${API_URL}/api/v1/rooms`,room)
+        dispatch(createRoomSuccess())
+    }
+    catch(error){
+        console.log(error)
+        dispatch(createRoomFailure())
     }
 }
