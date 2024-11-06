@@ -71,7 +71,7 @@ const ToggleNavStaff = ({ username, email }) => {
                     Quản lý phòng
                 </li>
                 <li
-                    onClick={handleLogout}
+                    onClick={handleLogout} className='logout'
                 >
                     Đăng xuất
                 </li>
