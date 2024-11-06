@@ -90,4 +90,10 @@
     color: white;
 }
 
+.togglenavstaff-container .logout{
+    margin-top: 150px;
+    border-top: 0.9px solid white;
+    width: 190px;       
+}
+
 
