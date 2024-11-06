@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import "../../styles/staff/createRoom.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createRoom } from "../../redux/ApiRequest/apiRequestRoom";
+import { createNewRoom } from "../../redux/ApiRequest/apiRequestRoom";
 import { toast, ToastContainer } from "react-toastify";
-import { storage } from "../../utility/firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAllTypeRoom } from "../../redux/ApiRequest/apiRequestTypeRoom";
+import Loading from "../../components/Loading";
 const CreateRoom = () => {
   const [interiors, setInteriors] = useState([]); // Mảng lưu trữ danh sách nội thất
   const [currentInterior, setCurrentInterior] = useState(""); // Nội thất hiện tại
@@ -25,6 +24,7 @@ const CreateRoom = () => {
   const typeRoomList = useSelector(
     (state) => state.typeRoom.getTypeRoomList.data
   );
+  const { createRoom }=useSelector((state)=>state.room)
 
   useEffect(() => {
     if (!user) {
@@ -80,30 +80,10 @@ const CreateRoom = () => {
     }
   };
 
-  const handleUpload = async () => {
-    if (!roomImage) return null;
-  
-    const imageRef = ref(storage, `/upload/${roomImage.name}`);
-    try {
-      const snapshot = await uploadBytes(imageRef, roomImage);
-      const downloadURL = await getDownloadURL(snapshot.ref);
-      console.log("File available at", downloadURL);
-      return downloadURL;
-    } catch (error) {
-      console.error("Error uploading image: ", error);
-      return null;
-    }
-  };
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const downloadURL = await handleUpload();
-    if (!downloadURL) {
-      toast.error("Upload hình ảnh thất bại.");
-      return;
-    }
-  
     const formattedInteriors = interiors
       .map((item) => `<li>${item}</li>`)
       .join("\r\n");
@@ -117,12 +97,12 @@ const CreateRoom = () => {
       pricePerHour: roomPricePerHour,
       interior: formattedFacilities,
       name: roomName,
-      image: downloadURL,
+      image: "",
       facilities: formattedInteriors,
       typeRoomId: roomType,
     };
   
-    const newRoom = await createRoom(dispatch, roomData);
+    const newRoom = await createNewRoom(dispatch, roomData, roomImage);
     if (newRoom) {
       toast.success("Tạo phòng thành công.");
       navigate("/staff/manage-room");
@@ -130,6 +110,9 @@ const CreateRoom = () => {
       toast.error("Tạo phòng thất bại.");
     }
   };
+  if(createRoom.isFetching){
+    return <Loading/>
+  }
   return (
     <div id="createRoom-body">
       <ToastContainer />

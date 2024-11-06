@@ -15,6 +15,7 @@ export const paymentSlice = createSlice({
         },
         revenue:{
             isFetching:false,
+            data:[],
             error:false,
         }
     },
@@ -57,8 +58,9 @@ export const paymentSlice = createSlice({
             state.revenue.isFetching=true;
             state.revenue.error=false;
         },
-        getRevenueSuccess:(state)=>{
+        getRevenueSuccess:(state,action)=>{
             state.revenue.isFetching=false;
+            state.revenue.data=action.payload.data;
             state.revenue.error=false;
         },
         getRevenueFailure:(state)=>{

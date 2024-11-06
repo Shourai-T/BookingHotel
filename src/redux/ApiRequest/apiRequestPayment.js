@@ -66,8 +66,8 @@ export const createPaymentByCash = async (data, dispatch) => {
 export const getRevenueDaily = async (dispatch,startDate) => {
     dispatch(getRevenueStart());
     try {
-        await axiosInstance.get(`${API_URL}/api/v1/payment/revenue/daily?startDate=${startDate}`);
-        dispatch(getRevenueSuccess());
+        const res=await axiosInstance.get(`${API_URL}/api/v1/payment/revenue/daily?startDate=${startDate}`);
+        dispatch(getRevenueSuccess(res.data));
     } catch (error) {
         console.error(error);
         dispatch(getRevenueFailure());
@@ -77,8 +77,8 @@ export const getRevenueDaily = async (dispatch,startDate) => {
 export const getRevenueMonthly = async (dispatch, year) => {
     dispatch(getRevenueStart());
     try {
-        await axiosInstance.get(`${API_URL}/api/v1/payment/revenue/monthly?year=${year}`);
-        dispatch(getRevenueSuccess());
+      const res=await axiosInstance.get(`${API_URL}/api/v1/payment/revenue/monthly?year=${year}`);
+        dispatch(getRevenueSuccess(res.data));
     } catch (error) {
         console.error(error);
         dispatch(getRevenueFailure());
@@ -88,8 +88,8 @@ export const getRevenueMonthly = async (dispatch, year) => {
 export const getRevenueYearly = async (dispatch) => {
     dispatch(getRevenueStart());
     try {
-        axiosInstance.get(`${API_URL}/api/v1/payment/revenue/yearly`);
-        dispatch(getRevenueSuccess());
+      const res= await axiosInstance.get(`${API_URL}/api/v1/payment/revenue/yearly`);
+      dispatch(getRevenueSuccess(res.data));
     } catch (error) {
         console.error(error);
         dispatch(getRevenueFailure());

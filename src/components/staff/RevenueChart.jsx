@@ -10,6 +10,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import moment from 'moment';
 
 // Đăng ký các thành phần cần thiết
 ChartJS.register(
@@ -23,12 +24,19 @@ ChartJS.register(
 );
 
 const RevenueChart = ({ data, timeRange }) => {
+    // Lấy ngày gần nhất (giới hạn số lượng ngày nếu là `day`)
+    const filteredData = timeRange === 'day' ? data.slice(-7) : data;
+
     const chartData = {
-        labels: data.map(item => item.period), // Sử dụng period thay vì chỉ month để linh hoạt với các loại dữ liệu
+        labels: filteredData.map(item => {
+            if (timeRange === 'day') return moment(item.date).format('DD/MM'); // Định dạng ngày/tháng
+            if (timeRange === 'month') return item.month;
+            return item.year;
+        }), 
         datasets: [
             {
                 label: 'Doanh Thu (VND)',
-                data: data.map(item => item.revenue),
+                data: filteredData.map(item => item.totalRevenue),
                 fill: false,
                 borderColor: 'rgba(75,192,192,1)',
                 backgroundColor: 'rgba(75,192,192,0.4)',
