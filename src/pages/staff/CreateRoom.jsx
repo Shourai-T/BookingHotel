@@ -19,7 +19,6 @@ const CreateRoom = () => {
   const [roomPrice, setRoomPrice] = useState(""); // Giá phòng theo ngày
   const [roomPricePerHour, setRoomPricePerHour] = useState(""); // Giá phòng theo giờ
   const [roomNumber, setRoomNumber] = useState(""); // Số phòng
-  const [url, setUrl] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.login.currentUser);
@@ -82,59 +81,47 @@ const CreateRoom = () => {
   };
 
   const handleUpload = async () => {
-    if (!roomImage) return;
-
-    // Tạo tham chiếu tới Firebase Storage
+    if (!roomImage) return null;
+  
     const imageRef = ref(storage, `/upload/${roomImage.name}`);
-
-    // Upload ảnh lên Firebase Storage
-    await uploadBytes(imageRef, roomImage)
-      .then((snapshot) => {
-        console.log("Upload successful");
-        // Lấy URL của ảnh sau khi upload xong
-        return getDownloadURL(snapshot.ref);
-      })
-      .then((downloadURL) => {
-        setUrl(downloadURL);
-        console.log("File available at", downloadURL);
-      })
-      .catch((error) => {
-        console.error("Error uploading image: ", error);
-      });
+    try {
+      const snapshot = await uploadBytes(imageRef, roomImage);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      console.log("File available at", downloadURL);
+      return downloadURL;
+    } catch (error) {
+      console.error("Error uploading image: ", error);
+      return null;
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await handleUpload();
-
-    const checkUrl = () =>
-      new Promise((resolve) => {
-        const interval = setInterval(() => {
-          if (url) {
-            clearInterval(interval);
-            resolve();
-          }
-        }, 100);
-      });
-
-    await checkUrl();
+  
+    const downloadURL = await handleUpload();
+    if (!downloadURL) {
+      toast.error("Upload hình ảnh thất bại.");
+      return;
+    }
+  
     const formattedInteriors = interiors
       .map((item) => `<li>${item}</li>`)
       .join("\r\n");
     const formattedFacilities = facilities
       .map((item) => `<li>${item}</li>`)
       .join("\r\n");
+  
     const roomData = {
       id: roomNumber,
       pricePerDay: roomPrice,
       pricePerHour: roomPricePerHour,
       interior: formattedFacilities,
       name: roomName,
-      image: url,
+      image: downloadURL,
       facilities: formattedInteriors,
       typeRoomId: roomType,
     };
-
+  
     const newRoom = await createRoom(dispatch, roomData);
     if (newRoom) {
       toast.success("Tạo phòng thành công.");
@@ -143,7 +130,6 @@ const CreateRoom = () => {
       toast.error("Tạo phòng thất bại.");
     }
   };
-
   return (
     <div id="createRoom-body">
       <ToastContainer />
