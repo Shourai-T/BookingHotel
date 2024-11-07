@@ -121,7 +121,7 @@ const router = createBrowserRouter([
             },
 
             {
-                path:'booking-invoice',
+                path:'booking-invoice/:bookingId',
                 element:<BookingInvoice/>
             },
 
