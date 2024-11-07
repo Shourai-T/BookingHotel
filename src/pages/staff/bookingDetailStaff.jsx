@@ -83,7 +83,7 @@ const BookingDetailStaff = () => {
   };
 
   const handleCheckout = () => {
-    navigate("/staff/booking-invoice", { state: { booking } });
+    navigate(`/staff/booking-invoice/${bookingId}`);
   };
 
   if (fetching || !booking) {
@@ -200,7 +200,7 @@ const BookingDetailStaff = () => {
           <button
             className="checkout"
             onClick={handleCheckout}
-            disabled={booking?.bookingStatus === "Cancelled" || booking?.bookingStatus === "CheckedOut"}
+            disabled={booking?.bookingStatus === "Cancelled" || booking?.bookingStatus === "CheckedOut"||booking?.bookingStatus !== "CheckedIn"}
           >
             Checkout
           </button>

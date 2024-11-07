@@ -1,57 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/staff/booking-invoice.css';
 import PaymentPopup from '../../components/staff/PaymentPopup';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { getAllSurcharge } from '../../redux/ApiRequest/apiRequestSurcharge';
 import { getAllUtilities } from '../../redux/ApiRequest/apiRequestUtility';
 import Loading from '../../components/Loading';
-import { updateBookingStatus } from '../../redux/ApiRequest/apiRequestBooking';
+import { getBookingDetail, updateBookingStatus } from '../../redux/ApiRequest/apiRequestBooking';
 import { createPaymentByCash } from '../../redux/ApiRequest/apiRequestPayment';
 
 const BookingInvoice = () => {
-    const [showServices, setShowServices] = useState(false);
     const [selectedServices, setSelectedServices] = useState([]);
-    const [showSurcharge, setShowSurcharge] = useState(false);
     const [selectedSurcharge, setSelectedSurcharge] = useState([]);
     const [showPaymentPopup, setShowPaymentPopup] = useState(false);
     const [total, setTotal] = useState(0);
+    const { bookingId } = useParams();
     const booking = useSelector(state => state.booking.bookingDetail.data);
     const services = useSelector(state => state.utility.getListUtility.data);
     const surcharges = useSelector(state => state.surcharge.getListSurcharge.data);
     const user = useSelector((state) => state.auth.login.currentUser);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        let sum = 0;
-        if (booking.payments[0].paymentStatus === 'Success') {
-            sum = 0;
-        }
-        else {
-            sum = booking.payments[0].amount;
-        }
-        if (selectedServices.length > 0) {
-            selectedServices.forEach(id => {
-                const service = services.find(service => service.utilityId === id);
-                if (service) sum += Math.round(service.utilityPrice);  // Ensure integer
-            });
-        }
-
-        if (selectedSurcharge.length > 0) {
-            selectedSurcharge.forEach(id => {
-                const surcharge = surcharges.find(surcharge => surcharge.surchargeId === id);
-                if (surcharge) {
-                    const surchargeAmount = surcharge.surchargePercentage / 100 * booking.payments[0].amount;
-                    sum += Math.round(surchargeAmount);  // Ensure integer
-                }
-            });
-        }
-
-        setTotal(Math.round(sum));  // Set total as an integer
-    }, [selectedServices, selectedSurcharge, services, surcharges, booking.payments]);
-
 
 
     useEffect(() => {
@@ -61,14 +31,62 @@ const BookingInvoice = () => {
         if (user.user.role !== "Staff") {
             navigate("/");
         }
+        getBookingDetail(bookingId, dispatch);
         getAllUtilities(dispatch);
         getAllSurcharge(dispatch);
-    }, []);
+    }, [bookingId, dispatch,user]);
+
+    useEffect(() => {
+        let sum = 0;
+        let totalNotPayment = 0;
+        if (booking && booking.payments && booking.payments[0]) {
+            if (booking.payments[0].paymentStatus === 'Success') {
+                sum = 0;
+            }
+        }
+        else {
+            switch (booking.bookingType) {
+                case "Daily":
+                    sum = booking.room.pricePerDay * moment(booking.endTime).diff(moment(booking.startTime), 'days');
+                    break;
+                default:
+                    sum = booking.room.pricePerHour * moment(booking.endTime).diff(moment(booking.startTime), 'hours');
+                    break;
+            }
+        }
+        if (selectedServices.length > 0 && services) {
+            selectedServices.forEach(item => {
+                const service = services.find(service => service.utilityId === item.utilityId);
+                if (service) sum += Math.round(service.utilityPrice * item.quantity);
+            });
+        }
+        if (selectedSurcharge.length > 0 && surcharges) {
+            selectedSurcharge.forEach(id => {
+                const surcharge = surcharges.find(surcharge => surcharge.surchargeId === id);
+                if (surcharge && booking && booking.payments && booking.payments[0]) {
+                    const surchargeAmount = surcharge.surchargePercentage / 100 * booking.payments[0].amount;
+                    sum += Math.round(surchargeAmount);
+                }
+                else{
+                    switch (booking.bookingType) {
+                        case "Daily":
+                            totalNotPayment = booking.room.pricePerDay * moment(booking.endTime).diff(moment(booking.startTime), 'days');
+                            break;
+                        default:
+                            totalNotPayment =  booking.room.pricePerHour * moment(booking.endTime).diff(moment(booking.startTime), 'hours');
+                            break;
+                    }
+                    const surchargeAmount = surcharge.surchargePercentage / 100 * totalNotPayment;
+                    sum += Math.round(surchargeAmount);
+                }
+            });
+        }
+        setTotal(Math.round(sum));
+    }, [selectedServices, selectedSurcharge, services, surcharges, booking]);
 
     if (!booking) {
         return <Loading />
     }
-
     const handlePaymentClick = () => {
         setShowPaymentPopup(true);
     };
@@ -89,30 +107,34 @@ const BookingInvoice = () => {
         }
         await createPayment();
         await updateStatusAndUtilities();
-        navigate("/staff/manage-booking" )
+        navigate("/staff/manage-booking")
         return
     };
 
     const updateStatusAndUtilities = async () => {
-        const transformedArray = selectedServices.map(id => ({
-            utilityId: id,
-            quantity: 1
-        }));
-        const data = {
-            bookingStatus: "CheckedOut",
-            utilities: transformedArray
+        try {
+            const data = {
+                bookingStatus: "CheckedOut",
+                utilities: selectedServices
+            };
+            await updateBookingStatus(booking.bookingId, data, dispatch);
+        } catch (error) {
+            console.error("Error updating booking status:", error);
         }
-        await updateBookingStatus(booking.bookingId, data, dispatch);
-    }
+    };
 
     const createPayment = async () => {
-        const data = {
-            amount: total,
-            paymentMethod: "Cash",
-            bookingId: booking.bookingId
+        try {
+            const data = {
+                amount: total,
+                paymentMethod: "Cash",
+                bookingId: booking.bookingId
+            };
+            await createPaymentByCash(data, dispatch);
+        } catch (error) {
+            console.error("Error creating payment:", error);
         }
-        await createPaymentByCash(data, dispatch);
-    }
+    };
 
     let status = "";
     switch (booking?.bookingStatus) {
@@ -157,12 +179,12 @@ const BookingInvoice = () => {
                 <p className='bookingid'>Booking ID: {booking.bookingId}</p>
                 <p className="row-info">
                     <span className="title">Tên khách hàng</span>
-                    <span className='value'>{booking.user.name}</span>
+                    <span className='value'>{booking.user?.name ? booking.user.name : "Khách đặt tại chỗ"}</span>
                 </p>
 
                 <p className="row-info">
                     <span className="title">SDT khách hàng</span>
-                    <span className='value'>{booking.user.phoneNumber}</span>
+                    <span className='value'>{booking.user?.phoneNumber ? booking.user.phoneNumber : "Không có"}</span>
                 </p>
                 <p className="row-info">
                     <span className="title">Phòng</span>
@@ -184,86 +206,61 @@ const BookingInvoice = () => {
                 <p className='row-info'>
                     <span className="title">Dịch vụ dùng thêm</span>
                     <span className='value'>
-                        <div className="service-item">
-                            <label> Spa và chăm sóc sức khỏe </label>
-                            <input
-                                type="number"
-                                min="0"
-                            />
-                        </div>
-                        <div className="service-item">
-                            <label> Giặt ủi </label>
-                            <input
-                                type="number"
-                                min="0"
-                            />
-                        </div>
-                        <div className="service-item">
-                            <label> Dịch vụ giữ thú cưng </label>
-                            <input
-                                type="number"
-                                min="0"
-                    
-                            />
-                        </div>
-                        <div className="service-item">
-                            <label> Nước ép tự chọn </label>
-                            <input
-                                type="number"
-                                min="0"
-                            />
-                        </div>
-                        <div className="service-item">
-                            <label> Rượu vang </label>
-                            <input
-                                type="number"
-                                min="0"
-                            />
-                        </div>
-                        <div className="service-item">
-                            <label> Dịch vụ thuê xe (tự lái) </label>
-                            <input
-                                type="number"
-                                min="0"
-                            />
-                        </div>
-                        <div className="service-item">
-                            <label> Dịch vụ thuê xe (có tài xế riêng) </label>
-                            <input
-                                type="number"
-                                min="0"
-                            />
-                        </div>
+                        {services && services.map(service => {
+                            return (
+                                <div className="service-item">
+                                    <label> {service.utilityName} ({service.utilityPrice.toLocaleString()})</label>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        onChange={(e) => {
+                                            const quantity = parseInt(e.target.value, 10);
+                                            setSelectedServices(prevServices => {
+                                                if (quantity > 0) {
+                                                    return [
+                                                        ...prevServices.filter(item => item.utilityId !== service.utilityId),
+                                                        { utilityId: service.utilityId, quantity }
+                                                    ];
+                                                } else {
+                                                    return prevServices.filter(item => item.utilityId !== service.utilityId);
+                                                }
+                                            });
+                                        }}
+                                    />
+                                </div>
+
+                            )
+                        })}
+
                     </span>
                 </p>
 
                 <p className='row-info'>
                     <span className="title">Phụ phí</span>
                     <span className='value'>
-                        <div className="surcharge-item">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                />
-                                Ngày lễ / cuối tuần (10%)
-                            </label>
-                        </div>
-                        <div className="surcharge-item">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                />
-                                Dọn dẹp phòng (5%)
-                            </label>
-                        </div>
-                        <div className="surcharge-item">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                />
-                                Phương tiện đưa đón tại sân bay (10%)
-                            </label>
-                        </div>
+                        {surcharges.map(surcharge => {
+                            return (
+                                <div className="surcharge-item">
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            onChange={(e) => {
+                                                const isChecked = e.target.checked;
+                                                setSelectedSurcharge(prevSurcharge => {
+                                                    if (isChecked) {
+                                                        return [...prevSurcharge, surcharge.surchargeId];
+                                                    } else {
+                                                        return prevSurcharge.filter(item => item !== surcharge.surchargeId);
+                                                    }
+                                                });
+                                            }}
+                                        />
+                                        {surcharge.surchargeName} ({surcharge.surchargePercentage}%)
+                                    </label>
+                                </div>
+                            )
+                        })}
+
                     </span>
                 </p>
 
