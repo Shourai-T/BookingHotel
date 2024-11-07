@@ -23,7 +23,7 @@
 #bookingInvoice-staff .row-info {
     display: flex;
     gap: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     align-items: center;
     width: 80%;
 }
@@ -66,10 +66,41 @@
     margin-bottom: 20px;
 }
 
+#bookingInvoice-staff .service-item input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    margin-left: 10px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    height: 20px;
+}
+
+#bookingInvoice-staff .service-item {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+
+#bookingInvoice-staff .service-item label{
+    font-style: italic;
+}
 #bookingInvoice-staff .service-rows {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping for multiple rows */
-    margin-bottom: 10px; /* Space between service options and buttons */
+    flex-wrap: wrap;
+    margin-bottom: 10px; 
+}
+
+#bookingInvoice-staff .surcharge-item {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+
+#bookingInvoice-staff .surcharge-item label{
+    font-style: italic;
+}
+#bookingInvoice-staff .surcharge-item input {
+    margin-right:10px ;
 }
 
 #bookingInvoice-staff .service-row {

@@ -113,37 +113,6 @@ const BookingInvoice = () => {
         }
         await createPaymentByCash(data, dispatch);
     }
-    const toggleServiceDropdown = () => {
-        setShowServices(!showServices);
-    };
-
-    const toggleSurchargeDropdown = () => {
-        setShowSurcharge(!showSurcharge);
-    };
-
-    const handleServiceSelect = (serviceId) => {
-        setSelectedServices((prevSelected) =>
-            prevSelected.includes(serviceId)
-                ? prevSelected.filter((id) => id !== serviceId)
-                : [...prevSelected, serviceId]
-        );
-    };
-
-    const handleSurchargeSelect = (surchargeId) => {
-        setSelectedSurcharge((prevSelected) =>
-            prevSelected.includes(surchargeId)
-                ? prevSelected.filter((id) => id !== surchargeId)
-                : [...prevSelected, surchargeId]
-        );
-    };
-
-    const handleOkClick = () => {
-        setShowServices(false);
-    };
-
-    const handleSurchargeOkClick = () => {
-        setShowSurcharge(false);
-    };
 
     let status = "";
     switch (booking?.bookingStatus) {
@@ -212,57 +181,95 @@ const BookingInvoice = () => {
                     <span className='value'>{startTime} - {endTime}</span>
                 </p>
 
-                <div className="service">
-                    <span className='title'>Chọn dịch vụ</span>
-                    <div className="service-dropdown" onClick={toggleServiceDropdown}>
-                        <span className='selected-services'>
-                            {selectedServices.length > 0 ?
-                                selectedServices.map(id => services.find(service => service.utilityId === id).utilityName).join(', ')
-                                : 'Không có dịch vụ nào'}
-                        </span>
-                    </div>
-                    {showServices && (
-                        <div className="service-dropdown">
-                            {services.map(service => (
-                                <label key={service.utilityId}>
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedServices.includes(service.utilityId)}
-                                        onChange={() => handleServiceSelect(service.utilityId)}
-                                    />
-                                    {service.utilityName}
-                                </label>
-                            ))}
-                            <button onClick={handleOkClick}>OK</button>
+                <p className='row-info'>
+                    <span className="title">Dịch vụ dùng thêm</span>
+                    <span className='value'>
+                        <div className="service-item">
+                            <label> Spa và chăm sóc sức khỏe </label>
+                            <input
+                                type="number"
+                                min="0"
+                            />
                         </div>
-                    )}
-                </div>
+                        <div className="service-item">
+                            <label> Giặt ủi </label>
+                            <input
+                                type="number"
+                                min="0"
+                            />
+                        </div>
+                        <div className="service-item">
+                            <label> Dịch vụ giữ thú cưng </label>
+                            <input
+                                type="number"
+                                min="0"
+                    
+                            />
+                        </div>
+                        <div className="service-item">
+                            <label> Nước ép tự chọn </label>
+                            <input
+                                type="number"
+                                min="0"
+                            />
+                        </div>
+                        <div className="service-item">
+                            <label> Rượu vang </label>
+                            <input
+                                type="number"
+                                min="0"
+                            />
+                        </div>
+                        <div className="service-item">
+                            <label> Dịch vụ thuê xe (tự lái) </label>
+                            <input
+                                type="number"
+                                min="0"
+                            />
+                        </div>
+                        <div className="service-item">
+                            <label> Dịch vụ thuê xe (có tài xế riêng) </label>
+                            <input
+                                type="number"
+                                min="0"
+                            />
+                        </div>
+                    </span>
+                </p>
 
-                <div className="surcharge">
-                    <span className='title'>Chọn phụ phí</span>
-                    <div className="surcharge-dropdown" onClick={toggleSurchargeDropdown}>
-                        <span className='selected-surcharge'>
-                            {selectedSurcharge.length > 0 ?
-                                selectedSurcharge.map(id => surcharges.find(surcharge => surcharge.surchargeId === id).surchargeName).join(', ')
-                                : 'Không có phụ phí nào'}
-                        </span>
-                    </div>
-                    {showSurcharge && (
-                        <div className="surcharge-dropdown">
-                            {surcharges.map(surcharge => (
-                                <label key={surcharge.surchargeId}>
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedSurcharge.includes(surcharge.surchargeId)}
-                                        onChange={() => handleSurchargeSelect(surcharge.surchargeId)}
-                                    />
-                                    {surcharge.surchargeName}
-                                </label>
-                            ))}
-                            <button onClick={handleSurchargeOkClick}>OK</button>
+                <p className='row-info'>
+                    <span className="title">Phụ phí</span>
+                    <span className='value'>
+                        <div className="surcharge-item">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                />
+                                Ngày lễ / cuối tuần (10%)
+                            </label>
                         </div>
-                    )}
-                </div>
+                        <div className="surcharge-item">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                />
+                                Dọn dẹp phòng (5%)
+                            </label>
+                        </div>
+                        <div className="surcharge-item">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                />
+                                Phương tiện đưa đón tại sân bay (10%)
+                            </label>
+                        </div>
+                    </span>
+                </p>
+
+
+
+
 
                 <p className="row-info">
                     <span className="title">Số tiền còn phải trả còn lại:</span>
