@@ -101,8 +101,8 @@ const BookingPage = () => {
         return; // Không mở dropdown
       }
       else {
-        startTime = checkinDate;
-        endTime = checkoutDate
+        startTime = checkinDate + ' 09:00:00';
+        endTime = checkoutDate + ' 09:00:00';
         total = selectedRoom.pricePerDay * moment(checkoutDate).diff(moment(checkinDate), 'days');
       }
     }
@@ -290,7 +290,7 @@ const BookingPage = () => {
                   </div>
                 </div>
               </div>
-              <p>*Đối với đặt theo ngày, quy định giờ checkin là 09:00 sáng và checkout là trước 24:00 tối*</p>
+              <p>*Đối với đặt theo ngày, quy định giờ checkin là 09:00 sáng và checkout là trước 9:00 sáng hôm đó*</p>
             </div>
           )}
         </div>
