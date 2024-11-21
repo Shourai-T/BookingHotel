@@ -7,24 +7,23 @@ import { toast, ToastContainer } from "react-toastify";
 import { getAllTypeRoom } from "../../redux/ApiRequest/apiRequestTypeRoom";
 import Loading from "../../components/Loading";
 const CreateRoom = () => {
-  const [interiors, setInteriors] = useState([]); // Mảng lưu trữ danh sách nội thất
-  const [currentInterior, setCurrentInterior] = useState(""); // Nội thất hiện tại
-  const [facilities, setFacilities] = useState([]); // Mảng lưu trữ danh sách tiện nghi
-  const [currentFacility, setCurrentFacility] = useState(""); // Tiện nghi hiện tại
-  const [roomImage, setRoomImage] = useState(null); // Hình ảnh phòng
+  const [interiors, setInteriors] = useState([]);
+  const [currentInterior, setCurrentInterior] = useState("");
+  const [facilities, setFacilities] = useState([]);
+  const [currentFacility, setCurrentFacility] = useState("");
+  const [roomImage, setRoomImage] = useState(null);
   const [imageDisplay, setImageDisplay] = useState(null);
-  const [roomName, setRoomName] = useState(""); // Tên phòng
-  const [roomType, setRoomType] = useState(""); // Loại phòng
-  const [roomPrice, setRoomPrice] = useState(""); // Giá phòng theo ngày
-  const [roomPricePerHour, setRoomPricePerHour] = useState(""); // Giá phòng theo giờ
-  const [roomNumber, setRoomNumber] = useState(""); // Số phòng
+  const [roomName, setRoomName] = useState("");
+  const [roomType, setRoomType] = useState("");
+  const [roomPrice, setRoomPrice] = useState("");
+  const [roomPricePerHour, setRoomPricePerHour] = useState("");
+  const [roomNumber, setRoomNumber] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.login.currentUser);
-  const typeRoomList = useSelector(
-    (state) => state.typeRoom.getTypeRoomList.data
-  );
-  const { createRoom }=useSelector((state)=>state.room)
+  const typeRoomList = useSelector((state) => state.typeRoom.getTypeRoomList.data);
+  const { createRoom } = useSelector((state) => state.room);
 
   useEffect(() => {
     if (!user) {
@@ -41,6 +40,23 @@ const CreateRoom = () => {
       setInteriors([...interiors, currentInterior.trim()]);
       setCurrentInterior("");
     }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!roomNumber.trim()) newErrors.roomNumber = "Số phòng không được để trống.";
+    if (!roomName.trim()) newErrors.roomName = "Tên phòng không được để trống.";
+    if (!roomType) newErrors.roomType = "Vui lòng chọn loại phòng.";
+    if (!roomPrice || roomPrice <= 0) newErrors.roomPrice = "Giá phòng theo ngày phải lớn hơn 0.";
+    if (!roomPricePerHour || roomPricePerHour <= 0)
+      newErrors.roomPricePerHour = "Giá phòng theo giờ phải lớn hơn 0.";
+    if (!roomImage) newErrors.roomImage = "Vui lòng chọn hình ảnh.";
+    if (interiors.length === 0) newErrors.interiors = "Vui lòng thêm ít nhất một nội thất.";
+    if (facilities.length === 0) newErrors.facilities = "Vui lòng thêm ít nhất một tiện nghi.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // True nếu không có lỗi
   };
 
   // Hàm xử lý khi nhấn nút "OK" để thêm tiện nghi vào danh sách
@@ -82,26 +98,28 @@ const CreateRoom = () => {
 
  
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
-    const formattedInteriors = interiors
-      .map((item) => `<li>${item}</li>`)
-      .join("\r\n");
-    const formattedFacilities = facilities
-      .map((item) => `<li>${item}</li>`)
-      .join("\r\n");
-  
+
+    if (!validateForm()) {
+      toast.error("Vui lòng kiểm tra lại thông tin.");
+      return;
+    }
+
+    const formattedInteriors = interiors.map((item) => `<li>${item}</li>`).join("\r\n");
+    const formattedFacilities = facilities.map((item) => `<li>${item}</li>`).join("\r\n");
+
     const roomData = {
       id: roomNumber,
       pricePerDay: roomPrice,
       pricePerHour: roomPricePerHour,
-      interior: formattedFacilities,
+      interior: formattedInteriors,
       name: roomName,
       image: "",
-      facilities: formattedInteriors,
+      facilities: formattedFacilities,
       typeRoomId: roomType,
     };
-  
+
     const newRoom = await createNewRoom(dispatch, roomData, roomImage);
     if (newRoom) {
       toast.success("Tạo phòng thành công.");
@@ -110,6 +128,8 @@ const CreateRoom = () => {
       toast.error("Tạo phòng thất bại.");
     }
   };
+  
+
   if(createRoom.isFetching){
     return <Loading/>
   }

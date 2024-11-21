@@ -42,7 +42,7 @@ export const deleteUser = async (id, dispatch) => {
         await axiosInstance.delete(`${API_URL}/api/v1/users/${id}`)
         dispatch(deleteUserSuccess())
     } catch (error) {
-        console.log(error)
+        console.log("deleteUser ",error)
         dispatch(deleteUserFailure())
     }
 }
