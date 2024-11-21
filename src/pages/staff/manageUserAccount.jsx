@@ -42,10 +42,14 @@ const ManageUserAccount = () => {
     };
 
     const handleConfirmCancel = () => {
-        setShowDeletePopup(false);
-        deleteUser(selectedUserId, dispatch);
-        getAllUsers(dispatch);
-        toast.success("Tài khoản xóa thành công.");
+        try {
+            setShowDeletePopup(false);
+            deleteUser(selectedUserId, dispatch);
+            getAllUsers(dispatch);
+            toast.success("Tài khoản xóa thành công.");
+        } catch (error) {
+            toast.error("Xóa tài khoản thất bại.");
+        }
     };
     
     return (

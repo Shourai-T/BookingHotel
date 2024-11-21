@@ -40,10 +40,17 @@ const ManageRoom = () => {
   };
 
   const handleConfirmCancel = () => {
-    deleteRoom(dispatch, selectedRoomId);
-    setShowDeletePopup(false);
-    getRoomList(dispatch);
-    toast.success("Xóa phòng thành công");
+    try {
+      deleteRoom(dispatch, selectedRoomId);
+      setShowDeletePopup(false);
+      getRoomList(dispatch);
+      toast.success("Xóa phòng thành công");
+    } catch (error) {
+      console.log(error);
+      setShowDeletePopup(false);
+      toast.error("Xóa phòng thất bại");
+    }
+   
   };
 
   return (
