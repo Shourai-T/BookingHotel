@@ -114,24 +114,43 @@ const BookingDetail = () => {
     let endTime = '';
     let bookingType = '';
     let total = 0
+    // switch (booking.bookingType) {
+    //     case "Daily":
+    //         startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY')
+    //         endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY')
+    //         bookingType = 'Ngày'
+    //         total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'days') * booking.room.pricePerDay
+    //         break;
+    //     case "Hourly":
+    //         startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY HH:mm')
+    //         endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY HH:mm')
+    //         bookingType = 'Giờ'
+    //         total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'hours') * booking.room.pricePerHour
+    //         break;
+    //     default:
+    //         console.log('Error')
+    //         break;
+    // }
     switch (booking.bookingType) {
         case "Daily":
-            startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY')
-            endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY')
-            bookingType = 'Ngày'
-            total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'days') * booking.room.pricePerDay
-            break;
+          // Sử dụng moment mà không có múi giờ
+          startTime = moment(booking.startTime).format('DD/MM/YYYY');
+          endTime = moment(booking.endTime).format('DD/MM/YYYY');
+          bookingType = 'Ngày';
+          total = moment(booking.endTime).diff(moment(booking.startTime), 'days') * booking.room.pricePerDay;
+          break;
         case "Hourly":
-            startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY HH:mm')
-            endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY HH:mm')
-            bookingType = 'Giờ'
-            total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'hours') * booking.room.pricePerHour
-            break;
+          // Sử dụng moment mà không có múi giờ
+          startTime = moment(booking.startTime).format('DD/MM/YYYY HH:mm');
+          endTime = moment(booking.endTime).format('DD/MM/YYYY HH:mm');
+          bookingType = 'Giờ';
+          total = moment(booking.endTime).diff(moment(booking.startTime), 'hours') * booking.room.pricePerHour;
+          break;
         default:
-            console.log('Error')
-            break;
-    }
-
+          console.log('Error');
+          break;
+      }
+      
     const handleCreateReview = () => {
         if (!rating || !text) {
             toast.warn('Vui lòng nhập đủ mục đánh giá')

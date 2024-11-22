@@ -59,16 +59,32 @@ const BookingList = () => {
               let startTime = '';
               let endTime = '';
               let total = 0;
+              // switch (booking.bookingType) {
+              //   case "Daily":
+              //     startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY')
+              //     endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY')
+              //     total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'days') * booking.room.pricePerDay
+              //     break;
+              //   case "Hourly":
+              //     startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY HH:mm')
+              //     endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY HH:mm')
+              //     total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'hours') * booking.room.pricePerHour
+              //     break;
+              //   default:
+              //     break;
+              // }
               switch (booking.bookingType) {
                 case "Daily":
-                  startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY')
-                  endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY')
-                  total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'days') * booking.room.pricePerDay
+                  // Sử dụng moment mà không có múi giờ
+                  startTime = moment(booking.startTime).format('DD/MM/YYYY');
+                  endTime = moment(booking.endTime).format('DD/MM/YYYY');
+                  total = moment(booking.endTime).diff(moment(booking.startTime), 'days') * booking.room.pricePerDay;
                   break;
                 case "Hourly":
-                  startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY HH:mm')
-                  endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY HH:mm')
-                  total = moment.tz(booking.endTime, "UTC").diff(moment.tz(booking.startTime, "UTC"), 'hours') * booking.room.pricePerHour
+                  // Sử dụng moment mà không có múi giờ
+                  startTime = moment(booking.startTime).format('DD/MM/YYYY HH:mm');
+                  endTime = moment(booking.endTime).format('DD/MM/YYYY HH:mm');
+                  total = moment(booking.endTime).diff(moment(booking.startTime), 'hours') * booking.room.pricePerHour;
                   break;
                 default:
                   break;

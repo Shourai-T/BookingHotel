@@ -116,6 +116,7 @@ const BookingPage = () => {
       roomName: selectedOption,
       total:total
     }
+    console.log(bookingInfo);
     navigate('/confirm-booking', { state: { bookingInfo } });
   };
 

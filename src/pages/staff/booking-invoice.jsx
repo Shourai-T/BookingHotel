@@ -159,19 +159,35 @@ const BookingInvoice = () => {
     }
     let startTime = '';
     let endTime = '';
+    // switch (booking.bookingType) {
+    //     case "Daily":
+    //         startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY')
+    //         endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY')
+    //         break;
+    //     case "Hourly":
+    //         startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY HH:mm')
+    //         endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY HH:mm')
+    //         break;
+    //     default:
+    //         console.log('Error')
+    //         break;
+    // }
     switch (booking.bookingType) {
         case "Daily":
-            startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY')
-            endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY')
-            break;
+          // Sử dụng moment mà không có múi giờ
+          startTime = moment(booking.startTime).format('DD/MM/YYYY');
+          endTime = moment(booking.endTime).format('DD/MM/YYYY');
+          break;
         case "Hourly":
-            startTime = moment.tz(booking.startTime, "UTC").format('DD/MM/YYYY HH:mm')
-            endTime = moment.tz(booking.endTime, "UTC").format('DD/MM/YYYY HH:mm')
-            break;
+          // Sử dụng moment mà không có múi giờ
+          startTime = moment(booking.startTime).format('DD/MM/YYYY HH:mm');
+          endTime = moment(booking.endTime).format('DD/MM/YYYY HH:mm');
+          break;
         default:
-            console.log('Error')
-            break;
-    }
+          console.log('Error');
+          break;
+      }
+      
     return (
         <div id='bookingInvoice-staff'>
             <h2>HÓA ĐƠN</h2>
