@@ -115,24 +115,39 @@ const BookingDetailStaff = () => {
   let startTime = "";
   let endTime = "";
   let bookingType = "";
-  switch (booking?.bookingType) {
+  // switch (booking?.bookingType) {
+  //   case "Daily":
+  //     startTime = moment.tz(booking.startTime, "UTC").format("DD/MM/YYYY");
+  //     endTime = moment.tz(booking.endTime, "UTC").format("DD/MM/YYYY");
+  //     bookingType = "Ngày";
+  //     break;
+  //   case "Hourly":
+  //     startTime = moment
+  //       .tz(booking.startTime, "UTC")
+  //       .format("DD/MM/YYYY HH:mm");
+  //     endTime = moment.tz(booking.endTime, "UTC").format("DD/MM/YYYY HH:mm");
+  //     bookingType = "Giờ";
+  //     break;
+  //   default:
+  //     console.log("Error");
+  //     break;
+  // }
+  switch (booking.bookingType) {
     case "Daily":
-      startTime = moment.tz(booking.startTime, "UTC").format("DD/MM/YYYY");
-      endTime = moment.tz(booking.endTime, "UTC").format("DD/MM/YYYY");
-      bookingType = "Ngày";
+      // Sử dụng moment mà không có múi giờ
+      startTime = moment(booking.startTime).format('DD/MM/YYYY');
+      endTime = moment(booking.endTime).format('DD/MM/YYYY');
       break;
     case "Hourly":
-      startTime = moment
-        .tz(booking.startTime, "UTC")
-        .format("DD/MM/YYYY HH:mm");
-      endTime = moment.tz(booking.endTime, "UTC").format("DD/MM/YYYY HH:mm");
-      bookingType = "Giờ";
+      // Sử dụng moment mà không có múi giờ
+      startTime = moment(booking.startTime).format('DD/MM/YYYY HH:mm');
+      endTime = moment(booking.endTime).format('DD/MM/YYYY HH:mm');
       break;
     default:
-      console.log("Error");
+      console.log('Error');
       break;
   }
-
+  
   return (
     <div id="bookingDetailStaff-body">
       <h2>CHI TIẾT ĐẶT PHÒNG</h2>
@@ -152,7 +167,7 @@ const BookingDetailStaff = () => {
 
       <p className="row-info">
         <span className="title">Phòng</span>
-        <span className="value">{booking.room.typeRoom.name}</span>
+        <span className="value">{booking.room.name}</span>
       </p>
 
       <p className="row-info">
